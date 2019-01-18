@@ -5,30 +5,40 @@ namespace App\Controller;
 use App\Entity\Profile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ProfileController extends AbstractController
-{
-    public function new(Request $request)
-    {
-        // creates a task and gives it some dummy data for this example
+class ProfileController extends AbstractController {
+
+    /**
+     * Matches /profile exactly
+     *
+     * @Route("/profile", name="resume_profile")
+     */
+    public function new(Request $request) {
         $profile = new Profile();
-        $profile->setTask('Write a blog post');
-        $profile->setDueDate(new \DateTime('tomorrow'));
 
         $form = $this->createFormBuilder($profile)
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
+                ->add('title', TextType::class)
+                ->add('firstName', TextType::class)
+                ->add('lastName', TextType::class)
+                ->add('email', EmailType::class)
+                ->add('phone', TelType::class)
+                ->add('background', TextareaType::class)
+                ->add('save', SubmitType::class, ['label' => 'Save Profile'])
+                ->getForm();
 
-        return $this->render('default/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('profile/profile.html.twig', [
+                    'form' => $form->createView(),
         ]);
     }
+
 }
