@@ -1,4 +1,74 @@
 {# templates/profile/profile.html.twig #}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head_css %}
+            {{ encore_entry_link_tags('profile') }}
+            <link href="{{ asset('build/profile.css') }}" />
+        {% endblock %}
+        {% block javascript %}
+            {{ encore_entry_script_tags('profile') }}
+            <script type="text/javascript" src="{{ asset('build/profile.js')}}"></script>
+        {% endblock %}
+    </head>
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <h1>Resume Profile</h1>
+                    {{ dump(form) }}
+                    {{ form_start(form) }}
+                    {{ form_row(form.title) }}
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(form.firstName) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(form.email) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(form.phone) }}
+                        </div>
+                    </div>
+                    {{ form_row(form.background) }}
+                    {{ form_row(form.firstName) }}
+                    <div id="project_history_list" class="border border-secondary rounded p-2 bg-light" data-prototype="{{ form_widget(form.project_history.vars.prototype)|e('html_attr') }}">
+                        <h3>Project History</h3>
+                        {%  for profile_row in form.project_history %}
+                            <div class="card my-2">
+                                <div class="card-header">
+                                    {{  profile_row.vars.value.title}}
+                                </div>
+                                <div class="card-body">
+                                    {{ form_row(profile_row) }}
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                   <div id="proficiencies_list" class="border border-secondary rounded p-2 bg-light" data-prototype="{{ form_widget(form.proficiencies.vars.prototype)|e('html_attr') }}">
+                        <h3>Proficiencies</h3>
+                        {%  for proficiency_row in form.proficiencies %}
+                            <div class="card my-2">
+                                <div class="card-header">
+                                    {{  proficiency_row.vars.value.title}}
+                                </div>
+                                <div class="card-body">
+                                    {{ form_row(proficiency_row) }}
+
+                                </div>
+                            </div>
+                        {% endfor %} 
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</html>

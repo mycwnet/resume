@@ -2,18 +2,144 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use App\Entity\ProjectHistory;
+use App\Entity\Proficiencies;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ProfileRepository")
+ */
 class Profile {
 
+    /**
+     * @var int 
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     */
+    protected $user_id;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="title", type="string", length=255)
+     */
     protected $title;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="first_name", type="string", length=255)
+     */
     protected $first_name;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="last_name", type="string", length=255)
+     */
     protected $last_name;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="email", type="string", length=255)
+     */
     protected $email;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
     protected $phone;
     protected $image;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="background", type="text")
+     */
     protected $background;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProjectHistory", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
+     */
     protected $project_history;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Proficiencies", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
+     */
     protected $proficiencies;
 
+    /**
+     * Constructor
+     */
+    public function __construct() {
+
+        $this->project_history = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->proficiencies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function setUserId($user = null) {
+        $this->user_id = $user->getId();
+    }
+
+    /**
+     * Add project_history
+     *
+     * @param \App\Entity\ProjectHistory $project_history
+     *
+     * @return Profile
+     */
+    public function addProjectHistory(ProjectHistory $project_history) {
+        $this->project_history[] = $project_history;
+
+        $project_history->setProfile($this);
+        return $this;
+    }
+
+    /**
+     * Remove project_history
+     *
+     * @param \App\Entity\ProjectHistory $project_history
+     */
+    public function removeProjectHistory(ProjectHistory $project_history) {
+        $this->project_history->removeElement($project_history);
+    }
+
+    /**
+     * Get project_history
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjectHistory() {
+        return $this->project_history;
+    }
+    /**
+     * Add proficiencies
+     *
+     * @param \App\Entity\Proficiencies $proficiencies
+     *
+     * @return Profile
+     */
+    public function addProficiency(Proficiencies $proficiencies) {
+        $this->proficiencies[] = $proficiencies;
+
+        $proficiencies->setProfile($this);
+        return $this;
+    }
+
+    /**
+     * Remove proficiencies
+     *
+     * @param \App\Entity\Proficiencies $proficiencies
+     */
+    public function removeProficiency(Proficiencies $proficiencies) {
+        $this->proficiencies->removeElement($proficiencies);
+    }
+
+    /**
+     * Get proficiencies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProficiencies() {
+        return $this->proficiencies;
+    }
     public function getTitle() {
         return $this->title;
     }
@@ -45,6 +171,7 @@ class Profile {
     public function setEmail($email) {
         $this->email = $email;
     }
+
     public function getPhone() {
         return $this->phone;
     }
@@ -52,6 +179,7 @@ class Profile {
     public function setPhone($phone) {
         $this->phone = $phone;
     }
+
     public function getImage() {
         return $this->image;
     }
@@ -66,22 +194,6 @@ class Profile {
 
     public function setBackground($background) {
         $this->background = $background;
-    }
-
-    public function getProjectHistory() {
-        return $this->project_history;
-    }
-
-    public function setProjectHistory($project_history) {
-        $this->project_history = $project_history;
-    }
-
-    public function getProficiencies() {
-        return $this->proficiencies;
-    }
-
-    public function setProficiencies($proficiencies) {
-        $this->proficiencies = $proficiencies;
     }
 
 }
