@@ -9,12 +9,16 @@ use App\Entity\Proficiencies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\File;
+use App\Service\FileUploader;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ProfileController extends AbstractController {
 
     protected $entity_manager;
     protected $profile;
     protected $user;
+    protected $current_image;
 
     private function getEntityManager() {
         if (null === $this->entity_manager) {
@@ -26,12 +30,20 @@ class ProfileController extends AbstractController {
 
     private function getProfile() {
         $user = $this->getUser();
+        $filesystem = new Filesystem();
+
         if (null === $this->profile) {
             $this->profile = $this->getEntityManager()
                     ->getRepository('App:Profile')
                     ->findOneBy(['user_id' => $user->getId()]);
+            if ($this->profile->getImage() && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->profile->getImage())) {
+                $this->profile->setImage(
+                        new File(
+                                $this->getParameter('images_directory') . '/' . $this->profile->getImage()
+                ));
+            }
         }
-
+        $this->current_image = $this->profile->getImage();
         return $this->profile;
     }
 
@@ -60,7 +72,14 @@ class ProfileController extends AbstractController {
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFileName=$this->current_image->getBasename();
+            $fileUploader = new FileUploader('images_directory', $imageFileName);
+            $avatar = $form->get('image')->getData();
+
+
+            $avatarFileName = $fileUploader->upload($avatar);
+            $profile->setImage($avatarFileName);
             $this->getEntityManager()->persist($profile);
             $this->getEntityManager()->flush();
         }

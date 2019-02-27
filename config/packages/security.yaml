@@ -14,6 +14,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        profile_api:
+            pattern:  ^/profileapi
+            security: false
         main:
             anonymous: true
             guard:
@@ -36,3 +39,4 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profileapi , roles: IS_AUTHENTICATED_ANONYMOUSLY}

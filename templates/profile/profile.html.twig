@@ -15,6 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 offset-3">
+                    <img src="{{ asset('files/images_directory/'~form.vars.value.image) }}">
                     <h1>Resume Profile</h1>
                     {{ dump(form) }}
                     {{ form_start(form) }}
@@ -27,6 +28,7 @@
                             {{ form_row(form.lastName) }}
                         </div>
                     </div>
+                    {{ form_row(form.image) }}
                     <div class="row">
                         <div class="col">
                             {{ form_row(form.email) }}

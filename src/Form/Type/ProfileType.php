@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,6 +31,12 @@ class ProfileType extends AbstractType {
                     'attr' => ['class' => 'form-control-sm'],
                     'required' => true,
                 ])
+                ->add('image', FileType::class, [
+                    'data_class' => null,
+                    'label' => 'An image representing you (gif,png,jpeg)',
+                    'attr'=> ['class' => 'form-control-sm'],
+                    'required' => true,
+                ])
                 ->add('email', EmailType::class, [
                     'attr' => ['class' => 'form-control-sm'],
                     'required' => true,
@@ -39,7 +46,7 @@ class ProfileType extends AbstractType {
                     'required' => false,
                 ])
                 ->add('background', TextareaType::class, [
-                    'required'   => true,
+                    'required' => true,
                 ])
                 ->add('project_history', CollectionType::class,
                         [

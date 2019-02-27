@@ -33,15 +33,15 @@ class ProfileApiController extends AbstractController {
     }
 
     /**
-     * @Route("/profileapi")
+     * @Route("/profileapi", name="profile_api")
      */
     public function profileApi() {
         return new JsonResponse($this->getApiValues());
     }
 
     private function getApiValues() {
-        return ['user'=>$this->getProfileValues(), 'histories'=> $this->getProjectHistories(), 'proficiencies'=> $this->getProficiencies()];
-        
+        $api_values = ['user' => $this->getProfileValues(), 'histories' => $this->getProjectHistories(), 'proficiencies' => $this->getProficiencies()];
+        return $api_values;
     }
 
     private function getProfileValues() {
@@ -49,44 +49,51 @@ class ProfileApiController extends AbstractController {
 
         $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
-                ->from('App:Profile','p')
+                ->from('App:Profile', 'p')
                 ->where('p.user_id = :user_id')
                 ->setParameter('user_id', $this->getUserId())
                 ->getQuery();
 
-        $profile_array = $query->getResult(Query::HYDRATE_ARRAY);
-
-
+        $profile_array = $query->getResult(Query::HYDRATE_ARRAY)[0];
         return $profile_array;
     }
 
     private function getProficiencies() {
-        
+
         $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
-                ->from('App:Proficiencies','p')
+                ->from('App:Proficiencies', 'p')
                 ->where('p.profile = :user_id')
+                ->orderby('p.percent')
                 ->setParameter('user_id', $this->getUserId())
                 ->getQuery();
 
         $proficiencies_array = $query->getResult(Query::HYDRATE_ARRAY);
-
-
-        return $proficiencies_array;
+        return $this->parseResultReturn($proficiencies_array);
     }
 
     private function getProjectHistories() {
-                $query = $this->getEntityManager()->createQueryBuilder()
+        $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
-                ->from('App:ProjectHistory','p')
+                ->from('App:ProjectHistory', 'p')
                 ->where('p.profile = :user_id')
+                ->orderby('p.start')
                 ->setParameter('user_id', $this->getUserId())
                 ->getQuery();
 
         $histories_array = $query->getResult(Query::HYDRATE_ARRAY);
 
+        return $this->parseResultReturn($histories_array);
+    }
 
-        return $histories_array;
+
+    private function parseResultReturn($result_array) {
+        $parsed_array = [];
+        foreach ($result_array as $result) {
+            $parsed_array[] = $result;
+        }
+
+        return $parsed_array;
     }
 
 }

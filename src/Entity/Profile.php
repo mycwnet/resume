@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProfileRepository")
@@ -47,6 +48,18 @@ class Profile {
      * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
     protected $phone;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload an image.")
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 400,
+     *     minHeight = 200,
+     *     maxHeight = 400
+     * )
+     */
     protected $image;
 
     /**
@@ -109,6 +122,7 @@ class Profile {
     public function getProjectHistory() {
         return $this->project_history;
     }
+
     /**
      * Add proficiencies
      *
@@ -140,6 +154,7 @@ class Profile {
     public function getProficiencies() {
         return $this->proficiencies;
     }
+
     public function getTitle() {
         return $this->title;
     }
