@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
+use App\Entity\Configuration;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -50,14 +51,13 @@ class Profile {
     protected $phone;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",  nullable=true)
      *
-     * @Assert\NotBlank(message="Please, upload an image.")
      * @Assert\Image(
      *     minWidth = 200,
-     *     maxWidth = 400,
+     *     maxWidth = 600,
      *     minHeight = 200,
-     *     maxHeight = 400
+     *     maxHeight = 600
      * )
      */
     protected $image;
@@ -77,6 +77,11 @@ class Profile {
      * @ORM\OneToMany(targetEntity="Proficiencies", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
      */
     protected $proficiencies;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Configuration", mappedBy="profile", cascade={"persist"})
+     */
+    protected $configuration;
 
     /**
      * Constructor
@@ -155,6 +160,29 @@ class Profile {
         return $this->proficiencies;
     }
 
+    /**
+     * Set configuration
+     *
+     * @param \App\Entity\Configuration $configuration
+     *
+     * @return Profile
+     */
+    public function setConfiguration(Configuration $configuration) {
+        $this->configuration = $configuration;
+
+        $configuration->setProfile($this);
+        return $this;
+    }
+
+    /**
+     * Get configuration
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConfiguration() {
+        return $this->configuration;
+    }
+
     public function getTitle() {
         return $this->title;
     }
@@ -200,7 +228,7 @@ class Profile {
     }
 
     public function setImage($image) {
-        $this->image = $image;
+        $this->image = $image?$image:$this->image;
     }
 
     public function getBackground() {

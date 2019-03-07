@@ -15,20 +15,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 offset-3">
-                    <img src="{{ asset('files/images_directory/'~form.vars.value.image) }}">
+
                     <h1>Resume Profile</h1>
                     {{ dump(form) }}
                     {{ form_start(form) }}
                     {{ form_row(form.title) }}
                     <div class="row">
                         <div class="col">
-                            {{ form_row(form.firstName) }}
+                            {{ form_row(form.first_name) }}
                         </div>
                         <div class="col">
-                            {{ form_row(form.lastName) }}
+                            {{ form_row(form.last_name) }}
                         </div>
                     </div>
-                    {{ form_row(form.image) }}
+                    <div class="row">
+                        <div class="col-3">                    
+                            {% if avatar_exists %}
+                                <img class="img-thumbnail" src="{{ asset('files/images_directory/'~avatar_exists) }}">
+                            {% endif %}</div>
+                        <div class="col-9"> 
+                            {{ form_row(form.image) }}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             {{ form_row(form.email) }}
@@ -38,34 +46,100 @@
                         </div>
                     </div>
                     {{ form_row(form.background) }}
-                    {{ form_row(form.firstName) }}
-                    <div id="project_history_list" class="border border-secondary rounded p-2 bg-light" data-prototype="{{ form_widget(form.project_history.vars.prototype)|e('html_attr') }}">
-                        <h3>Project History</h3>
-                        {%  for profile_row in form.project_history %}
-                            <div class="card my-2">
-                                <div class="card-header">
-                                    {{  profile_row.vars.value.title}}
-                                </div>
-                                <div class="card-body">
-                                    {{ form_row(profile_row) }}
+                    {{ form_row(form.first_name) }}
+                    <div class="accordion" id="profileSectionsAccordion">
+                        <div id="project_history_list" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#histories_collapse">
+                                <h3>Project History</h3>
+                            </button>
+                            <div id="histories_collapse" class="collapse show" data-parent="#profileSectionsAccordion" data-prototype="
+                                 {% filter escape %}
+                                     {{ include('prototypes/project_histories.html.twig', { 'histories': form.project_history.vars.prototype }) }}
+                                 {% endfilter %}">
+                                {%  for profile_row in form.project_history %}
+                                    <div class="card my-2">
+                                        <div class="card-header">
+                                            {{  profile_row.vars.value.title}}
+                                        </div>
+                                        <div class="card-body">
+                                            {{ form_row(profile_row.title) }}
+                                            {{ form_row(profile_row.description) }}
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{ form_row(profile_row.start) }}
+                                                </div>
+                                                <div class="col">
+                                                    {{ form_row(profile_row.end) }}
+                                                </div>
+                                            </div>
 
-                                </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
-                    </div>
-                   <div id="proficiencies_list" class="border border-secondary rounded p-2 bg-light" data-prototype="{{ form_widget(form.proficiencies.vars.prototype)|e('html_attr') }}">
-                        <h3>Proficiencies</h3>
-                        {%  for proficiency_row in form.proficiencies %}
-                            <div class="card my-2">
-                                <div class="card-header">
-                                    {{  proficiency_row.vars.value.title}}
-                                </div>
-                                <div class="card-body">
-                                    {{ form_row(proficiency_row) }}
+                        </div>
+                        <div id="proficiencies_list" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#proficiencies_collapse">
+                                <h3>Proficiencies</h3>
+                            </button>
+                            <div id="proficiencies_collapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
+                                 {% filter escape %}
+                                     {{ include('prototypes/proficiencies.html.twig', { 'proficiencies': form.proficiencies.vars.prototype }) }}
+                                 {% endfilter %}">
+                                {#"{{ form_widget(form.proficiencies.vars.prototype)|e('html_attr') }}"#}
+                                {%  for proficiency_row in form.proficiencies %}
+                                    <div class="card my-2">
+                                        <div class="card-header">
+                                            {{  proficiency_row.vars.value.title}}
+                                        </div>
+                                        <div class="card-body">
+                                            {{ form_row(proficiency_row.title) }}
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{ form_row(proficiency_row.years) }}
+                                                </div>
+                                                <div class="col">
+                                                    {{ form_row(proficiency_row.percent) }}
+                                                </div>
+                                            </div>
 
-                                </div>
+                                        </div>
+                                    </div>
+                                {% endfor %} 
                             </div>
-                        {% endfor %} 
+                        </div>
+                        <div id="configuration" class="border border-secondary rounded p-2 bg-light">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#configuration_collapse">
+                                <h3>Configuration</h3>
+                            </button>
+                            <div id="configuration_collapse" class="collapse" data-parent="#profileSectionsAccordion">
+                                <div class="card my-2">
+                                    <div class="card-header">
+                                        Configurations
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-3">                    
+                                                {% if avatar_exists %}
+                                                    <img class="img-thumbnail" src="{{ asset('files/images_directory/'~background_exists) }}">
+                                                {% endif %}</div>
+                                            <div class="col-9"> 
+                                                {{ form_row(form.configuration.background_image) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                {{ form_row(form.configuration.dateformat) }}
+                                            </div>
+                                            <div class="col">
+                                                {{ form_row(form.configuration.color) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
                     {{ form_end(form) }}

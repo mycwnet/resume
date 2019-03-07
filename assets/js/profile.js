@@ -1,14 +1,16 @@
 import React from 'react';
 
 var $ = require('jquery');
+require('bootstrap');
+
 
 var projectHistoryCollection;
 var proficiencyCollection;
 var addProjectHistoryButton = $('<button type="button" class="btn btn-secondary my-2 add_project_history">Add Project</button>');
 var addProficiencyButton = $('<button type="button" class="btn btn-secondary my-2 add_proficiency">Add Proficiency</button>');
 $(document).ready(function () {
-    projectHistoryCollection = $('#project_history_list');
-    proficiencyCollection = $("#proficiencies_list");
+    projectHistoryCollection = $('#histories_collapse');
+    proficiencyCollection = $("#proficiencies_collapse");
 
     //set index value for project history collections
     projectHistoryCollection.data('index', projectHistoryCollection.find('.card').length);

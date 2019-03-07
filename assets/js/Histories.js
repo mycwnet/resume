@@ -47,10 +47,10 @@ export default class Histories extends React.Component {
                     {histories[history].description}
                 </p>
                 <div className="historyStart">
-                    {histories[history].start.date}
+                    {histories[history].start}
                 </div>
                 <div className="historyEnd">
-                    {histories[history].end.date}
+                    {histories[history].end}
                 </div>
             
             </div>);

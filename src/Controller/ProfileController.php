@@ -6,6 +6,7 @@ use App\Entity\Profile;
 use App\Form\Type\ProfileType;
 use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
+use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,8 @@ class ProfileController extends AbstractController {
     protected $entity_manager;
     protected $profile;
     protected $user;
-    protected $current_image;
+    protected $current_avatar;
+    protected $current_background;
 
     private function getEntityManager() {
         if (null === $this->entity_manager) {
@@ -36,14 +38,11 @@ class ProfileController extends AbstractController {
             $this->profile = $this->getEntityManager()
                     ->getRepository('App:Profile')
                     ->findOneBy(['user_id' => $user->getId()]);
-            if ($this->profile->getImage() && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->profile->getImage())) {
-                $this->profile->setImage(
-                        new File(
-                                $this->getParameter('images_directory') . '/' . $this->profile->getImage()
-                ));
+            if ($this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
+                $this->profile->setImage(new File($this->profile->getImage()));
             }
         }
-        $this->current_image = $this->profile->getImage();
+        $this->current_avatar = $this->profile->getImage();
         return $this->profile;
     }
 
@@ -54,11 +53,19 @@ class ProfileController extends AbstractController {
      */
     public function new(Request $request) {
 
+        $backgroud_exists = null;
+        $avatar_exists = null;
+        $filesystem = new Filesystem();
         $user = $this->getUser();
+
         if ($user->getId()) {
             $profile = $this->getProfile();
+            $profile->setImage($this->current_avatar);
             $this->loadHistories();
             $this->loadProficiencies();
+            $this->loadConfiguration();
+            $backgroud_exists = $this->current_background && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_background->getBasename()) ? $this->current_background->getBasename() : null;
+            $avatar_exists = $this->current_avatar && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_avatar->getBasename()) ? $this->current_avatar->getBasename() : null;
         } else {
             $profile = new Profile();
             $profile->setUserId($user);
@@ -71,15 +78,27 @@ class ProfileController extends AbstractController {
         $form = $this->createForm(ProfileType::class, $profile);
 
         $form->handleRequest($request);
+        
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFileName=$this->current_image->getBasename();
-            $fileUploader = new FileUploader('images_directory', $imageFileName);
             $avatar = $form->get('image')->getData();
+                    
+            if ($avatar) {
+                $avatar_uploader = new FileUploader('images_directory', $this->current_avatar->getBasename());
+                $avatar_filename = $avatar_uploader->upload($avatar);
+                $avatar_exists=$avatar_filename;
+                $profile->setImage(new File($this->getParameter('images_directory') . '/'. $avatar_filename));
+            }
+            
+            $background = $form->get('configuration')->get('background_image')->getData();
+            if ($background) {
+                $background_uploader = new FileUploader('images_directory', $this->current_background->getBasename());
+                $background_filename = $background_uploader->upload($background);
+                $backgroud_exists=$background_filename;
+                $profile->getConfiguration()->setBackgroundImage(new File($this->getParameter('images_directory') . '/' . $background_filename));
+            }
 
-
-            $avatarFileName = $fileUploader->upload($avatar);
-            $profile->setImage($avatarFileName);
             $this->getEntityManager()->persist($profile);
             $this->getEntityManager()->flush();
         }
@@ -87,6 +106,8 @@ class ProfileController extends AbstractController {
 
         return $this->render('profile/profile.html.twig', [
                     'form' => $form->createView(),
+                    'avatar_exists' => $avatar_exists,
+                    'background_exists' => $backgroud_exists
         ]);
     }
 
@@ -111,6 +132,23 @@ class ProfileController extends AbstractController {
         } else {
             $proficiency = new Proficiencies();
             $this->profile->addProficiency($proficiency);
+        }
+    }
+
+    private function loadConfiguration() {
+        $user = $this->getUser();
+        $filesystem = new Filesystem();
+        $configuration = $this->getEntityManager()->getRepository('App:Configuration')->findOneBy(['index' => $user->getId()]);
+        if ($configuration) {
+            if ($configuration->getBackgroundImage() && $filesystem->exists($configuration->getBackgroundImage())) {
+                $configuration->setBackgroundImage(new File($configuration->getBackgroundImage()));
+                $this->current_background = $configuration->getBackgroundImage();
+            }
+            $this->profile->setConfiguration($configuration);
+        } else {
+            $configuration = new Configuration();
+            $configuration->setIndex($user->getId());
+            $this->profile->setConfiguration($configuration);
         }
     }
 
