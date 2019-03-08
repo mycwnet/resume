@@ -25,7 +25,10 @@ class ConfigurationType extends AbstractType {
                         'ddmmyy (01/01/00)' => 8,
                         'ddmmyyyy (01/01/2000)' => 9,
                     ],
-            'attr' => ['class' => 'form-control-sm']
+            'attr' => [
+                'class' => 'form-control-sm'
+                ],
+            'label' => 'Date Format'
                 ])
                 ->add('background_image', FileType::class,[
                     'attr' => ['class' => 'form-control-sm'],
@@ -34,7 +37,8 @@ class ConfigurationType extends AbstractType {
                     'required' => false
                 ])
                 ->add('color', ColorType::class, [
-                    'attr' => ['class' => 'form-control-sm']
+                    'attr' => ['class' => 'form-control-sm'],
+                    'label' => 'Base Theme Color'
                 ]);
     }
 

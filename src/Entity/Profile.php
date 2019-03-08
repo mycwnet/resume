@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
+use App\Entity\ProjectSamples;
 use App\Entity\Configuration;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -77,6 +78,11 @@ class Profile {
      * @ORM\OneToMany(targetEntity="Proficiencies", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
      */
     protected $proficiencies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProjectSamples", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $project_samples;
 
     /**
      * @ORM\OneToOne(targetEntity="Configuration", mappedBy="profile", cascade={"persist"})
@@ -161,6 +167,38 @@ class Profile {
     }
 
     /**
+     * Add project samples
+     *
+     * @param \App\Entity\ProjectSamples $project_samples
+     *
+     * @return Profile
+     */
+    public function addProjectSamples(ProjectSamples $project_samples) {
+        $this->project_samples[] = $project_samples;
+
+        $project_samples->setProfile($this);
+        return $this;
+    }
+
+    /**
+     * Remove project samples
+     *
+     * @param \App\Entity\ProjectSamples $project_samples
+     */
+    public function removeProjectSamples(ProjectSamples $project_samples) {
+        $this->project_samples->removeElement($project_samples);
+    }
+
+    /**
+     * Get project samples
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjectSamples() {
+        return $this->project_samples;
+    }
+
+    /**
      * Set configuration
      *
      * @param \App\Entity\Configuration $configuration
@@ -228,7 +266,7 @@ class Profile {
     }
 
     public function setImage($image) {
-        $this->image = $image?$image:$this->image;
+        $this->image = $image ? $image : $this->image;
     }
 
     public function getBackground() {

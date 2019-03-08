@@ -6,6 +6,7 @@ use App\Entity\Profile;
 use App\Form\Type\ProfileType;
 use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
+use App\Entity\ProjectSamples;
 use App\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class ProfileController extends AbstractController {
     protected $user;
     protected $current_avatar;
     protected $current_background;
+    protected $project_images;
 
     private function getEntityManager() {
         if (null === $this->entity_manager) {
@@ -64,6 +66,7 @@ class ProfileController extends AbstractController {
             $this->loadHistories();
             $this->loadProficiencies();
             $this->loadConfiguration();
+            $this->loadProjectSamples();
             $backgroud_exists = $this->current_background && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_background->getBasename()) ? $this->current_background->getBasename() : null;
             $avatar_exists = $this->current_avatar && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_avatar->getBasename()) ? $this->current_avatar->getBasename() : null;
         } else {
@@ -78,24 +81,24 @@ class ProfileController extends AbstractController {
         $form = $this->createForm(ProfileType::class, $profile);
 
         $form->handleRequest($request);
-        
-        
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avatar = $form->get('image')->getData();
-                    
+
             if ($avatar) {
                 $avatar_uploader = new FileUploader('images_directory', $this->current_avatar->getBasename());
                 $avatar_filename = $avatar_uploader->upload($avatar);
-                $avatar_exists=$avatar_filename;
-                $profile->setImage(new File($this->getParameter('images_directory') . '/'. $avatar_filename));
+                $avatar_exists = $avatar_filename;
+                $profile->setImage(new File($this->getParameter('images_directory') . '/' . $avatar_filename));
             }
-            
+
             $background = $form->get('configuration')->get('background_image')->getData();
             if ($background) {
                 $background_uploader = new FileUploader('images_directory', $this->current_background->getBasename());
                 $background_filename = $background_uploader->upload($background);
-                $backgroud_exists=$background_filename;
+                $backgroud_exists = $background_filename;
                 $profile->getConfiguration()->setBackgroundImage(new File($this->getParameter('images_directory') . '/' . $background_filename));
             }
 
@@ -132,6 +135,22 @@ class ProfileController extends AbstractController {
         } else {
             $proficiency = new Proficiencies();
             $this->profile->addProficiency($proficiency);
+        }
+    }
+
+    private function loadProjectSamples() {
+        $filesystem = new Filesystem();
+        $project_samples = $this->getEntityManager()->getRepository('App:ProjectSamples')->findAll();
+        if (count($project_samples) > 0) {
+            foreach ($project_samples as $project_sample) {
+                if($project_sample->getProjectImage() && $filesystem->exists($project_sample->getProjectImage())){
+                    $this->project_images[$project_sample->getIndex()]=$project_sample->getProjectImage();
+                }
+                $this->profile->addProjectSamples($project_sample);
+            }
+        } else {
+            $project_sample = new ProjectSamples();
+            $this->profile->addProjectSamples($project_sample);
         }
     }
 

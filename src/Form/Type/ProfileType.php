@@ -5,6 +5,7 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use App\Form\Type\ProjectHistoryType;
 use App\Form\Type\ProficienciesType;
+use App\Form\Type\ProjectSamplesType;
 use App\Form\Type\ConfigurationType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Profile;
@@ -70,6 +71,17 @@ class ProfileType extends AbstractType {
                 ->add('proficiencies', CollectionType::class,
                         [
                             'entry_type' => ProficienciesType::class,
+                            'entry_options' => [
+                                'label' => false
+                            ],
+                            'by_reference' => false,
+                            'allow_add' => true,
+                            'allow_delete' => true
+                        ]
+                )
+                ->add('project_samples', CollectionType::class,
+                        [
+                            'entry_type' => ProjectSamplesType::class,
                             'entry_options' => [
                                 'label' => false
                             ],

@@ -34,7 +34,7 @@
                                 <img class="img-thumbnail" src="{{ asset('files/images_directory/'~avatar_exists) }}">
                             {% endif %}</div>
                         <div class="col-9"> 
-                            {{ form_row(form.image) }}
+                            {{ form_row(form.image, { 'attr': {'placeholder': 'Change Image' }}) }}
                         </div>
                     </div>
                     <div class="row">
@@ -108,6 +108,37 @@
                                 {% endfor %} 
                             </div>
                         </div>
+                        <div id="project_samples_list" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#samples_collapse">
+                                <h3>Project Samples</h3>
+                            </button>
+                            <div id="samples_collapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
+                                 {% filter escape %}
+                                     {{ include('prototypes/project_samples.html.twig', { 'samples': form.project_samples.vars.prototype }) }}
+                                 {% endfilter %}">
+                                {{ dump(form.project_samples) }}
+                                {%  for samples_row in form.project_samples %}
+                                    <div class="card my-2">
+                                        <div class="card-header">
+                                            {{  samples_row.vars.value.title}}
+                                        </div>
+                                        <div class="card-body">
+                                            {{ form_row(samples_row.title) }}
+                                            {{ form_row(samples_row.blurb) }}
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{ form_row(samples_row.link) }}
+                                                </div>
+                                                <div class="col">
+                                                    {{ form_row(samples_row.project_image) }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
                         <div id="configuration" class="border border-secondary rounded p-2 bg-light">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#configuration_collapse">
                                 <h3>Configuration</h3>
@@ -124,7 +155,7 @@
                                                     <img class="img-thumbnail" src="{{ asset('files/images_directory/'~background_exists) }}">
                                                 {% endif %}</div>
                                             <div class="col-9"> 
-                                                {{ form_row(form.configuration.background_image) }}
+                                                {{ form_row(form.configuration.background_image,  { 'attr': {'placeholder': 'Change Image' }}) }}
                                             </div>
                                         </div>
                                         <div class="row">
