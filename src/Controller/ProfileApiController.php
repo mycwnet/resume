@@ -41,7 +41,12 @@ class ProfileApiController extends AbstractController {
     }
 
     private function getApiValues() {
-        $api_values = ['user' => $this->getProfileValues(), 'configuration' => $this->getConfigurationValues(), 'histories' => $this->getProjectHistories(), 'proficiencies' => $this->getProficiencies()];
+        $api_values = ['user' => $this->getProfileValues(),
+            'configuration' => $this->getConfigurationValues(),
+            'histories' => $this->getProjectHistories(),
+            'proficiencies' => $this->getProficiencies(),
+            'samples' => $this->getProjectSamples()
+        ];
         return $api_values;
     }
 
@@ -56,6 +61,7 @@ class ProfileApiController extends AbstractController {
                 ->getQuery();
 
         $profile_array = $query->getResult(Query::HYDRATE_ARRAY)[0];
+        $profile_array['image']= basename($profile_array['image']);
         return $profile_array;
     }
 
@@ -73,6 +79,19 @@ class ProfileApiController extends AbstractController {
         return $this->parseResultReturn($proficiencies_array);
     }
 
+    private function getProjectSamples() {
+        $query = $this->getEntityManager()->createQueryBuilder()
+                ->select('ps')
+                ->from('App:ProjectSamples', 'ps')
+                ->where('ps.profile = :user_id')
+                ->orderby('ps.index')
+                ->setParameter('user_id', $this->getUserId())
+                ->getQuery();
+
+        $samples_array = $query->getResult(Query::HYDRATE_ARRAY);
+        return $this->parseResultReturn($samples_array);
+    }
+
     private function getProjectHistories() {
         $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
@@ -84,8 +103,8 @@ class ProfileApiController extends AbstractController {
 
         $histories_array = $query->getResult(Query::HYDRATE_ARRAY);
         foreach ($histories_array as $key => $history) {
-           $histories_array[$key]['start']=$history['start']->format($this->date_format);
-           $histories_array[$key]['end']=$history['end']?$history['end']->format($this->date_format):'Present';
+            $histories_array[$key]['start'] = $history['start']->format($this->date_format);
+            $histories_array[$key]['end'] = $history['end'] ? $history['end']->format($this->date_format) : 'Present';
         }
         return $this->parseResultReturn($histories_array);
     }
@@ -100,47 +119,47 @@ class ProfileApiController extends AbstractController {
     }
 
     private function setDateFormat($date_format_variable) {
-                
+
         switch ($date_format_variable) {
             case "1":
-               $this->date_format='M jS, Y';
+                $this->date_format = 'M jS, Y';
 
                 break;
             case "2":
-                $this->date_format='m d y';
+                $this->date_format = 'm d y';
 
                 break;
             case "3":
-                $this->date_format='m d Y';
+                $this->date_format = 'm d Y';
 
                 break;
             case "4":
 
-                $this->date_format='Y M jS';
+                $this->date_format = 'Y M jS';
 
                 break;
             case "5":
 
-                $this->date_format='y m d';
+                $this->date_format = 'y m d';
                 break;
             case "6":
-                $this->date_format='Y m d';
+                $this->date_format = 'Y m d';
 
                 break;
             case "7":
-                $this->date_format='jS M Y';
+                $this->date_format = 'jS M Y';
 
                 break;
             case "8":
-                $this->date_format='d m y';
+                $this->date_format = 'd m y';
 
                 break;
             case "9":
-                $this->date_format='d m y';
+                $this->date_format = 'd m y';
 
                 break;
             default:
-                $this->date_format='M jS, Y';
+                $this->date_format = 'M jS, Y';
                 break;
         }
     }

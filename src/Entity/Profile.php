@@ -96,6 +96,7 @@ class Profile {
 
         $this->project_history = new \Doctrine\Common\Collections\ArrayCollection();
         $this->proficiencies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->project_samples = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setUserId($user = null) {
@@ -167,26 +168,28 @@ class Profile {
     }
 
     /**
-     * Add project samples
+     * Add project sample
      *
-     * @param \App\Entity\ProjectSamples $project_samples
+     * @param \App\Entity\ProjectSamples $project_sample
      *
      * @return Profile
      */
-    public function addProjectSamples(ProjectSamples $project_samples) {
-        $this->project_samples[] = $project_samples;
+    public function addProjectSample(ProjectSamples $project_sample) {
+        // $project_sample->setSampleIndex(md5(uniqid()));
+        $this->project_samples[] = $project_sample;
 
-        $project_samples->setProfile($this);
+        $project_sample->setProfile($this);
         return $this;
     }
 
     /**
-     * Remove project samples
+     * Remove project sample
      *
-     * @param \App\Entity\ProjectSamples $project_samples
+     * @param \App\Entity\ProjectSamples $project_sample
      */
-    public function removeProjectSamples(ProjectSamples $project_samples) {
-        $this->project_samples->removeElement($project_samples);
+    public function removeProjectSample(ProjectSamples $project_sample) {
+        $this->project_samples->removeElement($project_sample);
+        $project_sample->setProfile(null);
     }
 
     /**

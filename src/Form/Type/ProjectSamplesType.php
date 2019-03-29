@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectSamplesType extends AbstractType {
@@ -16,7 +17,7 @@ class ProjectSamplesType extends AbstractType {
         $builder->add('title', TextType::class, [
                     'attr' => ['class' => 'form-control-sm'],
                     'label' => 'Project Sample Title',
-                    'required' => false
+                    'required' => true
                 ])
                 ->add('project_image', FileType::class, [
                     'attr' => ['class' => 'form-control-sm'],
@@ -33,7 +34,8 @@ class ProjectSamplesType extends AbstractType {
                     'attr' => ['class' => 'form-control-sm'],
                     'label' => 'Project Sample Link',
                     'required' => false
-                ]);
+                ])
+                ->add('sampleindex', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

@@ -18,6 +18,12 @@ class ProjectSamples {
     private $index;
 
     /**
+     * @var string
+     * @ORM\Column(name="sampleindex", type="string", length=255)
+     */
+    private $sampleindex;
+
+    /**
      * @var string 
      * @ORM\Column(name="title", type="string", length=255)
      */
@@ -53,9 +59,20 @@ class ProjectSamples {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $profile;
-    
-    public function getIndex(){
+
+    public function getIndex() {
         return $this->index;
+    }
+
+    public function getSampleIndex() {
+        if(!$this->sampleindex){
+            $this->setSampleIndex(md5(uniqid()));
+        }
+        return $this->sampleindex;
+    }
+
+    public function setSampleIndex($sampleindex) {
+        $this->sampleindex = $sampleindex;
     }
 
     public function getTitle() {
@@ -87,7 +104,11 @@ class ProjectSamples {
     }
 
     public function setProjectImage($project_image) {
-        $this->project_image = $project_image ? $project_image : $this->project_image;
+        if ($this->getTitle()) {
+            $this->project_image = $project_image ? $project_image : $this->project_image;
+        } else {
+            $this->project_image = null;
+        }
     }
 
     /**

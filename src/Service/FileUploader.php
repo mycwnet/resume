@@ -16,8 +16,8 @@ class FileUploader {
         $this->currentFileName=$currentFileName;
     }
 
-    public function upload(UploadedFile $file) {
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+    public function upload(UploadedFile $file, $prefix='') {
+        $fileName =$prefix . md5(uniqid()) . '.' . $file->guessExtension();
         $target_dir = $this->getTargetDirectory();
 
         try {

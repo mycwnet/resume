@@ -55,16 +55,15 @@ $(document).ready(function () {
         e.preventDefault();
         addSampleCollection();
     });
-    $('.custom-file input').change(function (e) {
+    $('#project_samples_list').on('change', '.custom-file-input', function (e) {
         $(this).next('.custom-file-label').html(e.target.files[0].name);
+        console.log('file: ' + e.target.files[0].name);
     });
 });
 
 function addProjectHistoryCollection() {
     var prototype = projectHistoryCollection.data('prototype');
-
     var index = projectHistoryCollection.data('index');
-
     var projectForm = prototype.replace(/__name__/g, index);
 
     projectHistoryCollection.data('index', index + 1);
@@ -96,11 +95,8 @@ function addDeleteHistoryButton(project, index) {
 }
 
 function addProficiencyCollection() {
-
     var prototype = proficiencyCollection.data('prototype');
-
     var index = proficiencyCollection.data('index');
-
     var proficiencyForm = prototype.replace(/__name__/g, index);
 
     proficiencyCollection.data('index', index + 1);
@@ -132,11 +128,8 @@ function addDeleteProficiencyButton(proficiency, index) {
 }
 
 function addSampleCollection() {
-
     var prototype = samplesCollection.data('prototype');
-
     var index = samplesCollection.data('index');
-
     var sampleForm = prototype.replace(/__name__/g, index);
 
     samplesCollection.data('index', index + 1);

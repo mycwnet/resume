@@ -116,23 +116,28 @@
                                  {% filter escape %}
                                      {{ include('prototypes/project_samples.html.twig', { 'samples': form.project_samples.vars.prototype }) }}
                                  {% endfilter %}">
-                                {{ dump(form.project_samples) }}
                                 {%  for samples_row in form.project_samples %}
                                     <div class="card my-2">
                                         <div class="card-header">
-                                            {{  samples_row.vars.value.title}}
+                                            {{ samples_row.vars.value.title}}
                                         </div>
                                         <div class="card-body">
                                             {{ form_row(samples_row.title) }}
                                             {{ form_row(samples_row.blurb) }}
                                             <div class="row">
-                                                <div class="col">
-                                                    {{ form_row(samples_row.link) }}
-                                                </div>
-                                                <div class="col">
+
+                                                <div class="col-3">   
+                                                    {% set sample_index=samples_row.vars.value.sampleindex %}
+                                                    {% if sample_exists and sample_exists[sample_index] is defined%}
+                                                        <img class="img-thumbnail" src="{{ asset('files/images_directory/project_samples/'~sample_exists[sample_index]) }}">
+                                                    {% endif %} </div> 
+                                                <div class="col-9"> 
+
                                                     {{ form_row(samples_row.project_image) }}
                                                 </div>
                                             </div>
+                                            {{ form_row(samples_row.link) }}
+                                            {{ form_row(samples_row.sampleindex) }}
 
                                         </div>
                                     </div>

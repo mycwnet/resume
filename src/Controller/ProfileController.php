@@ -57,6 +57,7 @@ class ProfileController extends AbstractController {
 
         $backgroud_exists = null;
         $avatar_exists = null;
+        $sample_exists = [];
         $filesystem = new Filesystem();
         $user = $this->getUser();
 
@@ -69,13 +70,18 @@ class ProfileController extends AbstractController {
             $this->loadProjectSamples();
             $backgroud_exists = $this->current_background && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_background->getBasename()) ? $this->current_background->getBasename() : null;
             $avatar_exists = $this->current_avatar && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_avatar->getBasename()) ? $this->current_avatar->getBasename() : null;
+            foreach ($this->project_images as $key => $project_image) {
+                $sample_exists[$key] = $project_image->getBasename();
+            }
         } else {
             $profile = new Profile();
             $profile->setUserId($user);
             $project_history = new ProjectHistory();
             $proficiency = new Proficiencies();
+            $project_sample = new ProjectSamples();
             $profile->addProjectHistory($project_history);
             $profile->addProficiency($proficiency);
+            $profile->addProjectSample($project_sample);
         }
 
         $form = $this->createForm(ProfileType::class, $profile);
@@ -88,20 +94,38 @@ class ProfileController extends AbstractController {
             $avatar = $form->get('image')->getData();
 
             if ($avatar) {
-                $avatar_uploader = new FileUploader('images_directory', $this->current_avatar->getBasename());
-                $avatar_filename = $avatar_uploader->upload($avatar);
+                $current_avatar = $this->current_avatar && is_object($this->current_avatar) ? $this->current_avatar->getBasename() : null;
+
+                $avatar_uploader = new FileUploader('images_directory', $current_avatar);
+                $avatar_filename = $avatar_uploader->upload($avatar,'avatar');
                 $avatar_exists = $avatar_filename;
                 $profile->setImage(new File($this->getParameter('images_directory') . '/' . $avatar_filename));
             }
 
             $background = $form->get('configuration')->get('background_image')->getData();
             if ($background) {
-                $background_uploader = new FileUploader('images_directory', $this->current_background->getBasename());
-                $background_filename = $background_uploader->upload($background);
+                $current_background = $this->current_background && is_object($this->current_background) ? $this->current_background->getBasename() : null;
+                $background_uploader = new FileUploader('images_directory', $current_background);
+                $background_filename = $background_uploader->upload($background,'background');
                 $backgroud_exists = $background_filename;
                 $profile->getConfiguration()->setBackgroundImage(new File($this->getParameter('images_directory') . '/' . $background_filename));
             }
 
+            $project_samples = $form->get('project_samples');
+            foreach ($project_samples as $project_sample) {
+                $project_image = $project_sample->get('project_image')->getData();
+                $sample_entity = $project_sample->getViewData();
+                $sample_index = $sample_entity->getSampleIndex();
+               
+
+                if ($project_image && $sample_index) {
+                    $current_project_image = array_key_exists($sample_index, $this->project_images) && is_object($this->project_images[$sample_index]) ? $this->project_images[$sample_index]->getBasename() : null;
+                    $sample_uploader = new FileUploader('images_directory/project_samples', $current_project_image);
+                    $sample_filename = $sample_uploader->upload($project_image);
+                    $sample_exists[$sample_index] = $sample_filename;
+                    $sample_entity->setProjectImage(new File($this->getParameter('images_directory') . '/project_samples/' . $sample_filename));
+                }
+            }
             $this->getEntityManager()->persist($profile);
             $this->getEntityManager()->flush();
         }
@@ -110,7 +134,8 @@ class ProfileController extends AbstractController {
         return $this->render('profile/profile.html.twig', [
                     'form' => $form->createView(),
                     'avatar_exists' => $avatar_exists,
-                    'background_exists' => $backgroud_exists
+                    'background_exists' => $backgroud_exists,
+                    'sample_exists' => $sample_exists
         ]);
     }
 
@@ -139,18 +164,25 @@ class ProfileController extends AbstractController {
     }
 
     private function loadProjectSamples() {
+        $this->project_images = [];
         $filesystem = new Filesystem();
         $project_samples = $this->getEntityManager()->getRepository('App:ProjectSamples')->findAll();
         if (count($project_samples) > 0) {
             foreach ($project_samples as $project_sample) {
-                if($project_sample->getProjectImage() && $filesystem->exists($project_sample->getProjectImage())){
-                    $this->project_images[$project_sample->getIndex()]=$project_sample->getProjectImage();
+                if ($project_sample->getTitle()) {
+                    $project_sample->setSampleIndex($project_sample->getIndex());
+                    if ($project_sample->getSampleIndex() && $project_sample->getProjectImage() && $filesystem->exists($project_sample->getProjectImage())) {
+                        $this->project_images[$project_sample->getIndex()] = new File($project_sample->getProjectImage());
+                    }
+                    $this->profile->addProjectSample($project_sample);
+                } else {
+                    $this->profile->removeProjectSample($project_sample);
                 }
-                $this->profile->addProjectSamples($project_sample);
             }
         } else {
             $project_sample = new ProjectSamples();
-            $this->profile->addProjectSamples($project_sample);
+            $project_sample->setSampleIndex(md5(uniqid()));
+            $this->profile->addProjectSample($project_sample);
         }
     }
 

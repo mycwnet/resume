@@ -47,6 +47,9 @@ class ProjectHistory {
      */
     private $profile;
 
+    public function getIndex(){
+        return $this->index;
+    }
     public function getTitle() {
         return $this->title;
     }
