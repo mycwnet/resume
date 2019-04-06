@@ -40,11 +40,14 @@ class ProfileController extends AbstractController {
             $this->profile = $this->getEntityManager()
                     ->getRepository('App:Profile')
                     ->findOneBy(['user_id' => $user->getId()]);
-            if ($this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
+            if ($this->profile && $this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
                 $this->profile->setImage(new File($this->profile->getImage()));
+                $this->current_avatar = $this->profile->getImage();
+            }else{
+                $this->profile=new Profile();
+                $this->profile->setUserId($user);
             }
         }
-        $this->current_avatar = $this->profile->getImage();
         return $this->profile;
     }
 
@@ -63,7 +66,6 @@ class ProfileController extends AbstractController {
 
         if ($user->getId()) {
             $profile = $this->getProfile();
-            $profile->setImage($this->current_avatar);
             $this->loadHistories();
             $this->loadProficiencies();
             $this->loadConfiguration();

@@ -2,71 +2,74 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ReactLoading from "react-loading";
 
-export default class Proficiencies extends React.Component {
+export default class ProjectSamples extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             loading: true,
-            proficiencies: this.props.proficiencies
+            samples: this.props.samples
         };
     }
 
     componentDidMount() {
         this._isMounted = true;
-        this.setProficienciesInfo(this.props.proficiencies);
+        this.setProjectSamplesInfo(this.props.samples);
     }
 
     componentWillReceiveProps(nextProps) {
         this._isMounted = true;
-        this.setProficienciesInfo(nextProps.proficiencies);
+        this.setProjectSamplesInfo(nextProps.samples);
     }
 
-    setProficienciesInfo(proficiencies) {
+    setProjectSamplesInfo(samples) {
         if (this._isMounted)
-            this.setState({proficiencies: proficiencies});
+            this.setState({samples: samples});
     }
 
     componentWillUnmount() {
         this._isMounted = false;
     }
 
-    proficienciesDom() {
-        var proficiencies = this.state.proficiencies;
-        console.log("pState: " + JSON.stringify(this.state));
-        console.log("pProps: " + JSON.stringify(this.props));
-        var proficiencies_dom = Object.keys(proficiencies).map(proficiency => {
-            console.log("prof: " + JSON.stringify(proficiency));
-            return(<div key={"prof-" + proficiency}
-                className="col-lg-4 col-md-12 col-sm-12 resumeProficiencySection"
-                >
-                <h2 className="proficiencyName">
-                    {proficiencies[proficiency].title}
+    projectSamplesDom() {
+        var samples = this.state.samples;
+        console.log("sState: " + JSON.stringify(this.state));
+        console.log("sProps: " + JSON.stringify(this.props));
+        var samples_dom = Object.keys(samples).map(sample => {
+            console.log("samp: " + JSON.stringify(sample));
+            return(<div key={"samp-" + sample}
+                 className="col-lg-4 col-md-12 col-sm-12 resumeProjectSamplesSection"
+                 >
+                <h2 className="sampleName">
+                    {samples[sample].title}
                 </h2>
-                <div className="proficiencyYears">
-                    {proficiencies[proficiency].years}
+                <div className="sampleBlurb">
+                    {samples[sample].blurb}
                 </div>
-                <div className="proficiencyPercent">
-                    {proficiencies[proficiency].percent}
+                <div className="sampleLink">
+                    {samples[sample].link}
+                </div>
+                <div className="sampleImage">
+                    {samples[sample].project_image}
                 </div>
             
             </div>);
         });
 
-        return proficiencies_dom;
+        return samples_dom;
     }
 
     render() {
-        console.log("proficiencies: " + JSON.stringify(this.state.proficiencies));
-        var proficiencies_dom = (
-                <div id="proficienciesDomWrapper">
-                    <div id="proficienciesDomContainer" className="row">
-                        {this.proficienciesDom()}
+        console.log("samples: " + JSON.stringify(this.state.samples));
+        var samples_dom = (
+                <div id="projectSamplesDomWrapper">
+                    <div id="projectSamplesDomContainer" className="row">
+                        {this.projectSamplesDom()}
                     </div>
                 </div>
                 );
 
-        return proficiencies_dom;
+        return samples_dom;
     }
 
 };

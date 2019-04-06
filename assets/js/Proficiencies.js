@@ -38,7 +38,7 @@ export default class Proficiencies extends React.Component {
         var proficiencies_dom = Object.keys(proficiencies).map(proficiency => {
             console.log("prof: " + JSON.stringify(proficiency));
             return(<div key={"prof-" + proficiency}
-                className="col-lg-4 col-md-12 col-sm-12 resumeProficiencySection"
+                className="col-lg-8 offset-lg-2 col-10 offset-1 resumeProficiencySection"
                 >
                 <h2 className="proficiencyName">
                     {proficiencies[proficiency].title}

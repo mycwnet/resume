@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Register{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {% block head_css %}
+            {{ encore_entry_link_tags('login') }}
+            <link href="{{ asset('build/login.css') }}" />
+        {% endblock %}
+        {% block javascript %}
+            {{ encore_entry_script_tags('login') }}
+            <script type="text/javascript" src="{{ asset('build/login.js')}}"></script>
+        {% endblock %}
+    </head>
+    <body>
+
+        {% block body %}
+            <h1>Register</h1>
+
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.username) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
+
+            <button class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        {% endblock %}
+    </body>
+</html>

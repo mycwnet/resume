@@ -16,7 +16,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
      }
     public function load(ObjectManager $manager)
     {
-       $user = new User();
+    /*   $user = new User();
        $user->setUsername('devdothost');
        $user->setRoles(['ROLE_ADMIN','ROLE_USER']);
 
@@ -27,5 +27,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
          $manager->persist($user);
 
         $manager->flush();
-    }
+     * 
+     */
+    } 
 }

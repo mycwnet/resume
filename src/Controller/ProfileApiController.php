@@ -26,9 +26,13 @@ class ProfileApiController extends AbstractController {
      * users.
      */
     private function getUserId() {
-        if (null === $this->user_id) {
-            $this->user_id = 2;
-        }
+        $query = $this->getEntityManager()->createQueryBuilder()
+                ->select('u')
+                ->from('App:User', 'u')
+                ->getQuery();
+        $user_array=$query->getResult(Query::HYDRATE_ARRAY);
+        
+        $this->user_id=$user_array[0]['id'];
 
         return $this->user_id;
     }
@@ -56,12 +60,14 @@ class ProfileApiController extends AbstractController {
         $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
                 ->from('App:Profile', 'p')
-                ->where('p.user_id = :user_id')
-                ->setParameter('user_id', $this->getUserId())
+                  ->where('p.user_id = :user_id')
+                  ->setParameter('user_id', $this->getUserId())
                 ->getQuery();
 
+        $user_id = $this->getUserId();
+
         $profile_array = $query->getResult(Query::HYDRATE_ARRAY)[0];
-        $profile_array['image']= basename($profile_array['image']);
+        $profile_array['image'] = basename($profile_array['image']);
         return $profile_array;
     }
 

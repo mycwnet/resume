@@ -1,36 +1,53 @@
-{% extends 'base.html.twig' %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Login{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {% block head_css %}
+            {{ encore_entry_link_tags('login') }}
+            <link href="{{ asset('build/login.css') }}" />
+        {% endblock %}
+        {% block javascript %}
+            {{ encore_entry_script_tags('login') }}
+            <script type="text/javascript" src="{{ asset('build/login.js')}}"></script>
+        {% endblock %}
+    </head>
+    <body>
 
-{% block title %}Log in!{% endblock %}
+        {% block body %}
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+                <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+                <div id="loginFieldsContainer" class="row">
+                    <label for="inputUsername" class="sr-only col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-8 offset-2">Username</label>
+                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control my-2 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-8 offset-2" placeholder="Username" required autofocus>
+                    <label for="inputPassword" class="sr-only col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-8 offset-2">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control my-2 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-8 offset-2" placeholder="Password" required>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                           >
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+                
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %}
+                    <button class="btn btn-lg btn-primary my-2 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-8 offset-2" type="submit">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        {% endblock %}
+    </body>
+</html>

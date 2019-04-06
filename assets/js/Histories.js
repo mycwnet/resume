@@ -38,7 +38,7 @@ export default class Histories extends React.Component {
         var histories_dom = Object.keys(histories).map(history => {
             console.log("hist: " + JSON.stringify(history));
             return(<div key={"hist-" + history}
-                 className="col-lg-4 col-md-12 col-sm-12 resumeHistorySection"
+                 className="col-lg-8 offset-lg-2 col-10 offset-1 resumeHistorySection"
                  >
                 <h2 className="historyName">
                     {histories[history].title}
