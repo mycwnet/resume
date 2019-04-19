@@ -95,6 +95,9 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "fortawesome/font-awesome": {
+        "version": "5.8.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

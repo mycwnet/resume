@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\BrandIconsApiController;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProficienciesRepository")
@@ -21,16 +22,24 @@ class Proficiencies {
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
     /**
      * @var int
      * @ORM\Column(name="years", type="integer")
      */
     private $years;
-     /**
+
+    /**
      * @var int
      * @ORM\Column(name="percent", type="integer")
      */
-    private $percent;   
+    private $percent;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
+     */
+    private $icon;
 
     /**
      * 
@@ -38,6 +47,8 @@ class Proficiencies {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $profile;
+    private $icon_list;
+    private $icon_value;
 
     public function getTitle() {
         return $this->title;
@@ -61,6 +72,35 @@ class Proficiencies {
 
     public function setPercent($percent) {
         $this->percent = $percent;
+    }
+
+    public function getIcon() {
+        return $this->icon;
+    }
+
+    public function setIcon($icon) {
+        $this->icon = $icon;
+    }
+
+    public function getIconList() {
+        return $this->icon_list;
+    }
+
+    public function setIconList($list = []) {
+        if ($this->title) {
+            $brand_icons = new BrandIconsApiController();
+            $list = $brand_icons->brandIconsSearchApi($this->title);
+        }
+
+        return $list;
+    }
+
+    public function getIconValue() {
+        return $this->icon_value;
+    }
+
+    public function setIconValue($icon_value) {
+        $this->icon_value = $icon_value;
     }
 
     /**

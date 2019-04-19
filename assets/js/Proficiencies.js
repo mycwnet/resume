@@ -30,6 +30,10 @@ export default class Proficiencies extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
+    
+    getProficiencyIcon(proficiency_name){
+        
+    }
 
     proficienciesDom() {
         var proficiencies = this.state.proficiencies;

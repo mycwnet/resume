@@ -34,6 +34,7 @@ $(document).ready(function () {
     var profindex = 0;
     proficiencyCollection.find('.card').each(function () {
         profindex = profindex + 1;
+        proficiencyIcons($(this), profindex);
         addDeleteProficiencyButton($(this), profindex);
     });
     proficiencyCollection.append(addProficiencyButton);
@@ -124,6 +125,59 @@ function addDeleteProficiencyButton(proficiency, index) {
 
         proficiency.append(cardfooter);
     }
+
+}
+
+function proficiencyIcons(proficiency, prof_index) {
+
+    var icons_container = proficiency.find('.proficiency_icon_list');
+    var hidden_icon_value = proficiency.find('.hidden-icon-value');
+    proficiency.find('.proficiency-title').change(function (e) {
+        var prof_title = $(e.target).val();
+        icons_container.html('<div class="text-center"><i class="fas fa-spinner fa-3x fa-pulse"></i></div>');
+
+        $.ajax({
+
+            url: '/brandicons/' + prof_title,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log("ICONS: " + JSON.stringify(data));
+                var choices = $('<div id="modified-choices"><div class="row mx-0">' +
+                        '<span class="align-middle my-auto"> <div class="form-check">' +
+                        '<input type="radio" id="profile_proficiencies_' + prof_index + '_icon_placeholder" name="profile[proficiencies][' + prof_index +'][icon]" class="form-check-input" value="" checked="checked">' +
+                        '<label class="form-check-label" for="profile_proficiencies_' + prof_index + '_icon_placeholder"> </label></div></span>' +
+                        '<span class="align-middle my-auto">' +
+                        '<label for="profile_proficiencies_' + prof_index + '_icon_placeholder" class="form-check-label icon_select_label">None</label>' +
+                        '</span>' +
+                        '</div></div>');
+                var count = 0;
+                $.each(data, function (index, value) {
+                    choices.append('<div class="row mx-0">' +
+                            '<span class="align-middle my-auto"> <div class="form-check">' +
+                            '<input type="radio" id="profile_proficiencies_' + prof_index + '_icon_' + count + '" name="profile[proficiencies][' + prof_index + '][icon]" class="form-check-input" value="' + index + '">' +
+                            '<label class="form-check-label" for="profile_proficiencies_' + prof_index + '_icon_' + count + '"> </label></div></span>' +
+                            '<span class="align-middle my-auto">' +
+                            '<label for="profile_proficiencies_' + prof_index + '_icon_' + count + '" class="form-check-label icon_select_label">' +
+                            '<i class="fab fa-' + value + ' fa-3x"></i>' +
+                            '</label>' +
+                            '</span></div>'
+                            );
+                    
+                });
+                icons_container.html(choices);
+            },
+            error: function (request, error)
+            {
+                console.log("Request: " + JSON.stringify(request));
+            }
+        });
+        proficiency.on('click','.form-check-input',function (e) {
+            var icon_name = $(e.target).val();
+            hidden_icon_value.val(icon_name);
+        });
+                
+    });
 
 }
 

@@ -3,57 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/devdothost/assets/js/Histories.js</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/RegistrationFormType.php</file>
-            <file>file:/var/www/html/devdothost/config/packages/doctrine.yaml</file>
-            <file>file:/var/www/html/devdothost/src/Controller/ProfileController.php</file>
-            <file>file:/var/www/html/devdothost/src/DataFixtures/AppFixtures.php</file>
-            <file>file:/var/www/html/devdothost/src/Repository/ProjectSamplesRepository.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/Proficiencies.js</file>
-            <file>file:/var/www/html/devdothost/assets/css/app.css</file>
-            <file>file:/var/www/html/devdothost/templates/profile/profile.html.twig</file>
-            <file>file:/var/www/html/devdothost/assets/js/main.js</file>
-            <file>file:/var/www/html/devdothost/assets/css/sass/form.scss</file>
-            <file>file:/var/www/html/devdothost/assets/js/app.js</file>
-            <file>file:/var/www/html/devdothost/src/Service/FileUploader.php</file>
-            <file>file:/var/www/html/devdothost/config/packages/security.yaml</file>
-            <file>file:/var/www/html/devdothost/src/Security/LoginFormAuthenticator.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/MainController.php</file>
-            <file>file:/var/www/html/devdothost/package.json</file>
-            <file>file:/var/www/html/devdothost/src/Repository/UserRepository.php</file>
-            <file>file:/var/www/html/devdothost/templates/security/register.html.twig</file>
-            <file>file:/var/www/html/devdothost/src/Entity/Proficiencies.php</file>
+            <file>file:/var/www/html/devdothost/src/Controller/BrandIconsApiController.php</file>
             <file>file:/var/www/html/devdothost/assets/css/sass/resumePage.scss</file>
-            <file>file:/var/www/html/devdothost/assets/js/profile.js</file>
-            <file>file:/var/www/html/devdothost/src/Repository/ProfileRepository.php</file>
-            <file>file:/var/www/html/devdothost/src/Kernel.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/RegistrationController.php</file>
-            <file>file:/var/www/html/devdothost/src/Entity/User.php</file>
-            <file>file:/var/www/html/devdothost/src/Repository/ConfigurationRepository.php</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ProficienciesType.php</file>
-            <file>file:/var/www/html/devdothost/composer.json</file>
-            <file>file:/var/www/html/devdothost/assets/js/ProjectSamples.js</file>
-            <file>file:/var/www/html/devdothost/.env</file>
-            <file>file:/var/www/html/devdothost/symfony.lock</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ProjectHistoryType.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/SecurityController.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/login.js</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ConfigurationType.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/ProfileApiController.php</file>
-            <file>file:/var/www/html/devdothost/src/DataFixtures/UserFixtures.php</file>
-            <file>file:/var/www/html/devdothost/src/Repository/ProficienciesRepository.php</file>
-            <file>file:/var/www/html/devdothost/templates/prototypes/project_histories.html.twig</file>
-            <file>file:/var/www/html/devdothost/src/Entity/ProjectHistory.php</file>
-            <file>file:/var/www/html/devdothost/templates/base.html.twig</file>
-            <file>file:/var/www/html/devdothost/webpack.config.js</file>
-            <file>file:/var/www/html/devdothost/src/Entity/ProjectSamples.php</file>
-            <file>file:/var/www/html/devdothost/templates/prototypes/project_samples.html.twig</file>
-            <file>file:/var/www/html/devdothost/templates/security/login.html.twig</file>
-            <file>file:/var/www/html/devdothost/src/Entity/Profile.php</file>
             <file>file:/var/www/html/devdothost/assets/js/ProfileDisplay.js</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ProjectSamplesType.php</file>
-            <file>file:/var/www/html/devdothost/src/Repository/ProjectHistoryRepository.php</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ProfileType.php</file>
+            <file>file:/var/www/html/devdothost/assets/js/Proficiencies.js</file>
+            <file>file:/var/www/html/devdothost/templates/main/index.html.twig</file>
+            <file>file:/var/www/html/devdothost/webpack.config.js</file>
+            <file>file:/var/www/html/devdothost/src/Controller/ProfileApiController.php</file>
         </group>
     </open-files>
 </project-private>

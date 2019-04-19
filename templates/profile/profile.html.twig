@@ -103,6 +103,28 @@
                                                 </div>
                                             </div>
 
+
+                                            <fieldset class="form-group">
+                                                {{ form_label(proficiency_row.icon, proficiency_row.icon.vars.label) }}
+                                                <div class="proficiency_icon_list">
+                                                    {% for child in proficiency_row.icon %}
+                                                        <div class="row mx-0">
+                                                            <span class="align-middle my-auto"> {{ form_widget(child, {'label' : " "})}}</span>
+                                                            <span class="align-middle my-auto"> 
+                                                                <label for="{{ child.vars.id }}" class="form-check-label icon_select_label">
+                                                                    {{ child.vars.label | raw}}
+                                                                </label> 
+                                                            </span>
+                                                        </div>
+                                                    {%  endfor %}
+
+                                                </div>
+
+                                            </fieldset>
+                                            {{ form_row(proficiency_row.icon_value) }}
+
+
+
                                         </div>
                                     </div>
                                 {% endfor %} 

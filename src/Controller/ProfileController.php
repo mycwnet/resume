@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Service\FileUploader;
 use Symfony\Component\Filesystem\Filesystem;
+use App\Controller\BrandIconsApiController;
 
 class ProfileController extends AbstractController {
 
