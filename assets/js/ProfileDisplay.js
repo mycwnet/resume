@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import ReactLoading from "react-loading";
+import ProfileDisplayHeader from "./ProfileDisplayHeader";
 import Proficiencies from "./Proficiencies";
 import Histories from "./Histories";
 import ProjectSamples from "./ProjectSamples";
 
+var $ = require('jquery');
 require('bootstrap');
 
 export default class ProfileDisplay extends React.Component {
@@ -36,6 +38,10 @@ export default class ProfileDisplay extends React.Component {
                 .catch(function (error) {
                     console.log("GET '/profileapi', " + error);
                 });
+ 
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
     }
 
     setProfileInfo(profile_info) {
@@ -60,31 +66,35 @@ export default class ProfileDisplay extends React.Component {
     }
     render() {
         console.log("state: " + JSON.stringify(this.state));
-        var phone = this.state.profile.phone ? <div className="resumeContactElement">Phone: {this.state.profile.phone}</div> : "";
+        var phone = this.state.profile.phone;
+        var email = this.state.profile.email;
+        var avatar = this.state.profile.image ? (
+                <div id="resumeAvatar" className="col-lg-2 col-md-3 col-4 offset-2">
+                    <img src={"files/images_directory/" + this.state.profile.image} className="rounded-circle border bdr-three light w-100"/>
+                </div>
+                ) : '';
         var profile_dom = (
                 <div id="profileDomWrapper">
-                    <div id="profileDomContainer">
+                        <ProfileDisplayHeader />
+                    <div id="profileDomContainer" className="bg-one">
                         <div id="profileTopRow" className="row">
-                            <h1 id="resumeTitle" className="text-center col-10 offset-1">{this.state.profile.title}</h1>
+                            <h1 id="resumeTitle" className="text-center col-10 offset-1 text-three">{this.state.profile.title}</h1>
                         </div>
                         <div
                             id="profileMiddleRow"
                             className="resumeIdentitySection row"
                             >
-                            <div id="resumeAvatar" className="col-lg-4 offset-lg-2 col-5 offset-1">
-                                <img src={"files/images_directory/" + this.state.profile.image} className="rounded-circle border border-primary"/>
-                            </div>
-                            <div className="resumeIdentityInfo col-lg-4 col-5">
-                                <h2>{this.state.profile.first_name + " " + this.state.profile.last_name}</h2>
+                            {avatar}
+                            <div className="resumeIdentityInfo col-4">
+                                <h2 class="text-one vlight">{this.state.profile.first_name + " " + this.state.profile.last_name}</h2>
                                 <div id="resumeContact">
-                                    <div className="resumeContactElement">Email: {this.state.profile.email}</div>
-                                    {phone}
+                                    <a tabindex="0" class="btn btn-sm btn-three" role="button" data-toggle="popover" title="Contact Info" data-content={(email?"Email: " + email :"") + (phone?"<br />Phone: " + phone:"")} data-html="true">Contact</a>
                                 </div>
                             </div>
                         </div>
+                        <hr className="bdr-three light" />
                         <div id="profileBottomRow" className="row">
-                            <hr />
-                            <div className="resumeBackground col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+                            <div className="resumeBackground col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-one vlight">
                                 <p>
                                     {this.state.profile.background}
                                 </p>

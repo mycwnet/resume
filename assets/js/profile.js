@@ -33,8 +33,8 @@ $(document).ready(function () {
     proficiencyCollection.data('index', proficiencyCollection.find('.card').length);
     var profindex = 0;
     proficiencyCollection.find('.card').each(function () {
-        profindex = profindex + 1;
         proficiencyIcons($(this), profindex);
+        profindex = profindex + 1;
         addDeleteProficiencyButton($(this), profindex);
     });
     proficiencyCollection.append(addProficiencyButton);
@@ -142,7 +142,6 @@ function proficiencyIcons(proficiency, prof_index) {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log("ICONS: " + JSON.stringify(data));
                 var choices = $('<div id="modified-choices"><div class="row mx-0">' +
                         '<span class="align-middle my-auto"> <div class="form-check">' +
                         '<input type="radio" id="profile_proficiencies_' + prof_index + '_icon_placeholder" name="profile[proficiencies][' + prof_index +'][icon]" class="form-check-input" value="" checked="checked">' +

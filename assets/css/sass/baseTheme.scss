@@ -1,0 +1,99 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../../../vendor/fortawesome/font-awesome/css/all.css";
+
+
+$theme-colors: (
+"one": rgb(18, 82, 186),
+"two":rgb(18, 165, 186),
+"three": rgb(18, 186, 122), 
+"four": rgb(39, 18, 186),
+"five":rgb(122, 18, 186),
+"six": rgb(186, 18, 165),
+);
+
+$theme_colors_list: "one", "two", "three", "four", "five", "six";
+$bdr-one: rgba(theme-color("one"), .2);
+$shdw-one: rgba(theme-color("one"), .5);
+$bdr-two: rgba(theme-color("two"), .2);
+$shdw-two: rgba(theme-color("two"), .5);
+$bdr-three: rgba(theme-color("three"), .2);
+$shdw-three: rgba(theme-color("three"), .5);
+$bdr-four: rgba(theme-color("four"), .2);
+$shdw-four: rgba(theme-color("four"), .5);
+$bdr-five: rgba(theme-color("five"), .2);
+$shdw-five: rgba(theme-color("five"), .5);
+$bdr-six: rgba(theme-color("six"), .2);
+$shdw-six: rgba(theme-color("six"), .5);
+
+@mixin button-values($color_name){
+    color: theme-color-level($color_name, -10) !important;
+    background-color: theme-color($color_name) !important;
+    border-color: theme-color($color_name) !important;
+}
+@mixin button-focus($color_name){
+    box-shadow: 0 0 0 0.2rem rgba(theme-color($color_name), .5) !important;
+}
+
+@mixin button-hover($color_name){
+    color: theme-color-level($color_name, -10) !important;
+    background-color: theme-color-level($color_name, -2) !important;
+    border-color: theme-color($color_name) !important;
+}
+
+
+@each $color_name in $theme_colors_list {
+    .bg-#{$color_name}{background-color: theme-color($color_name) !important;}
+    .bg-#{$color_name}.dark{background-color: theme-color-level($color_name, +5) !important;}
+    .bg-#{$color_name}.light{background-color: theme-color-level($color_name, -5) !important;}
+    .bg-#{$color_name}.vdark{background-color: theme-color-level($color_name, +10) !important;}
+    .bg-#{$color_name}.vlight{background-color: theme-color-level($color_name, -10) !important;}
+    .text-#{$color_name}{color: theme-color($color_name) !important;}
+    .text-#{$color_name}.dark{color: theme-color-level($color_name, +5) !important;}
+    .text-#{$color_name}.light{color: theme-color-level($color_name, -5) !important;}
+    .text-#{$color_name}.vdark{color: theme-color-level($color_name, +10) !important;}
+    .text-#{$color_name}.vlight{color: theme-color-level($color_name, -10) !important;}
+    .btn-#{$color_name}{
+        @include button-values($color_name);
+    }
+    .btn-#{$color_name}:focus, .btn-#{$color_name}.focus {
+        @include button-focus($color_name);
+    }
+    .btn-#{$color_name}:hover {
+        @include button-hover($color_name);
+    }
+    .shdw-#{$color_name}{box-shadow: rgba(theme-color($color_name), .5) !important;}
+    .bdr-#{$color_name}{border-color: theme-color($color_name) !important;}
+    .bdr-#{$color_name}.dark{background-color: theme-color-level($color_name, +5) !important;}
+    .bdr-#{$color_name}.light{background-color: theme-color-level($color_name, -5) !important;}
+    .bdr-#{$color_name}.vdark{color: theme-color-level($color_name, +10) !important;}
+    .bdr-#{$color_name}.vlight{color: theme-color-level($color_name, -10) !important;}
+}
+
+.popover.show{
+    border: 1px solid $bdr-three;
+    color: theme-color-level("three", +2);
+    border-radius: .3rem;
+}
+.popover .arrow::before{
+    border-right-color: $bdr-three;
+}
+.popover .arrow::after{
+    border-right-color:theme-color-level("three", -12);
+}
+.popover .popover-header{
+    background-color: theme-color-level("three", -10);
+    border-bottom-color: theme-color-level("three", -8);
+}
+.popover .popover-body{
+    background-color: theme-color-level("three", -12);
+    color: theme-color-level("three", +5);
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+.btn{
+    cursor: pointer;
+}
+
+
+
+
