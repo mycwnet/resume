@@ -3,6 +3,121 @@
 body{
 }
 
-h1#resumeTitle{
-    font-size: 5em;
+/* Header Stuff */
+#headerContainer{
+    height: 40px;
+}
+.navbar{
+    height: 40px;
+}
+#siteLogo img{
+    max-height: 30px;
+}
+ul#headerLinksList{
+    list-style-type: none;
+}
+.header-link-text{
+    font-size: 10px;
+}
+a.nav-link{
+    line-height: 1;
+    width: 40px;
+}
+
+/* Body Stuff */
+#profileDomWrapper{
+    height: 1000px;
+}
+.content-element{
+    height: 960px;
+}
+// History
+.history-description{
+    height: 150px;
+}
+
+// Proficiencies
+.resume-proficiency-section{
+    height: 10%;
+}
+
+.CircularProgressbar-path       { stroke:theme-color-level('three', -10); }
+.CircularProgressbar-trail      { stroke:theme-color-level('three', -5); }
+.CircularProgressbar-text       { fill:theme-color-level('three', -10); }
+
+
+
+
+
+/* appear - on page load */
+.fade-appear {
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 1000ms linear 1000ms;
+}
+
+/* enter */
+.fade-enter {
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+}
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms linear 1000ms;
+}
+
+/* exit */
+.fade-exit {
+    position: absolute;
+    opacity: 1;
+    z-index: 2;
+}
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms linear;
+}
+.fade-exit-done {
+    opacity: 0;
+}
+
+
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms linear;
+}
+.fade-exit-done {
+    opacity: 0;
+}
+
+/* slide enter */
+.slide-enter {
+    opacity: 0;
+    transform: scale(0.97) translateY(5px);
+    z-index: 1;
+}
+.slide-enter.slide-enter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 3000ms linear 1000ms, transform 3000ms ease-in-out 1000ms;
+}
+
+/* slide exit */
+.slide-exit {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+
+}
+.slide-exit.slide-exit-active {
+    opacity: 0;
+    transform: scale(0.97) translateY(5px);
+    transition: opacity 1500ms linear, transform 1500ms ease-out;
+}
+.slide-exit-done {
+    opacity: 0;
 }

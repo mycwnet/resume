@@ -20,6 +20,12 @@ class Configuration {
 
     /**
      * @var string 
+     * @ORM\Column(name="site_title", type="string", length=255, nullable=true)
+     */
+    private $site_title;
+
+    /**
+     * @var string 
      * @ORM\Column(name="dateformat", type="string", length=255)
      */
     private $dateformat;
@@ -37,6 +43,39 @@ class Configuration {
     private $background_image;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\Image(
+     *     minWidth = 25,
+     *     maxWidth = 100,
+     *     minHeight = 25,
+     *     maxHeight = 100
+     * )
+     */
+    private $site_logo;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\Image(
+     *     minWidth = 16,
+     *     maxWidth = 32,
+     *     minHeight = 16,
+     *     maxHeight = 32,
+     *     allowLandscape = false,
+     *     allowPortrait = false,
+     *     minWidthMessage="favicon must be a square 16x16 or 32x32",
+     *     maxWidthMessage="favicon must be a square 16x16 or 32x32",
+     *     minHeightMessage="favicon must be a square 16x16 or 32x32",
+     *     minHeightMessage="favicon must be a square 16x16 or 32x32",
+     *     allowPortraitMessage="favicon must be a square 16x16 or 32x32",
+     *     allowLandscapeMessage="favicon must be a square 16x16 or 32x32",
+     * 
+     * )
+     */
+    private $favicon_image;
+
+    /**
      * @var string 
      * @ORM\Column(name="color", type="string", length=255)
      */
@@ -48,12 +87,21 @@ class Configuration {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $profile;
-    
-    public function getIndex(){
+
+    public function getIndex() {
         return $this->dateformat;
     }
-    public function setIndex($user_id){
-       $this->index = $user_id;
+
+    public function setIndex($user_id) {
+        $this->index = $user_id;
+    }
+
+    public function getSiteTitle() {
+        return $this->site_title;
+    }
+
+    public function setSiteTitle($site_title) {
+        $this->site_title = $site_title;
     }
 
     public function getDateFormat() {
@@ -69,7 +117,23 @@ class Configuration {
     }
 
     public function setBackgroundImage($background_image) {
-        $this->background_image = $background_image?$background_image:$this->background_image;
+        $this->background_image = $background_image ? $background_image : $this->background_image;
+    }
+
+    public function getSiteLogo() {
+        return $this->site_logo;
+    }
+
+    public function setSiteLogo($site_logo) {
+        $this->site_logo = $site_logo ? $site_logo : $this->site_logo;
+    }
+
+    public function getFaviconImage() {
+        return $this->favicon_image;
+    }
+
+    public function setFaviconImage($favicon_image) {
+        $this->favicon_image = $favicon_image ? $favicon_image : $this->favicon_image;
     }
 
     public function getColor() {
@@ -79,7 +143,7 @@ class Configuration {
     public function setColor($color) {
         $this->color = $color;
     }
-    
+
     /**
      * Set profile
      *

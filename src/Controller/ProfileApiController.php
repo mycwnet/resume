@@ -30,9 +30,9 @@ class ProfileApiController extends AbstractController {
                 ->select('u')
                 ->from('App:User', 'u')
                 ->getQuery();
-        $user_array=$query->getResult(Query::HYDRATE_ARRAY);
-        
-        $this->user_id=$user_array[0]['id'];
+        $user_array = $query->getResult(Query::HYDRATE_ARRAY);
+
+        $this->user_id = $user_array[0]['id'];
 
         return $this->user_id;
     }
@@ -60,14 +60,13 @@ class ProfileApiController extends AbstractController {
         $query = $this->getEntityManager()->createQueryBuilder()
                 ->select('p')
                 ->from('App:Profile', 'p')
-                  ->where('p.user_id = :user_id')
-                  ->setParameter('user_id', $this->getUserId())
+                ->where('p.user_id = :user_id')
+                ->setParameter('user_id', $this->getUserId())
                 ->getQuery();
-
-        $user_id = $this->getUserId();
 
         $profile_array = $query->getResult(Query::HYDRATE_ARRAY)[0];
         $profile_array['image'] = basename($profile_array['image']);
+        $profile_array['background'] = $this->createPagesArray($profile_array['background'], 2100, ["/p>", "/ul>", "/ol>"]);
         return $profile_array;
     }
 
@@ -180,7 +179,37 @@ class ProfileApiController extends AbstractController {
 
         $configuration_aray = $query->getResult(Query::HYDRATE_ARRAY)[0];
         $this->setDateFormat($configuration_aray['dateformat']);
+        $configuration_aray['background_image'] = basename($configuration_aray['background_image']);
+        $configuration_aray['site_logo'] = basename($configuration_aray['site_logo']);
+        $configuration_aray['favicon_image'] = basename($configuration_aray['favicon_image']);
         return $configuration_aray;
+    }
+
+    /**
+     * Takes a string and breaks it down to the closest break pattern before a
+     * max length in characters is reached.
+     * 
+     * @param string $text The text to be broken down
+     * @param int $max_length Page length in characters
+     * @param array $break_patterns an array of strings to break at
+     * @param array $page_array Used for recursion (not user provided)
+     * @return array An array of pages
+     */
+    private function createPagesArray($text, $max_length = 2100, $break_patterns = [". "], $page_array = []) {
+        if (strlen($text) > $max_length) {
+            $position = 0;
+            foreach ($break_patterns as $break_pattern) {
+                $add_capture = strlen($break_pattern);
+                $new_position = strrpos($text, $break_pattern, $max_length - strlen($text)) + $add_capture;
+                $position = $new_position > $position ? $new_position : $position;
+            }
+            $page_array[] = substr($text, 0, $position);
+            $page_array = $this->createPagesArray(substr($text, $position), $max_length, $break_patterns, $page_array);
+        } else {
+            $page_array[] = $text;
+        }
+
+        return $page_array;
     }
 
 }

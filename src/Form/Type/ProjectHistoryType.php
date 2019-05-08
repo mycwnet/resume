@@ -19,7 +19,7 @@ class ProjectHistoryType extends AbstractType {
                     'required' => true,
                 ])
                 ->add('description', TextareaType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 400],
                     'label' => 'Project Description',
                     'required' => true,
                 ])

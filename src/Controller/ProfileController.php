@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Service\FileUploader;
 use Symfony\Component\Filesystem\Filesystem;
-use App\Controller\BrandIconsApiController;
 
 class ProfileController extends AbstractController {
 
@@ -23,6 +22,8 @@ class ProfileController extends AbstractController {
     protected $user;
     protected $current_avatar;
     protected $current_background;
+    protected $current_site_logo;
+    protected $current_favicon;
     protected $project_images;
 
     private function getEntityManager() {
@@ -44,8 +45,8 @@ class ProfileController extends AbstractController {
             if ($this->profile && $this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
                 $this->profile->setImage(new File($this->profile->getImage()));
                 $this->current_avatar = $this->profile->getImage();
-            }else{
-                $this->profile=new Profile();
+            } else {
+                $this->profile = new Profile();
                 $this->profile->setUserId($user);
             }
         }
@@ -59,8 +60,10 @@ class ProfileController extends AbstractController {
      */
     public function new(Request $request) {
 
-        $backgroud_exists = null;
-        $avatar_exists = null;
+        $background_filename = null;
+        $avatar_filename = null;
+        $site_logo_filename = null;
+        $favicon_filename = null;
         $sample_exists = [];
         $filesystem = new Filesystem();
         $user = $this->getUser();
@@ -71,8 +74,10 @@ class ProfileController extends AbstractController {
             $this->loadProficiencies();
             $this->loadConfiguration();
             $this->loadProjectSamples();
-            $backgroud_exists = $this->current_background && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_background->getBasename()) ? $this->current_background->getBasename() : null;
-            $avatar_exists = $this->current_avatar && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_avatar->getBasename()) ? $this->current_avatar->getBasename() : null;
+            $background_filename = $this->current_background && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_background->getBasename()) ? $this->current_background->getBasename() : null;
+            $site_logo_filename = $this->current_site_logo && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_site_logo->getBasename()) ? $this->current_site_logo->getBasename() : null;
+            $favicon_filename = $this->current_favicon && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_favicon->getBasename()) ? $this->current_favicon->getBasename() : null;
+            $avatar_filename = $this->current_avatar && $filesystem->exists($this->getParameter('images_directory') . '/' . $this->current_avatar->getBasename()) ? $this->current_avatar->getBasename() : null;
             foreach ($this->project_images as $key => $project_image) {
                 $sample_exists[$key] = $project_image->getBasename();
             }
@@ -94,24 +99,29 @@ class ProfileController extends AbstractController {
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avatar = $form->get('image')->getData();
 
-            if ($avatar) {
-                $current_avatar = $this->current_avatar && is_object($this->current_avatar) ? $this->current_avatar->getBasename() : null;
 
-                $avatar_uploader = new FileUploader('images_directory', $current_avatar);
-                $avatar_filename = $avatar_uploader->upload($avatar,'avatar');
-                $avatar_exists = $avatar_filename;
-                $profile->setImage(new File($this->getParameter('images_directory') . '/' . $avatar_filename));
+            $new_avatar = $this->uploadImage($form, 'image', $this->current_avatar, 'avatar');
+            if ($new_avatar) {
+                $profile->setImage(new File($this->getParameter('images_directory') . '/' . $new_avatar));
+                $avatar_filename = $new_avatar;
+            }
+            $new_background = $this->uploadImage($form, 'background_image', $this->current_background, 'background', 'configuration');
+            if ($new_background) {
+                $profile->getConfiguration()->setBackgroundImage(new File($this->getParameter('images_directory') . '/' . $new_background));
+                $background_filename = $new_background;
             }
 
-            $background = $form->get('configuration')->get('background_image')->getData();
-            if ($background) {
-                $current_background = $this->current_background && is_object($this->current_background) ? $this->current_background->getBasename() : null;
-                $background_uploader = new FileUploader('images_directory', $current_background);
-                $background_filename = $background_uploader->upload($background,'background');
-                $backgroud_exists = $background_filename;
-                $profile->getConfiguration()->setBackgroundImage(new File($this->getParameter('images_directory') . '/' . $background_filename));
+            $new_logo = $this->uploadImage($form, 'site_logo', $this->current_site_logo, 'site_logo', 'configuration');
+            if ($new_logo) {
+                $profile->getConfiguration()->setSiteLogo(new File($this->getParameter('images_directory') . '/' . $new_logo));
+                $site_logo_filename = $new_logo;
+            }
+
+            $new_favicon = $this->uploadImage($form, 'favicon_image', $this->current_favicon, 'favicon', 'configuration');
+            if ($new_favicon) {
+                $profile->getConfiguration()->setFaviconImage(new File($this->getParameter('images_directory') . '/' . $new_favicon));
+                $favicon_filename = $new_favicon;
             }
 
             $project_samples = $form->get('project_samples');
@@ -119,7 +129,7 @@ class ProfileController extends AbstractController {
                 $project_image = $project_sample->get('project_image')->getData();
                 $sample_entity = $project_sample->getViewData();
                 $sample_index = $sample_entity->getSampleIndex();
-               
+
 
                 if ($project_image && $sample_index) {
                     $current_project_image = array_key_exists($sample_index, $this->project_images) && is_object($this->project_images[$sample_index]) ? $this->project_images[$sample_index]->getBasename() : null;
@@ -136,10 +146,36 @@ class ProfileController extends AbstractController {
 
         return $this->render('profile/profile.html.twig', [
                     'form' => $form->createView(),
-                    'avatar_exists' => $avatar_exists,
-                    'background_exists' => $backgroud_exists,
+                    'avatar_exists' => $avatar_filename,
+                    'background_exists' => $background_filename,
+                    'site_logo_exists' => $site_logo_filename,
+                    'favicon_exists' => $favicon_filename,
                     'sample_exists' => $sample_exists
         ]);
+    }
+
+    /**
+     *    
+     * Upload a single image
+     * 
+     *
+     * @param object $form form object
+     * @param string $image_name machine name of the image
+     * @param object $current_image current image object (e.g. $this->current_background)
+     * @param string $prefix (optional) prefix to the image name
+     * @param string $form_name (optional) machine name of the form (if not provided uses the base form)
+     * @return string filename of image
+     */
+    private function uploadImage($form, $image_name, $current_image, $prefix = null, $form_name = null) {
+        $image = $form_name ? $form->get($form_name)->get($image_name)->getData() : $form->get($image_name)->getData();
+        $image_filename = null;
+        if ($image) {
+            $current_image_name = $current_image && is_object($current_image) ? $current_image->getBasename() : null;
+            $image_uploader = new FileUploader('images_directory', $current_image_name);
+            $image_filename = $image_uploader->upload($image, $prefix);
+        }
+
+        return $image_filename;
     }
 
     private function loadHistories() {

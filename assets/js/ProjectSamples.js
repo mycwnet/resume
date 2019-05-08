@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactLoading from "react-loading";
+import { CSSTransition } from 'react-transition-group';
 
 export default class ProjectSamples extends React.Component {
 
@@ -33,23 +34,20 @@ export default class ProjectSamples extends React.Component {
 
     projectSamplesDom() {
         var samples = this.state.samples;
-        console.log("sState: " + JSON.stringify(this.state));
-        console.log("sProps: " + JSON.stringify(this.props));
         var samples_dom = Object.keys(samples).map(sample => {
-            console.log("samp: " + JSON.stringify(sample));
             return(<div key={"samp-" + sample}
-                 className="col-lg-4 col-md-12 col-sm-12 resumeProjectSamplesSection"
+                 className="col-lg-4 col-md-12 col-sm-12 resume-project-samples-section"
                  >
-                <h2 className="sampleName">
+                <h2 className="sample-name">
                     {samples[sample].title}
                 </h2>
-                <div className="sampleBlurb">
+                <div className="sample-blurb">
                     {samples[sample].blurb}
                 </div>
-                <div className="sampleLink">
+                <div className="sample-link">
                     {samples[sample].link}
                 </div>
-                <div className="sampleImage">
+                <div className="sample-image">
                     {samples[sample].project_image}
                 </div>
             
@@ -60,13 +58,19 @@ export default class ProjectSamples extends React.Component {
     }
 
     render() {
-        console.log("samples: " + JSON.stringify(this.state.samples));
         var samples_dom = (
-                <div id="projectSamplesDomWrapper">
-                    <div id="projectSamplesDomContainer" className="row">
-                        {this.projectSamplesDom()}
+                <CSSTransition
+                    in={true}
+                    appear={true}
+                    timeout={1000}
+                    classNames="fade"
+                    >
+                    <div id="projectSamplesDomWrapper" className="container position-absolute">
+                        <div id="projectSamplesDomContainer" className="row">
+                            {this.projectSamplesDom()}
+                        </div>
                     </div>
-                </div>
+                </CSSTransition>
                 );
 
         return samples_dom;

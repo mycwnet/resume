@@ -48,11 +48,11 @@
                     {{ form_row(form.background) }}
                     {{ form_row(form.first_name) }}
                     <div class="accordion" id="profileSectionsAccordion">
-                        <div id="project_history_list" class="border border-secondary rounded p-2 bg-light" >
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#histories_collapse">
+                        <div id="projectHistoryList" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#historiesCollapse">
                                 <h3>Project History</h3>
                             </button>
-                            <div id="histories_collapse" class="collapse show" data-parent="#profileSectionsAccordion" data-prototype="
+                            <div id="historiesCollapse" class="collapse show" data-parent="#profileSectionsAccordion" data-prototype="
                                  {% filter escape %}
                                      {{ include('prototypes/project_histories.html.twig', { 'histories': form.project_history.vars.prototype }) }}
                                  {% endfilter %}">
@@ -78,11 +78,11 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div id="proficiencies_list" class="border border-secondary rounded p-2 bg-light" >
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#proficiencies_collapse">
+                        <div id="proficienciesList" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#proficienciesCollapse">
                                 <h3>Proficiencies</h3>
                             </button>
-                            <div id="proficiencies_collapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
+                            <div id="proficienciesCollapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
                                  {% filter escape %}
                                      {{ include('prototypes/proficiencies.html.twig', { 'proficiencies': form.proficiencies.vars.prototype }) }}
                                  {% endfilter %}">
@@ -130,11 +130,11 @@
                                 {% endfor %} 
                             </div>
                         </div>
-                        <div id="project_samples_list" class="border border-secondary rounded p-2 bg-light" >
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#samples_collapse">
+                        <div id="projectSamplesList" class="border border-secondary rounded p-2 bg-light" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#samplesCollapse">
                                 <h3>Project Samples</h3>
                             </button>
-                            <div id="samples_collapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
+                            <div id="samplesCollapse" class="collapse" data-parent="#profileSectionsAccordion" data-prototype="
                                  {% filter escape %}
                                      {{ include('prototypes/project_samples.html.twig', { 'samples': form.project_samples.vars.prototype }) }}
                                  {% endfilter %}">
@@ -167,22 +167,45 @@
                             </div>
                         </div>
                         <div id="configuration" class="border border-secondary rounded p-2 bg-light">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#configuration_collapse">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#configurationCollapse">
                                 <h3>Configuration</h3>
                             </button>
-                            <div id="configuration_collapse" class="collapse" data-parent="#profileSectionsAccordion">
+                            <div id="configurationCollapse" class="collapse" data-parent="#profileSectionsAccordion">
                                 <div class="card my-2">
                                     <div class="card-header">
                                         Configurations
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
+                                            <div class="col-9"> 
+                                                {{ form_row(form.configuration.site_title) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-3">                    
-                                                {% if avatar_exists %}
+                                                {% if background_exists %}
                                                     <img class="img-thumbnail" src="{{ asset('files/images_directory/'~background_exists) }}">
                                                 {% endif %}</div>
                                             <div class="col-9"> 
                                                 {{ form_row(form.configuration.background_image,  { 'attr': {'placeholder': 'Change Image' }}) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">                    
+                                                {% if site_logo_exists %}
+                                                    <img class="img-thumbnail" src="{{ asset('files/images_directory/'~site_logo_exists) }}">
+                                                {% endif %}</div>
+                                            <div class="col-9"> 
+                                                {{ form_row(form.configuration.site_logo,  { 'attr': {'placeholder': 'Change Logo' }}) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">                    
+                                                {% if favicon_exists %}
+                                                    <img class="img-thumbnail" src="{{ asset('files/images_directory/'~favicon_exists) }}">
+                                                {% endif %}</div>
+                                            <div class="col-9"> 
+                                                {{ form_row(form.configuration.favicon_image,  { 'attr': {'placeholder': 'Change Favicon' }}) }}
                                             </div>
                                         </div>
                                         <div class="row">

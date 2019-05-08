@@ -21,9 +21,12 @@
         "axios": "^0.18.0",
         "prop-types": "^15.6.2",
         "react": "^16.7.0",
+        "react-circular-progressbar": "^1.2.1",
         "react-dom": "^16.7.0",
         "react-loading": "^2.0.3",
+        "react-paginate": "^6.3.0",
         "react-render-html": "^0.6.0",
-        "react-router-dom": "^5.0.0"
+        "react-router-dom": "^5.0.0",
+        "react-transition-group": "^4.0.0"
     }
 }

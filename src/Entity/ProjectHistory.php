@@ -24,7 +24,7 @@ class ProjectHistory {
 
     /**
      * @var string 
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="string", length=400)
      */
     private $description;
 

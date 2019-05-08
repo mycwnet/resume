@@ -17,13 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ProfileType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
                     'attr' => ['class' => 'form-control-sm'],
-                    'label' => 'Site Title',
+                    'label' => 'Personal Title',
                     'required' => true,
                 ])
                 ->add('first_name', TextType::class, [
@@ -52,9 +53,12 @@ class ProfileType extends AbstractType {
                     'label' => 'Phone Number',
                     'required' => false,
                 ])
-                ->add('background', TextareaType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                ->add('background', CKEditorType::class, [
+                    'attr' => ['class' => 'form-control-sm ckeditor'],
                     'label' => 'Background Info',
+                    'config' => [
+                        'allowedContent' => 'p u em strong ol ul li;a[!href,target]'
+                    ],
                     'required' => true,
                 ])
                 ->add('project_history', CollectionType::class,
