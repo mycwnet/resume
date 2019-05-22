@@ -94,7 +94,8 @@ class ProfileApiController extends AbstractController {
                 ->getQuery();
 
         $samples_array = $query->getResult(Query::HYDRATE_ARRAY);
-        return $this->parseResultReturn($samples_array);
+
+        return $this->parseResultReturn($this->setSampleImages($samples_array));
     }
 
     private function getProjectHistories() {
@@ -183,6 +184,17 @@ class ProfileApiController extends AbstractController {
         $configuration_aray['site_logo'] = basename($configuration_aray['site_logo']);
         $configuration_aray['favicon_image'] = basename($configuration_aray['favicon_image']);
         return $configuration_aray;
+    }
+
+    private function setSampleImages($samples) {
+
+        foreach ($samples as $key => $sample) {
+            if (array_key_exists('project_image', $sample) && !empty($sample['project_image'])) {
+                $samples[$key]['project_image'] = basename($sample['project_image']);
+            }
+        }
+
+        return $samples;
     }
 
     /**

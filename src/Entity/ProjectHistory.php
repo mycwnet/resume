@@ -24,9 +24,21 @@ class ProjectHistory {
 
     /**
      * @var string 
+     * @ORM\Column(name="position", type="string", length=255, nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var string 
      * @ORM\Column(name="description", type="string", length=400)
      */
     private $description;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="skills", type="string", length=255, nullable=true)
+     */
+    private $skills;
 
     /**
      * @var \DateTime 
@@ -47,9 +59,10 @@ class ProjectHistory {
      */
     private $profile;
 
-    public function getIndex(){
+    public function getIndex() {
         return $this->index;
     }
+
     public function getTitle() {
         return $this->title;
     }
@@ -58,12 +71,28 @@ class ProjectHistory {
         $this->title = $title;
     }
 
+    public function getPosition() {
+        return $this->position;
+    }
+
+    public function setPosition($position) {
+        $this->position = $position;
+    }
+
     public function getDescription() {
         return $this->description;
     }
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    public function getSkills() {
+        return $this->skills;
+    }
+
+    public function setSkills($skills) {
+        $this->skills = $skills;
     }
 
     public function getStart() {

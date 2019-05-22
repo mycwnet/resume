@@ -9,8 +9,22 @@
     </div>
 
 </div>
-<div class="row">
-    <div class="proficiency_icon_list col-12">
-        {{ form_row(proficiencies.icon) }}
+<fieldset class="form-group">
+    {{ form_label(proficiencies.icon, proficiencies.icon.vars.label) }}
+    <div class="proficiency-icon-list">
+        {% for child in proficiencies.icon %}
+            <div class="row mx-0">
+                <span class="align-middle my-auto"> {{ form_widget(child, {'label' : " "})}}</span>
+                <span class="align-middle my-auto"> 
+                    <label for="{{ child.vars.id }}" class="form-check-label icon_select_label">
+                        {{ child.vars.label | raw}}
+                    </label> 
+                </span>
+            </div>
+        {%  endfor %}
 
-</div>
+    </div>
+
+</fieldset>
+{{ form_row(proficiencies.icon_value) }}
+

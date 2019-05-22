@@ -53,13 +53,13 @@ export default class Personal extends React.Component {
         var email = personalInfo.email;
         var avatar = personalInfo.image ? (
                 <div id="resumeAvatar" className="col-lg-2 col-md-3 col-4 offset-2">
-                    <img src={"files/images_directory/" + personalInfo.image} className="rounded-circle border bdr-three light w-100"/>
+                    <img src={"files/images_directory/" + personalInfo.image} className="rounded-circle border bdr-one dark w-100"/>
                 </div>
                 ) : '';
         return (
-                <div id="personalDomContainer" className="bg-one container-fluid op-9 h-100">
+                <div id="personalDomContainer" className="container-fluid  pb-5">
                     <div id="personalTopRow" className="row">
-                        <h2 id="resumeTitle" className="text-center col-10 offset-1 text-three font-size-5">{personalInfo.title}</h2>
+                        <h2 id="resumeTitle" className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-one dark">{personalInfo.title}</h2>
                     </div>
                     <div
                         id="personalMiddleRow"
@@ -67,13 +67,13 @@ export default class Personal extends React.Component {
                         >
                         {avatar}
                         <div className="resume-identity-info col-4">
-                            <h3 className="text-one vlight">{personalInfo.first_name + " " + personalInfo.last_name}</h3>
+                            <h3 className="resume-name text-one vlight">{personalInfo.first_name + " " + personalInfo.last_name}</h3>
                             <div id="resumeContact">
-                                <a tabIndex="0" className="btn btn-sm btn-three" role="button" data-toggle="popover" title="Contact Info" data-content={(email ? "Email: " + email : "") + (phone ? "<br />Phone: " + phone : "")} data-html="true">Contact</a>
+                                <a tabIndex="0" className="btn btn-sm btn-one dark" role="button" data-toggle="popover" title="Contact Info" data-content={(email ? "Email: " + email : "") + (phone ? "<br />Phone: " + phone : "")} data-html="true">Contact</a>
                             </div>
                         </div>
                     </div>
-                    <hr className="bdr-three light" />
+                    <hr className="bdr-one dark" />
                     
                     <div id="personalBottomRow" className="row">
                         <div className="resume-background col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-one vlight">
@@ -87,17 +87,17 @@ export default class Personal extends React.Component {
                                 previousLabel={<i class="far fa-arrow-alt-circle-left"></i>}
                                 nextLabel={<i class="far fa-arrow-alt-circle-right"></i>}
                                 breakLabel={'...'}
-                                breakClassName={'break-me'}
+                                breakLinkClassName={'break-me link link-one dark'}
                                 pageCount={this.state.page_count}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={0}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={1}
                                 onPageChange={this.setBackgroundPage}
                                 containerClassName={'pagination'}
                                 subContainerClassName={'pages pagination'}
                                 activeClassName={'active'}
-                                pageLinkClassName={'btn btn-outline-three'}
-                                previousLinkClassName={'btn btn-outline-three'}
-                                nextLinkClassName={'btn btn-outline-three'}
+                                pageLinkClassName={'btn btn-outline-one dark'}
+                                previousLinkClassName={'btn btn-outline-one dark'}
+                                nextLinkClassName={'btn btn-outline-one dark'}
                                 pageClassName={'mx-1'}
                                 previousClassName={'mx-1'}
                                 nextClassName={'mx-1'}
@@ -119,7 +119,7 @@ export default class Personal extends React.Component {
                     timeout={1000}
                     classNames="fade"
                     >
-                    <div id="personalDomWrapper" className="position-absolute content-element w-100">
+                    <div id="personalDomWrapper" className="position-absolute content-element w-100 bg-one op-9">
                         {this.personalDom()}
                     </div>
                 </CSSTransition>

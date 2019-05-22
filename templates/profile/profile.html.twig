@@ -63,7 +63,9 @@
                                         </div>
                                         <div class="card-body">
                                             {{ form_row(profile_row.title) }}
+                                            {{ form_row(profile_row.position) }}
                                             {{ form_row(profile_row.description) }}
+                                            {{ form_row(profile_row.skills) }}
                                             <div class="row">
                                                 <div class="col">
                                                     {{ form_row(profile_row.start) }}
@@ -106,7 +108,7 @@
 
                                             <fieldset class="form-group">
                                                 {{ form_label(proficiency_row.icon, proficiency_row.icon.vars.label) }}
-                                                <div class="proficiency_icon_list">
+                                                <div class="proficiency-icon-list">
                                                     {% for child in proficiency_row.icon %}
                                                         <div class="row mx-0">
                                                             <span class="align-middle my-auto"> {{ form_widget(child, {'label' : " "})}}</span>
@@ -155,7 +157,7 @@
                                                     {% endif %} </div> 
                                                 <div class="col-9"> 
 
-                                                    {{ form_row(samples_row.project_image) }}
+                                                    {{ form_row(samples_row.project_image,  { 'attr': {'placeholder': 'Change Project Image' }}) }}
                                                 </div>
                                             </div>
                                             {{ form_row(samples_row.link) }}
@@ -214,6 +216,10 @@
                                             </div>
                                             <div class="col">
                                                 {{ form_row(form.configuration.color) }}
+                                                <fieldset id="colorPaletteGroup" class="form-group">
+                                                    <legend class="col-form-label">Color Palette</legend>
+                                                    <div id="colorPalette"></div>
+                                                </fieldset>
                                             </div>
                                         </div>
                                     </div>

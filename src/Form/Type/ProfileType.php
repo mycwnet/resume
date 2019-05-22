@@ -23,17 +23,17 @@ class ProfileType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Personal Title',
                     'required' => true,
                 ])
                 ->add('first_name', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'First Name',
                     'required' => true,
                 ])
                 ->add('last_name', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Last Name',
                     'required' => true,
                 ])
@@ -44,12 +44,12 @@ class ProfileType extends AbstractType {
                     'required' => false,
                 ])
                 ->add('email', EmailType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Email Address',
                     'required' => true,
                 ])
                 ->add('phone', TelType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Phone Number',
                     'required' => false,
                 ])

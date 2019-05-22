@@ -14,14 +14,24 @@ class ProjectHistoryType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Project Title',
                     'required' => true,
+                ])
+                ->add('position', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'Position',
+                    'required' => false,
                 ])
                 ->add('description', TextareaType::class, [
                     'attr' => ['class' => 'form-control-sm', 'maxlength' => 400],
                     'label' => 'Project Description',
                     'required' => true,
+                ])
+                ->add('skills', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'Skills used or learned',
+                    'required' => false,
                 ])
                 ->add('start', DateType::class, [
                     'years' => range(date('Y') - 20, date('Y')),

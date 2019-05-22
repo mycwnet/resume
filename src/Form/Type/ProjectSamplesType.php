@@ -15,7 +15,7 @@ class ProjectSamplesType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 40],
                     'label' => 'Project Sample Title',
                     'required' => true
                 ])
@@ -25,13 +25,13 @@ class ProjectSamplesType extends AbstractType {
                     'label' => 'Project Sample Image',
                     'required' => false
                 ])
-                ->add('blurb', TextareaType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                ->add('blurb', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 155],
                     'label' => 'Project Sample Blurb',
                     'required' => false,
                 ])
                 ->add('link', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 40],
                     'label' => 'Project Sample Link',
                     'required' => false
                 ])

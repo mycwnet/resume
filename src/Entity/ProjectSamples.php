@@ -31,7 +31,7 @@ class ProjectSamples {
 
     /**
      * @var string 
-     * @ORM\Column(name="blurb", type="text", nullable=true)
+     * @ORM\Column(name="blurb", type="string", length=255, nullable=true)
      */
     private $blurb;
 
@@ -42,7 +42,7 @@ class ProjectSamples {
     private $link;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      *
      * @Assert\Image(
      *     minWidth = 200,

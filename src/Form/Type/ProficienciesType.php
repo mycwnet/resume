@@ -18,7 +18,7 @@ class ProficienciesType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm proficiency-title'],
+                    'attr' => ['class' => 'form-control-sm proficiency-title', 'maxlength' => 255],
                     'label' => 'Proficiency Title',
                     'required' => true,
                 ])
@@ -44,7 +44,7 @@ class ProficienciesType extends AbstractType {
                     'choices' => [],
                     'allow_extra_fields' => true,
                 ])->add('icon_value', HiddenType::class, [
-            'attr' => ['class' => 'hidden-icon-value']
+            'attr' => ['class' => 'hidden-icon-value', 'maxlength' => 255]
         ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

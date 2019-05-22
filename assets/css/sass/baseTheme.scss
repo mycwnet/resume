@@ -1,18 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "../../../vendor/fortawesome/font-awesome/css/all.css";
+@import "themeColors.scss";
 
-
-$theme-colors: (
-"one": rgb(18, 82, 186),
-"two":rgb(18, 165, 186),
-"three": rgb(18, 186, 122), 
-"four": rgb(39, 18, 186),
-"five":rgb(122, 18, 186),
-"six": rgb(186, 18, 165),
-);
-
-
-$theme_colors_list: "one", "two", "three", "four", "five", "six";
 $bdr-one: rgba(theme-color("one"), .2);
 $shdw-one: rgba(theme-color("one"), .5);
 $bdr-two: rgba(theme-color("two"), .2);
@@ -101,6 +90,22 @@ li.disabled .btn{
     .text-#{$color_name}.light{color: theme-color-level($color_name, -5) !important;}
     .text-#{$color_name}.vdark{color: theme-color-level($color_name, +10) !important;}
     .text-#{$color_name}.vlight{color: theme-color-level($color_name, -10) !important;}
+
+    .link-#{$color_name}{color: theme-color($color_name) !important;}
+    .link-#{$color_name}.dark{color: theme-color-level($color_name, +5) !important;}
+    .link-#{$color_name}.light{color: theme-color-level($color_name, -5) !important;}
+    .link-#{$color_name}.vdark{color: theme-color-level($color_name, +10) !important;}
+    .link-#{$color_name}.vlight{color: theme-color-level($color_name, -10) !important;}
+
+    .link-#{$color_name}:hover{
+        color: theme-color-level($color_name, -5) !important;
+         text-decoration: none;
+    }
+    .link-#{$color_name}:hover.dark{color: theme-color($color_name) !important;}
+    .link-#{$color_name}:hover.light{color: theme-color($color_name) !important;}
+    .link-#{$color_name}:hover.vdark{color: theme-color-level($color_name, +5) !important;}
+    .link-#{$color_name}:hover.vlight{color: theme-color-level($color_name, -5) !important;}
+
     .btn-#{$color_name}{
         @include button-values($color_name);
     }
@@ -147,10 +152,10 @@ li.disabled .btn{
     }
     .shdw-#{$color_name}{box-shadow: rgba(theme-color($color_name), .5) !important;}
     .bdr-#{$color_name}{border-color: theme-color($color_name) !important;}
-    .bdr-#{$color_name}.dark{background-color: theme-color-level($color_name, +5) !important;}
-    .bdr-#{$color_name}.light{background-color: theme-color-level($color_name, -5) !important;}
-    .bdr-#{$color_name}.vdark{color: theme-color-level($color_name, +10) !important;}
-    .bdr-#{$color_name}.vlight{color: theme-color-level($color_name, -10) !important;}
+    .bdr-#{$color_name}.dark{border-color: theme-color-level($color_name, +5) !important;}
+    .bdr-#{$color_name}.light{border-color: theme-color-level($color_name, -5) !important;}
+    .bdr-#{$color_name}.vdark{border-color: theme-color-level($color_name, +10) !important;}
+    .bdr-#{$color_name}.vlight{border-color: theme-color-level($color_name, -10) !important;}
 }
 
 @for $i from 1 through 10 {

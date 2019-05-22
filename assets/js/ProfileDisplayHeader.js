@@ -33,7 +33,7 @@ export default class ProfileDisplayHeader extends React.Component {
         this._isMounted = false;
     }
     render() {
-        return (<div id="headerContainer" className="bg-three op-3 dark container-fluid">
+        return (<div id="headerContainer" className="bg-three op-9 vdark container-fluid">
         
             <div className="row">
         
@@ -58,12 +58,12 @@ export default class ProfileDisplayHeader extends React.Component {
                                                     pageLoc: "skills"
                                                 }
                                             }}
-                                className="nav-link d-inline-block text-center text-three px-0"
+                                className="nav-link d-inline-block text-center px-0 position-sticky"
                                 >
-                                <div id="skillsIcon" className="header-link-icon py-0">
+                                <div id="skillsIcon" className="header-link-icon py-0 text-three">
                                     <i className="fas fa-tools"></i>
                                 </div>
-                                <div id="skillsText" className="header-link-text font-size-1">Skills</div>
+                                <div id="skillsText" className="header-link-text font-size-1 text-three">Skills</div>
                             </RouterLink>
                             </li>
                             <li id="projectsLink" className="header-link nav-item d-inline-block px-1">
@@ -75,12 +75,12 @@ export default class ProfileDisplayHeader extends React.Component {
                                                     pageLoc: "projects"
                                                 }
                                             }}
-                                className="nav-link d-inline-block text-center text-three px-0"
+                                className="nav-link d-inline-block text-center px-0 position-sticky"
                                 >
-                                <div id="projectsIcon" className="header-link-icon py-0">
+                                <div id="projectsIcon" className="header-link-icon py-0 text-three">
                                     <i className="fas fa-book-open"></i>
                                 </div>
-                                <div id="projectsText" className="header-link-text font-size-1">Projects</div>
+                                <div id="projectsText" className="header-link-text font-size-1 text-three">Projects</div>
                             </RouterLink>
                             </li>
                             <li id="samplesLink" className="header-link nav-item d-inline-block px-1">
@@ -92,12 +92,12 @@ export default class ProfileDisplayHeader extends React.Component {
                                                     pageLoc: "samples"
                                                 }
                                             }}
-                                className="nav-link d-inline-block text-three text-center px-0"
+                                className="nav-link d-inline-block text-center px-0 position-sticky"
                                 >
-                                <div id="samplesIcon" className="header-link-icon py-0">
+                                <div id="samplesIcon" className="header-link-icon py-0 text-three">
                                     <i className="fas fa-vial"></i>
                                 </div>
-                                <div id="samplesText" className="header-link-text font-size-1">Samples</div>
+                                <div id="samplesText" className="header-link-text font-size-1 text-three">Samples</div>
                             </RouterLink>
                             </li>
                         </ul>

@@ -1,0 +1,16 @@
+@import "baseColor.scss";
+
+
+$hueAdjust: 20;
+
+$theme-colors: (
+"one": $baseColor,
+"two":adjust-hue($baseColor, $hueAdjust),
+"three": adjust-hue($baseColor, $hueAdjust * 2), 
+"four": adjust-hue($baseColor, $hueAdjust * 3), 
+"five":adjust-hue($baseColor, $hueAdjust * 4), 
+"six": adjust-hue($baseColor, $hueAdjust * 5), 
+);
+
+
+$theme_colors_list: "one", "two", "three", "four", "five", "six";

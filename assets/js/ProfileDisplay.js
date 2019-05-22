@@ -48,10 +48,7 @@ export default class ProfileDisplay extends React.Component {
                 .catch(function (error) {
                     console.log("GET '/profileapi', " + error);
                 });
-
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-        })
+        this.handlePopover();
     }
 
     componentDidUpdate(prevProps) {
@@ -62,6 +59,24 @@ export default class ProfileDisplay extends React.Component {
         if (curPath !== prevPath) {
             this.setRouteVars(this.props);
         }
+        this.handlePopover();
+    }
+
+    handlePopover() {
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+
+        $(document).on('click', function (e) {
+            $('[data-toggle="popover"],[data-original-title]').each(function () {
+                //the 'is' for buttons that trigger popups
+                //the 'has' for icons within a button that triggers a popup
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false  // fix for BS 3.3.6
+                }
+
+            });
+        });
     }
 
     setRouteVars(props) {
@@ -123,8 +138,9 @@ export default class ProfileDisplay extends React.Component {
         var style = this.state.config.background_image ?
                 {
                     backgroundImage: 'linear-gradient(black, black), url(files/images_directory/' + this.state.config.background_image + ')',
-                    backgroundPosition: "center",
+                    backgroundPosition: "center center",
                     backgroundRepeat: "no-repeat",
+                    backgroundAttatchment: "fixed",
                     backgroundSize: "cover",
                     backgroundBlendMode: "saturation"
                 } : {};
@@ -134,9 +150,9 @@ export default class ProfileDisplay extends React.Component {
                 </div>);
         if (!this.state.loading) {
             profile_dom = (
-                    <div id="profileDomWrapper" className="position-relative" style={style}>
+                    <div id="profileDomWrapper" className="position-fixed w-100 h-100" style={style}>
                         <ProfileDisplayHeader header={this.state.header}/>
-                        <TransitionGroup className="info position-relative">
+                        <TransitionGroup className="transition-group position-fixed">
                             <CSSTransition
                                 key={this.state.routerState.pageLoc}
                                 timeout={2000}

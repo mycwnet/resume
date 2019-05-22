@@ -25,6 +25,7 @@ class ProfileController extends AbstractController {
     protected $current_site_logo;
     protected $current_favicon;
     protected $project_images;
+    protected $current_color;
 
     private function getEntityManager() {
         if (null === $this->entity_manager) {
@@ -124,6 +125,16 @@ class ProfileController extends AbstractController {
                 $favicon_filename = $new_favicon;
             }
 
+            $new_color = $form->get('configuration')->get('color')->getData();
+            if ($new_color !== $this->current_color) {
+                $rgb = $this->hexToRGB($new_color);
+                $base_color = '$baseColor: rgb(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ');';
+                $filesystem->dumpFile('../assets/css/sass/baseColor.scss', $base_color);
+                $shell_return = exec('yarn encore production');
+            }
+
+            //$filesystem->dumpFile('file.txt', 'Hello World');
+
             $project_samples = $form->get('project_samples');
             foreach ($project_samples as $project_sample) {
                 $project_image = $project_sample->get('project_image')->getData();
@@ -176,6 +187,12 @@ class ProfileController extends AbstractController {
         }
 
         return $image_filename;
+    }
+
+    private function hexToRGB($hex) {
+
+        list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+        return ['r' => $r, 'g' => $g, 'b' => $b];
     }
 
     private function loadHistories() {
@@ -233,6 +250,17 @@ class ProfileController extends AbstractController {
             if ($configuration->getBackgroundImage() && $filesystem->exists($configuration->getBackgroundImage())) {
                 $configuration->setBackgroundImage(new File($configuration->getBackgroundImage()));
                 $this->current_background = $configuration->getBackgroundImage();
+            }
+            if ($configuration->getColor()) {
+                $this->current_color = $configuration->getColor();
+            }
+            if ($configuration->getSiteLogo()) {
+                $configuration->setSiteLogo(new File($configuration->getSiteLogo()));
+                $this->current_site_logo = $configuration->getSiteLogo();
+            }
+            if ($configuration->getFaviconImage()) {
+                $configuration->setFaviconImage(new File($configuration->getFaviconImage()));
+                $this->current_favicon = $configuration->getFaviconImage();
             }
             $this->profile->setConfiguration($configuration);
         } else {

@@ -15,7 +15,7 @@ class ConfigurationType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('site_title', TextType::class, [
-                    'attr' => ['class' => 'form-control-sm'],
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
                     'label' => 'Site Title',
                     'required' => true,
                 ])

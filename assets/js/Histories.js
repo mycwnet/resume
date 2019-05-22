@@ -67,17 +67,22 @@ export default class Histories extends React.Component {
     historiesDom() {
         var histories = this.state.displayHistories;
         var histories_dom = Object.keys(histories).map(history => {
+            var position=histories[history].position?<small className="history-position px-2"> - {histories[history].position}</small>:"";
             return(<div key={"hist-" + history} className="row">
-                <div className="col-lg-8 offset-lg-2 col-10 offset-1 resume-history-section">               <h3 className="history-name text-two light">
-                        {histories[history].title}
+                <div className="col-lg-8 offset-lg-2 col-10 offset-1 col-xs-12 resume-history-section">               
+                    <h3 className="history-name text-two light d-inline-block">
+                        {histories[history].title} 
+            
+                        {position}
                     </h3>
                     <p className="history-description text-two vlight">
                         {histories[history].description}
                     </p>
-                    <div className="history-start text-two dark d-inline-block">
+                    <div className="history-skills text-two vdark py-2 small">{histories[history].skills}</div>
+                    <div className="history-time history-start text-two dark d-inline-block">
                         From {histories[history].start}
                     </div>
-                    <div className="history-end text-two dark d-inline-block mx-1">
+                    <div className="history-time history-end text-two dark d-inline-block mx-1">
                         to {histories[history].end}
                     </div>
                 </div>
@@ -96,10 +101,10 @@ export default class Histories extends React.Component {
                     timeout={1000}
                     classNames="fade"
                     >
-                    <div id="historiesDomWrapper" className="position-absolute content-element w-100">
-                        <div id="historiesDomContainer" className="container-fluid bg-two op-9 h-100">
+                    <div id="historiesDomWrapper" className="position-absolute content-element w-100 bg-two op-9">
+                        <div id="historiesDomContainer" className="container-fluid pb-5">
                             <div className="row">
-                                <h2 className="section-title text-center col-10 offset-1 text-two dark font-size-5">Project History</h2>
+                                <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-two dark">Project History</h2>
                             </div>
                             <div id="historiesInfoContainer">
                                 {this.historiesDom()}
@@ -113,7 +118,7 @@ export default class Histories extends React.Component {
                                         breakClassName={'break-me'}
                                         pageCount={this.state.page_count}
                                         marginPagesDisplayed={2}
-                                        pageRangeDisplayed={0}
+                                        pageRangeDisplayed={3}
                                         onPageChange={this.setHistoriesPage}
                                         containerClassName={'pagination'}
                                         subContainerClassName={'pages pagination'}
