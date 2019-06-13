@@ -30,7 +30,7 @@ class ProjectHistory {
 
     /**
      * @var string 
-     * @ORM\Column(name="description", type="string", length=400)
+     * @ORM\Column(name="description", type="string", length=1024)
      */
     private $description;
 

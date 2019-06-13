@@ -22,6 +22,11 @@ class ProficienciesType extends AbstractType {
                     'label' => 'Proficiency Title',
                     'required' => true,
                 ])
+                ->add('category', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm proficiency-category', 'maxlength' => 255],
+                    'label' => 'Proficiency Category',
+                    'required' => false,
+                ])
                 ->add('years', IntegerType::class, [
                     'label' => 'Years of Practice',
                     'required' => true,
@@ -41,7 +46,8 @@ class ProficienciesType extends AbstractType {
                 ->add('icon', ChoiceType::class, [
                     'label' => 'Suggested Icons',
                     'required' => false,
-                    'choices' => [],
+                    'expanded' => true,
+                    'multiple' => false,
                     'allow_extra_fields' => true,
                 ])->add('icon_value', HiddenType::class, [
             'attr' => ['class' => 'hidden-icon-value', 'maxlength' => 255]
@@ -84,8 +90,6 @@ class ProficienciesType extends AbstractType {
             ]);
         }
     }
-
-
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([

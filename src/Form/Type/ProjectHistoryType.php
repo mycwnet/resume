@@ -7,7 +7,7 @@ use App\Entity\ProjectHistory;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectHistoryType extends AbstractType {
@@ -23,9 +23,12 @@ class ProjectHistoryType extends AbstractType {
                     'label' => 'Position',
                     'required' => false,
                 ])
-                ->add('description', TextareaType::class, [
-                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 400],
+                ->add('description', CKEditorType::class, [
+                    'attr' => ['class' => 'form-control-sm ckeditor', 'maxlength' => 1024],
                     'label' => 'Project Description',
+                    'config' => [
+                        'allowedContent' => 'p u em strong ol ul li;a[!href,target]'
+                    ],
                     'required' => true,
                 ])
                 ->add('skills', TextType::class, [

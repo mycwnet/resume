@@ -49,6 +49,16 @@ export default class ProfileDisplayHeader extends React.Component {
                     </button>
                     <div id="headerLinks" className="collapse navbar-collapse my-0 mr-0 justify-content-end">
                         <ul id="headerLinksList" className="navbar-nav inline text-right justify-content-end my-0">
+                            <li id="aboutLink" className="header-link nav-item d-inline-block px-1">
+                                <a href="#"
+                                   className="nav-link d-inline-block text-center px-0 position-sticky"
+                                   >
+                                    <div id="aboutIcon" className="header-link-icon py-0 text-three">
+                                        <i className="far fa-grin-alt"></i>
+                                    </div>
+                                    <div id="aboutText" className="header-link-text font-size-1 text-three">About</div>
+                                </a>
+                            </li>
                             <li id="skillsLink" className="header-link nav-item d-inline-block px-1">
                             <RouterLink
                                 to={{

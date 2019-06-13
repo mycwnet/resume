@@ -1,0 +1,133 @@
+@import "baseTheme.scss";
+
+@font-face {
+font-family: "FontAwesome";
+font-weight: bold;
+font-style : normal;
+       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-solid-900.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesome";
+font-weight: normal;
+font-style : normal;
+       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-regular-400.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesome";
+font-weight: normal;
+font-style : normal;
+       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-brands-400.ttf") format("truetype");
+}
+
+.fas{
+    font-weight: bold !important;
+}
+.fab{
+    font-weight: normal !important;
+}
+.far{
+    font-weight: normal !important;
+}
+
+
+#pdfpersonalimage{
+    width: 100px;
+    height: 100px;
+
+}
+
+.pdffullname{
+    font-size: 40px;
+    font-family: sans-serif;
+    text-transform: capitalize;
+}
+#pdfcontactline{
+    font-size: 11px;
+    line-height: 15px;
+    height: 15px;
+}
+.pdfcontactelement{
+    vertical-align: middle;
+    text-align: center;
+    line-height: 15px;
+    width: 33%;
+}
+.pdfcontacticon{
+    font-family: FontAwesome !important;
+}
+.pdfcontacticon:before{
+    font-family: FontAwesome !important;
+}
+.pdfsummarytext{
+    font-size: 11px;
+    width: 90%;
+}
+#pdfmain{
+    page-break-before: avoid;
+    page-break-inside:auto;
+}
+.pdfexperience{
+    page-break-before: avoid;
+    page-break-inside: auto;
+    width: 66%;
+
+}
+.pdfexperiencelabel{
+    border-bottom: solid 1px;
+}
+.pdfprojectheadline{
+    text-align: center;
+    height: 35px;
+}
+.pdfprojectitle{
+    line-height: 35px;
+    vertical-align: middle;
+}
+.pdfprojectposition{
+    line-height: 35px;
+    vertical-align: middle;
+}
+.pdfprojectdescription{
+
+}
+.pdfrightcol{
+    width: 33%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    vertical-align: top;
+    page-break-before: avoid;
+    page-break-inside: auto;
+}
+
+.pdfskills{
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-bottom-left-radius: 10px;
+    vertical-align: top;
+        
+}
+.pdfproficiencylabel{
+    text-align: left;
+}
+.pdftopskills{
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    border-bottom-left-radius: 10px
+}
+.pdftopskillcontainer{
+    height: 15px;
+}
+.pdftopskilltitle{
+    line-height: 15px;
+    left: 0px;
+}
+.pdftopskillicon{
+    line-height: 15px;
+    right:0px;
+}
+.pdftopskillmaster{
+    height: 15px;
+    line-height: 15px;
+    float: right;
+}

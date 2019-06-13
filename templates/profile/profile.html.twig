@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     {{ form_row(form.background) }}
-                    {{ form_row(form.first_name) }}
+                    {{ form_row(form.summary) }}
                     <div class="accordion" id="profileSectionsAccordion">
                         <div id="projectHistoryList" class="border border-secondary rounded p-2 bg-light" >
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#historiesCollapse">
@@ -96,6 +96,7 @@
                                         </div>
                                         <div class="card-body">
                                             {{ form_row(proficiency_row.title) }}
+                                            {{ form_row(proficiency_row.category) }}
                                             <div class="row">
                                                 <div class="col">
                                                     {{ form_row(proficiency_row.years) }}
@@ -105,26 +106,30 @@
                                                 </div>
                                             </div>
 
-
                                             <fieldset class="form-group">
                                                 {{ form_label(proficiency_row.icon, proficiency_row.icon.vars.label) }}
                                                 <div class="proficiency-icon-list">
-                                                    {% for child in proficiency_row.icon %}
-                                                        <div class="row mx-0">
-                                                            <span class="align-middle my-auto"> {{ form_widget(child, {'label' : " "})}}</span>
-                                                            <span class="align-middle my-auto"> 
-                                                                <label for="{{ child.vars.id }}" class="form-check-label icon_select_label">
-                                                                    {{ child.vars.label | raw}}
-                                                                </label> 
-                                                            </span>
-                                                        </div>
-                                                    {%  endfor %}
+                                                    {% if proficiency_row.icon %}
+                                                        {{ dump(proficiency_row.icon) }}
+                                                        {% for child in proficiency_row.icon %}
+
+                                                            <div class="row mx-0">
+                                                                <span class="align-middle my-auto"> {{ form_widget(child, {'label' : " "})}}</span>
+                                                                <span class="align-middle my-auto"> 
+                                                                    <label for="{{ child.vars.id }}" class="form-check-label icon_select_label">
+                                                                        {{ child.vars.label | raw}}
+                                                                    </label> 
+                                                                </span>
+                                                            </div>
+                                                        {%  endfor %}
+                                                    {% else %}
+                                                        {{ form_row(proficiency_row.icon) }}
+                                                    {% endif %}
 
                                                 </div>
 
                                             </fieldset>
                                             {{ form_row(proficiency_row.icon_value) }}
-
 
 
                                         </div>

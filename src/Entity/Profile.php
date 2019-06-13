@@ -70,6 +70,12 @@ class Profile {
     protected $background;
 
     /**
+     * @var string 
+     * @ORM\Column(name="summary", type="string", length=1024, nullable=true)
+     */
+    protected $summary;
+
+    /**
      * @ORM\OneToMany(targetEntity="ProjectHistory", mappedBy="profile", cascade={"persist"}, orphanRemoval=true)
      */
     protected $project_history;
@@ -175,7 +181,6 @@ class Profile {
      * @return Profile
      */
     public function addProjectSample(ProjectSamples $project_sample) {
-        // $project_sample->setSampleIndex(md5(uniqid()));
         $this->project_samples[] = $project_sample;
 
         $project_sample->setProfile($this);
@@ -278,6 +283,14 @@ class Profile {
 
     public function setBackground($background) {
         $this->background = $background;
+    }
+
+    public function getSummary() {
+        return $this->summary;
+    }
+
+    public function setSummary($summary) {
+        $this->summary = $summary;
     }
 
 }

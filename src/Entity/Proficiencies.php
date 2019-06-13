@@ -24,6 +24,12 @@ class Proficiencies {
     private $title;
 
     /**
+     * @var string 
+     * @ORM\Column(name="category", type="string", length=255, nullable=true)
+     */
+    private $category;
+
+    /**
      * @var int
      * @ORM\Column(name="years", type="integer")
      */
@@ -56,6 +62,14 @@ class Proficiencies {
 
     public function setTitle($title) {
         $this->title = $title;
+    }
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($category) {
+        $this->category = $category;
     }
 
     public function getYears() {

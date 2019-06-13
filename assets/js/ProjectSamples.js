@@ -86,28 +86,41 @@ export default class ProjectSamples extends React.Component {
     }
 
     render() {
+        var samples=this.state.samples.length;
+        var samples_to_show=samples>1?2:1;
+        var arrows_and_infinite=samples>1?true:false;
+        var center = samples > 1? false: true;
+        console.log("sts: " + samples_to_show);
+        console.log("aai: " + arrows_and_infinite);
+        console.log("center: " + center);
         const settings = {
             dots: true,
             speed: 500,
-            slidesToShow: 2,
+            slidesToShow: samples_to_show,
             slidesToScroll: 1,
-            infinite: true,
+            infinite: arrows_and_infinite,
+            arrows: arrows_and_infinite,
+            centerMode: center,
             initialSlide: 0,
             responsive: [
                 {
                     breakpoint: 1024,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: samples_to_show,
                         slidesToScroll: 1,
-                        infinite: true,
-                        dots: true,
+                        infinite: arrows_and_infinite,
+                        arrows: arrows_and_infinite,
+                        centerMode: center
                     }
                 },
                 {
                     breakpoint: 600,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: samples_to_show,
                         slidesToScroll: 1,
+                        infinite: arrows_and_infinite,
+                        arrows: arrows_and_infinite,
+                        centerMode: center
                     }
                 },
                 {

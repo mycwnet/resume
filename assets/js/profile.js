@@ -110,7 +110,7 @@ function addProficiencyCollection() {
     var prototype = proficiencyCollection.data('prototype');
     var index = proficiencyCollection.data('index');
     var proficiencyForm = prototype.replace(/__name__/g, index);
-
+    console.log("ADD COL Index: " + index);
     proficiencyCollection.data('index', index + 1);
 
     var proficiencyCard = $('<div class="card my-2"><div class="card-header"></div></div>');
@@ -120,7 +120,7 @@ function addProficiencyCollection() {
     addDeleteProficiencyButton(proficiencyCard, index + 1);
 
     addProficiencyButton.before(proficiencyCard);
-    proficiencyIcons(proficiencyCard, index + 1);
+    proficiencyIcons(proficiencyCard, index);
 }
 
 function addDeleteProficiencyButton(proficiency, index) {
@@ -141,7 +141,7 @@ function addDeleteProficiencyButton(proficiency, index) {
 }
 
 function proficiencyIcons(proficiency, prof_index) {
-
+    console.log("ICONS INDEX: " + prof_index);
     var icons_container = proficiency.find('.proficiency-icon-list');
     var hidden_icon_value = proficiency.find('.hidden-icon-value');
     proficiency.find('.proficiency-title').change(function (e) {
@@ -230,8 +230,8 @@ function createColorPalette(color) {
     var color_array = hexToAnologuousArray(color);
     var palette = $("<ul id='colorList'></ul>");
     $.each(color_array, function (index, value) {
-      //  var invert_color=hexShiftHueByDegree(value, 180);
-        var color_item = $("<li class='color_item' style='background: " + value + "'><span class='color_label' style='color: "+value+"; -webkit-filter: invert(100%); filter: invert(100%);'>" + value + "</span></li>");
+        //  var invert_color=hexShiftHueByDegree(value, 180);
+        var color_item = $("<li class='color_item' style='background: " + value + "'><span class='color_label' style='color: " + value + "; -webkit-filter: invert(100%); filter: invert(100%);'>" + value + "</span></li>");
         palette.append(color_item);
     });
 

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block head_css %}
+            {{ encore_entry_link_tags('resumepdf') }}
+            <link href="{{ asset('build/resumepdf.css')[1:]}}" rel="stylesheet" type="text/css" />
+            <link href="../../vendor/fortawesome/font-awesome/css/all.css" rel="stylesheet" type="text/css" />
+        {% endblock %}
+        <title>Resume for {{ user.first_name }} {{ user.last_name }}</title>
+    </head>
+    <body class="pdfbody">
+        <div id="pdfheadline">
+            {% if user.image %}
+                <div class="pdfinlineimage d-inline-block px-1 my-3">
+                    <img id="pdfpersonalimage" class="d-inline-block" src="{{ asset('files/images_directory/'~user.image)[1:] }}" >
+                </div> 
+            {% endif %}
+            <div class="pdfpersonaldescription d-inline-block px-1">
+                <div class="pdffullname text-one">
+                    {{ user.first_name }} {{ user.last_name }}
+                </div>
+                <div class="pdfpersonaltitle small">
+                    {{ user.title }}
+                </div>
+            </div>
+
+            <div id="pdfcontactline" class="bg-one vlight w-100 text-center">
+                <div class="pdfcontactelements text-one dark text-center">
+                    {% if user.email %}
+                        <div class="pdfcontactelement d-inline-block">
+                            <span class="pdfcontacticon">
+                                &#xf0e0;
+                            </span>
+                            <span class="pdfcontactlabel">
+                                email: 
+                            </span>
+                            <span class="pdfcontactvalue">
+                                {{ user.email }}
+                            </span>
+                        </div>
+                    {% endif %}
+                    {% if user.phone %}
+                        <div class="pdfcontactelement d-inline-block">
+                            <span class="pdfcontacticon">
+                                &#xf10b;
+                            </span>
+                            <span class="pdfcontactlabel">
+                                phone: 
+                            </span>
+                            <span class="pdfcontactvalue">
+                                {{ user.phone }}
+                            </span>
+                        </div>
+                    {% endif %}                        
+                    <div class="pdfcontactelement d-inline-block">
+                        <span class="pdfcontacticon fas fa-link">
+                        </span>
+                        <span class="pdfcontactlabel">
+                            web: 
+                        </span>
+                        <span class="pdfcontactvalue">
+                            {{ url('main') }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="pdfsummary" class="w-100 position-relative">
+                <div class="pdfsummarylabelbg bg-one light w-100 text-center">
+                    <h4 class="pdfsummarylabel text-one dark">Summary</h4>
+                </div>
+                <div class="pdfsummarytext text-one dark mx-auto">{{ user.summary | raw }}</div>
+            </div>
+        </div>
+        <div id="pdfmain" class="align-top position-relative">
+            <div id="pdfmaintable" class="">
+                <div class="pdfmainrow">
+                    <div class="pdfrightcol align-top d-inline-block">
+                        <div class="pdfskills px-2">
+                            <h3 class="pdfskillslabel text-one dark">Skills</h3>
+                            {%  for cat_index,category in proficiencies %}
+                                <div class="pdfcategory text-left">
+                                    <div class="pdfcategorylabel text-one light">
+                                        {{ cat_index }}
+                                    </div>
+                                    <div class="pdfproficiencylist text-one small">
+                                        {% for prof_index,proficiency in proficiencies[cat_index] %}
+                                            {{proficiency.title}}{% if prof_index+1 < loop.length %}, 
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                        <div class="pdftopskills px-2">
+                            {% set mastery_array=['Unskilled', 'Novice', 'Beginner', 'Advanced Beginner', 'Familiar', 'Competent', 'Skilled', 'Proficient', 'Advanced', 'Expert', 'Master'] %}
+                            <h3 class="pdftopskillslabel text-one dark">Expertise</h3>
+                            {% for top_index,skill in top_skills  %}
+                                {% if skill.percent > 50 %}
+                                    {% set mastery_index=(skill.percent - (skill.percent % 10)) / 10 %}
+                                    <div class="pdftopskill">
+                                        <div class="pdftopskillcontainer w-50 d-inline-block position-relative">
+                                            <span class="pdftopskilltitle position-absolute text-one">
+                                                {{ skill.title }}
+                                            </span>
+                                            <span class="pdftopskillicon position-absolute fab fa-{{skill.icon}} text-one dark"></span>
+                                        </div>
+                                        <div class="pdftopskillmaster d-inline-block small w-25 text-right text-one light">{{ mastery_array[mastery_index] }}</div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="pdfexperience align-top d-inline-block">
+
+                        <h2 class="pdfexperiencelabel text-one dark">Experience</h2>
+                        {% for exp_index,project in histories %}
+                            <div class="pdfprojectheadline bg-one dark w-100">
+                                <h4 class="pdfprojectitle d-inline text-one vlight">
+                                    {{ project.title }}
+                                </h4>
+                                {% if project.position %}
+                                    <span class="pdfprojectposition small text-one light">
+                                        - {{ project.position }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="pdfprojectdescription small text-one dark">
+                                {{ project.description | raw }}
+                            </div>
+                            {% if project.skills %}
+                                <div class="pdfprojectskills small text-one light">
+                                    {{ project.skills }}
+                                </div>
+                            {% endif %}
+                            <div class="pdfprojectdates text-one dark small mb-2">
+                                <span class="pdfprojectstart">
+                                    {{ project.start }} -
+                                </span>
+                                <span class="pdfprojectend">
+                                    {{ project.end }}
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -69,8 +69,6 @@ export default class ProfileDisplay extends React.Component {
 
         $(document).on('click', function (e) {
             $('[data-toggle="popover"],[data-original-title]').each(function () {
-                //the 'is' for buttons that trigger popups
-                //the 'has' for icons within a button that triggers a popup
                 if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
                     (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false  // fix for BS 3.3.6
                 }
@@ -85,8 +83,12 @@ export default class ProfileDisplay extends React.Component {
     }
 
     setPersonalInfo(personal_info) {
-        if (this._isMounted)
+        if (this._isMounted) {
+            var CryptoJS = require("crypto-js");
+            personal_info.phone = CryptoJS.AES.encrypt(personal_info.phone, 'cwnet r3$um3').toString();
+            personal_info.email = CryptoJS.AES.encrypt(personal_info.email, 'cwnet r3$um3').toString();
             this.setState({personal: personal_info, loading: false});
+        }
     }
     setProficienciesInfo(proficiencies) {
         if (this._isMounted)

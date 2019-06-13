@@ -15,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
@@ -60,6 +59,14 @@ class ProfileType extends AbstractType {
                         'allowedContent' => 'p u em strong ol ul li;a[!href,target]'
                     ],
                     'required' => true,
+                ])
+                ->add('summary', CKEditorType::class, [
+                    'attr' => ['class' => 'form-control-sm ckeditor', 'maxlength' => 1024],
+                    'label' => 'Summary (this will only appear on the resume printout)',
+                    'config' => [
+                        'allowedContent' => 'p u em strong ol ul li;a[!href,target]'
+                    ],
+                    'required' => false,
                 ])
                 ->add('project_history', CollectionType::class,
                         [

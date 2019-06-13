@@ -133,8 +133,6 @@ class ProfileController extends AbstractController {
                 $shell_return = exec('yarn encore production');
             }
 
-            //$filesystem->dumpFile('file.txt', 'Hello World');
-
             $project_samples = $form->get('project_samples');
             foreach ($project_samples as $project_sample) {
                 $project_image = $project_sample->get('project_image')->getData();

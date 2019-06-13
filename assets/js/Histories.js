@@ -48,9 +48,10 @@ export default class Histories extends React.Component {
 
     setDisplayHistories() {
         var page = this.state.page;
+        var count = page * 3;
         var display = [];
         if (this._isMounted) {
-            for (var i = page; i < page + 3; i++) {
+            for (var i = count; i < count + 3; i++) {
                 if (this.state.histories[i]) {
                     display.push(this.state.histories[i]);
                 }
@@ -67,7 +68,7 @@ export default class Histories extends React.Component {
     historiesDom() {
         var histories = this.state.displayHistories;
         var histories_dom = Object.keys(histories).map(history => {
-            var position=histories[history].position?<small className="history-position px-2"> - {histories[history].position}</small>:"";
+            var position = histories[history].position ? <small className="history-position px-2"> - {histories[history].position}</small> : "";
             return(<div key={"hist-" + history} className="row">
                 <div className="col-lg-8 offset-lg-2 col-10 offset-1 col-xs-12 resume-history-section">               
                     <h3 className="history-name text-two light d-inline-block">
@@ -75,9 +76,7 @@ export default class Histories extends React.Component {
             
                         {position}
                     </h3>
-                    <p className="history-description text-two vlight">
-                        {histories[history].description}
-                    </p>
+                    <p className="history-description text-two vlight" dangerouslySetInnerHTML={{__html: histories[history].description}}/>
                     <div className="history-skills text-two vdark py-2 small">{histories[history].skills}</div>
                     <div className="history-time history-start text-two dark d-inline-block">
                         From {histories[history].start}
@@ -94,6 +93,28 @@ export default class Histories extends React.Component {
     }
 
     render() {
+        var pagination = this.state.page_count > 1 ? (<ReactPaginate
+            previousLabel={ < i class = "far fa-arrow-alt-circle-left" > </i>}
+        nextLabel={ < i class = "far fa-arrow-alt-circle-right" > </i>}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={this.state.page_count}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={this.setHistoriesPage}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+        pageLinkClassName={'btn btn-outline-two dark'}
+        previousLinkClassName={'btn btn-outline-two dark'}
+        nextLinkClassName={'btn btn-outline-two dark'}
+        pageClassName={'mx-1'}
+        previousClassName={'mx-1'}
+        nextClassName={'mx-1'}
+        disabledLinkClassName={'disabled'}
+        activeLinkClassName={'active'}
+        
+        />) : "";
         var histories_dom = (
                 <CSSTransition
                     in={true}
@@ -111,28 +132,7 @@ export default class Histories extends React.Component {
                             </div>
                             <div id="historiesPaginationRow" className="row">
                                 <div className="col-6 offset-3 d-flex justify-content-center">
-                                    <ReactPaginate
-                                        previousLabel={ < i class = "far fa-arrow-alt-circle-left" > </i>}
-                                        nextLabel={ < i class = "far fa-arrow-alt-circle-right" > </i>}
-                                        breakLabel={'...'}
-                                        breakClassName={'break-me'}
-                                        pageCount={this.state.page_count}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={3}
-                                        onPageChange={this.setHistoriesPage}
-                                        containerClassName={'pagination'}
-                                        subContainerClassName={'pages pagination'}
-                                        activeClassName={'active'}
-                                        pageLinkClassName={'btn btn-outline-two dark'}
-                                        previousLinkClassName={'btn btn-outline-two dark'}
-                                        nextLinkClassName={'btn btn-outline-two dark'}
-                                        pageClassName={'mx-1'}
-                                        previousClassName={'mx-1'}
-                                        nextClassName={'mx-1'}
-                                        disabledLinkClassName={'disabled'}
-                                        activeLinkClassName={'active'}
-                
-                                        />
+                                    {pagination}
                                 </div>
                             </div>
                 
