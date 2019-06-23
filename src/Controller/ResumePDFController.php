@@ -18,41 +18,58 @@ class ResumePDFController extends AbstractController {
     /**
      * @Route("/resumepdf", name="resumepdf")
      */
-    public function index() {
-        $this->profile_data = new ProfileData($this->getEntityManager());
+    public function resumePDF() {
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->isHtml5ParserEnabled(true);
         $pdfOptions->setFontHeightRatio(1.1);
+        $pdfOptions->setTempDir("/var/www/html/devdothost/public/files/tmp");
+        $pdfOptions->isRemoteEnabled(true);
+        //$pdfOptions->setDebugCss(true);
+
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('pdf/resumepdf.html.twig', $this->profile_data->getApiValues());
+        $html = $this->getResumeHTML();
 
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
 
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');
-       
 
         // Render the HTML as PDF
         $dompdf->render();
 
-        $response = new Response($dompdf->output(['compress'=>false]));
+        $response = new Response($dompdf->output(['compress' => false]));
 
         $disposition = HeaderUtils::makeDisposition(
                         HeaderUtils::DISPOSITION_ATTACHMENT,
                         'resume.pdf'
         );
 
-       $response->headers->set('Content-Disposition', $disposition);
-    //   return new Response($html);
-       return $response;
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
+        
+    }
+
+    /**
+     * @Route("/resumepage", name="resumepage")
+     */
+    public function resumePage() {
+        $html = $this->getResumeHTML();
+        return new Response($html);
+    }
+
+    private function getResumeHTML() {
+        $this->profile_data = new ProfileData($this->getEntityManager());
+        $html = $this->renderView('pdf/resumepdf.html.twig', $this->profile_data->getApiValues());
+
+        return $html;
     }
 
     private function getEntityManager() {

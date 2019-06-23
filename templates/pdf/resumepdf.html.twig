@@ -29,8 +29,7 @@
                 <div class="pdfcontactelements text-one dark text-center">
                     {% if user.email %}
                         <div class="pdfcontactelement d-inline-block">
-                            <span class="pdfcontacticon">
-                                &#xf0e0;
+                            <span class="pdfcontacticon far fa-envelope">
                             </span>
                             <span class="pdfcontactlabel">
                                 email: 
@@ -42,8 +41,7 @@
                     {% endif %}
                     {% if user.phone %}
                         <div class="pdfcontactelement d-inline-block">
-                            <span class="pdfcontacticon">
-                                &#xf10b;
+                            <span class="pdfcontacticon fas fa-mobile-alt">
                             </span>
                             <span class="pdfcontactlabel">
                                 phone: 
@@ -54,34 +52,30 @@
                         </div>
                     {% endif %}                        
                     <div class="pdfcontactelement d-inline-block">
-                        <span class="pdfcontacticon fas fa-link">
+                        <span class="pdfcontacticon fas fa-map-marker-alt">
                         </span>
                         <span class="pdfcontactlabel">
-                            web: 
+                            location: 
                         </span>
                         <span class="pdfcontactvalue">
-                            {{ url('main') }}
+                            {{ user.location }}
                         </span>
                     </div>
 
                 </div>
 
             </div>
-            <div id="pdfsummary" class="w-100 position-relative">
-                <div class="pdfsummarylabelbg bg-one light w-100 text-center">
-                    <h4 class="pdfsummarylabel text-one dark">Summary</h4>
-                </div>
-                <div class="pdfsummarytext text-one dark mx-auto">{{ user.summary | raw }}</div>
-            </div>
         </div>
         <div id="pdfmain" class="align-top position-relative">
             <div id="pdfmaintable" class="">
                 <div class="pdfmainrow">
-                    <div class="pdfrightcol align-top d-inline-block">
-                        <div class="pdfskills px-2">
-                            <h3 class="pdfskillslabel text-one dark">Skills</h3>
+                    <div class="pdfrightcol align-top d-inline-block bg-one vlight">
+                        <div class="pdfskills">
+                            <div class="pdfrightcolsectiontitle bg-one light text-center">
+                                <h5 class="pdfskillslabel text-one dark">Skills</h5>
+                            </div>
                             {%  for cat_index,category in proficiencies %}
-                                <div class="pdfcategory text-left">
+                                <div class="pdfcategory text-left px-2">
                                     <div class="pdfcategorylabel text-one light">
                                         {{ cat_index }}
                                     </div>
@@ -95,13 +89,15 @@
                             {% endfor %}
 
                         </div>
-                        <div class="pdftopskills px-2">
+                        <div class="pdftopskills">
                             {% set mastery_array=['Unskilled', 'Novice', 'Beginner', 'Advanced Beginner', 'Familiar', 'Competent', 'Skilled', 'Proficient', 'Advanced', 'Expert', 'Master'] %}
-                            <h3 class="pdftopskillslabel text-one dark">Expertise</h3>
+                            <div class="pdfrightcolsectiontitle bg-one light text-center">
+                                <h5 class="pdftopskillslabel text-one dark">Expertise</h5>
+                            </div>
                             {% for top_index,skill in top_skills  %}
                                 {% if skill.percent > 50 %}
                                     {% set mastery_index=(skill.percent - (skill.percent % 10)) / 10 %}
-                                    <div class="pdftopskill">
+                                    <div class="pdftopskill px-2">
                                         <div class="pdftopskillcontainer w-50 d-inline-block position-relative">
                                             <span class="pdftopskilltitle position-absolute text-one">
                                                 {{ skill.title }}
@@ -113,30 +109,78 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                    </div>
-                    <div class="pdfexperience align-top d-inline-block">
+                        <div class="pdfweblinks">
+                            <div class="pdfrightcolsectiontitle bg-one light text-center">
+                                <h5 class="pdfweblinkslabel text-one dark">Web Links</h5>
+                            </div>
+                            <div class="pdfweblinks px-2">
+                                <div class="pdfweblink">
 
-                        <h2 class="pdfexperiencelabel text-one dark">Experience</h2>
+                                    <span class="pdfweblinktitle text-one">
+                                        <span class="fas fa-link"></span>
+                                    </span>
+                                    <span class="pdfweblinkurl text-one dark"> {{ url('main')|replace({'http://': "", 'https://': ""})|trim('/') }}</span>
+                                </div>
+                                {%  if user.linkedin %}
+                                    <div class="pdfweblink">
+
+                                        <span class="pdfweblinktitle text-one">
+                                             <span class="fab fa-linkedin-in"></span>
+                                        </span>
+                                        <span class="pdfweblinkurl text-one dark"> {{ user.linkedin|replace({'http://': "", 'https://': ""})|trim('/') }}</span>
+                                    </div>
+                                {% endif %}
+                                {% if user.github %}
+                                    <div class="pdfweblink">
+
+                                        <span class="pdfweblinktitle text-one">
+                                             <span class="fab fa-github"></span>
+                                        </span>
+                                        <span class="pdfweblinkurl text-one dark"> {{ user.github|replace({'http://': "", 'https://': ""})|trim('/') }}</span>
+                                    </div>
+                                {% endif %}
+                                {% if user.gitlab %}
+                                    <div class="pdfweblink">
+
+                                        <span class="pdfweblinktitle text-one">
+                                             <span class="fab fa-gitlab"></span>
+                                        </span>
+                                        <span class="pdfweblinkurl text-one dark"> {{ user.gitlab|replace({'http://': "", 'https://': ""}) |trim('/')}}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pdfleftcol align-top d-inline-block">
+                        <div id="pdfsummary" class="position-relative">
+                            <div class="pdfleftcolsectiontitle bg-one text-center">
+                                <h4 class="pdfsummarylabel text-one vdark">Summary</h4>
+                            </div>
+                            <div class="pdfsummarytext text-one dark mx-auto small">{{ user.summary | raw }}</div>
+                        </div>
+                        <div class="pdfleftcolsectiontitle bg-one text-center">
+                            <h4 class="pdfexperiencelabel text-one vdark">Experience</h4>
+                        </div>
                         {% for exp_index,project in histories %}
-                            <div class="pdfprojectheadline bg-one dark w-100">
-                                <h4 class="pdfprojectitle d-inline text-one vlight">
+                            <div class="pdfprojectheadline w-100">
+                                <h5 class="pdfprojectitle d-inline text-one dark">
                                     {{ project.title }}
-                                </h4>
+                                </h5>
                                 {% if project.position %}
-                                    <span class="pdfprojectposition small text-one light">
+                                    <span class="pdfprojectposition small text-one">
                                         - {{ project.position }}
                                     </span>
                                 {% endif %}
                             </div>
-                            <div class="pdfprojectdescription small text-one dark">
+                            <div class="pdfprojectdescription text-one dark">
                                 {{ project.description | raw }}
                             </div>
                             {% if project.skills %}
-                                <div class="pdfprojectskills small text-one light">
+                                <div class="pdfprojectskills small text-one light px-2">
                                     {{ project.skills }}
                                 </div>
                             {% endif %}
-                            <div class="pdfprojectdates text-one dark small mb-2">
+                            <div class="pdfprojectdates text-one dark small mb-2 px-2">
                                 <span class="pdfprojectstart">
                                     {{ project.start }} -
                                 </span>

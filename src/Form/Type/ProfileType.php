@@ -52,6 +52,11 @@ class ProfileType extends AbstractType {
                     'label' => 'Phone Number',
                     'required' => false,
                 ])
+                ->add('location', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'Location',
+                    'required' => false,
+                ])
                 ->add('background', CKEditorType::class, [
                     'attr' => ['class' => 'form-control-sm ckeditor'],
                     'label' => 'Background Info',
@@ -66,6 +71,21 @@ class ProfileType extends AbstractType {
                     'config' => [
                         'allowedContent' => 'p u em strong ol ul li;a[!href,target]'
                     ],
+                    'required' => false,
+                ])
+                ->add('linkedin', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'LinkedIn',
+                    'required' => false,
+                ])
+                ->add('github', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'GitHub',
+                    'required' => false,
+                ])
+                ->add('gitlab', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'GitLab',
                     'required' => false,
                 ])
                 ->add('project_history', CollectionType::class,

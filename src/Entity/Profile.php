@@ -52,6 +52,30 @@ class Profile {
     protected $phone;
 
     /**
+     * @var string 
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     */
+    protected $location;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     */
+    protected $linkedin;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="github", type="string", length=255, nullable=true)
+     */
+    protected $github;
+
+    /**
+     * @var string 
+     * @ORM\Column(name="gitlab", type="string", length=255, nullable=true)
+     */
+    protected $gitlab;
+
+    /**
      * @ORM\Column(type="string",  nullable=true)
      *
      * @Assert\Image(
@@ -253,6 +277,14 @@ class Profile {
         $this->last_name = $last_name;
     }
 
+    public function getLocation() {
+        return $this->location;
+    }
+
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
     public function getEmail() {
         return $this->email;
     }
@@ -267,6 +299,30 @@ class Profile {
 
     public function setPhone($phone) {
         $this->phone = $phone;
+    }
+
+    public function getLinkedIn() {
+        return $this->linkedin;
+    }
+
+    public function setLinkedIn($linkedin) {
+        $this->linkedin = $linkedin;
+    }
+
+    public function getGitHub() {
+        return $this->github;
+    }
+
+    public function setGitHub($github) {
+        $this->github = $github;
+    }
+
+    public function getGitLab() {
+        return $this->location;
+    }
+
+    public function setGitLab($gitlab) {
+        $this->gitlab = $gitlab;
     }
 
     public function getImage() {

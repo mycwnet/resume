@@ -1,32 +1,47 @@
 @import "baseTheme.scss";
 
 @font-face {
-font-family: "FontAwesome";
+font-family: "FontAwesomeRegular";
+font-weight: normal;
+font-style : normal;
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-regular-400.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesomeBrands";
+font-weight: normal;
+font-style : normal;
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-brands-400.ttf") format("truetype");
+}
+@font-face {
+font-family: "FontAwesomeSolid";
 font-weight: bold;
 font-style : normal;
-       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-solid-900.ttf") format("truetype");
-}
-@font-face {
-font-family: "FontAwesome";
-font-weight: normal;
-font-style : normal;
-       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-regular-400.ttf") format("truetype");
-}
-@font-face {
-font-family: "FontAwesome";
-font-weight: normal;
-font-style : normal;
-       src : url("../../../vendor/fortawesome/font-awesome/webfonts/fa-brands-400.ttf") format("truetype");
-}
+       src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-solid-900.ttf") format("truetype");
+} 
 
 .fas{
     font-weight: bold !important;
+     font-family: FontAwesomeSolid !important;
+}
+.fas:before{
+    font-weight: bold !important;
+    font-family: FontAwesomeSolid !important;
 }
 .fab{
     font-weight: normal !important;
+     font-family: FontAwesomeBrands !important;
+}
+.fab:before{
+     font-weight: normal !important;
+    font-family: FontAwesomeBrands !important;
 }
 .far{
     font-weight: normal !important;
+     font-family: FontAwesomeRegular !important;
+}
+.far:before{
+     font-weight: normal !important;
+    font-family: FontAwesomeRegular !important;
 }
 
 
@@ -53,28 +68,29 @@ font-style : normal;
     width: 33%;
 }
 .pdfcontacticon{
-    font-family: FontAwesome !important;
-}
-.pdfcontacticon:before{
-    font-family: FontAwesome !important;
+   line-height: 15px;
+   display: inline;
+   margin: 0px;
+   padding: 0px;
+   text-align: right;
+   vertical-align: middle;
+   height: 15px;
+   
 }
 .pdfsummarytext{
-    font-size: 11px;
     width: 90%;
 }
 #pdfmain{
     page-break-before: avoid;
     page-break-inside:auto;
 }
-.pdfexperience{
+.pdfleftcol{
     page-break-before: avoid;
     page-break-inside: auto;
     width: 66%;
 
 }
-.pdfexperiencelabel{
-    border-bottom: solid 1px;
-}
+
 .pdfprojectheadline{
     text-align: center;
     height: 35px;
@@ -88,10 +104,12 @@ font-style : normal;
     vertical-align: middle;
 }
 .pdfprojectdescription{
-
+   font-size: 11px;
+   width: 90%;
+   margin: 0 auto;
 }
 .pdfrightcol{
-    width: 33%;
+    width: 34%;
     position: absolute;
     top: 0px;
     right: 0px;
@@ -101,20 +119,13 @@ font-style : normal;
 }
 
 .pdfskills{
-    border-left: 1px solid;
-    border-bottom: 1px solid;
-    border-bottom-left-radius: 10px;
     vertical-align: top;
         
 }
 .pdfproficiencylabel{
     text-align: left;
 }
-.pdftopskills{
-    border-left: 1px solid;
-    border-bottom: 1px solid;
-    border-bottom-left-radius: 10px
-}
+
 .pdftopskillcontainer{
     height: 15px;
 }
@@ -130,4 +141,7 @@ font-style : normal;
     height: 15px;
     line-height: 15px;
     float: right;
+}
+.pdfweblinkurl{
+    font-size: 11px;
 }
