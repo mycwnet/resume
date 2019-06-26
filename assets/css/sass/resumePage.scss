@@ -15,18 +15,39 @@ body{
 #siteLogo img{
     max-height: 30px;
 }
+#headerLinks.show ul#headerLinksList{
+    float: right;
+    max-width: 80px;
+    z-index: 999999;
+    position: fixed;
+    right: 15px;
+    background-color: rgba(theme-color-level('three', +10),.9) !important;
+}
+#headerLinks.collapsing {
+    transition: none !important;
+}
+
 ul#headerLinksList{
     list-style-type: none;
 }
 .header-link-text{
-    font-size: 10px;
+    font-size: 12px;
+    border-bottom: 2px solid theme-color('three');
+}
+a.nav-link:hover .header-link-text{
+    border-color: theme-color-level('six', -5);
 }
 a.nav-link{
     line-height: 1;
-    width: 40px;
+    width: 60px;
     z-index: 999999;
 }
-
+a.nav-link.header-links-active{
+    cursor:default;
+}
+a.nav-link.header-links-active .header-link-text{
+    border-color: theme-color-level('one', -5);
+}
 /* Body Stuff */
 
 #profileDomWrapper{
@@ -231,7 +252,10 @@ a.nav-link{
     padding-bottom: 10px;
     padding-top: 10px;
 }
-
+.category-name{
+    border: 2px solid theme-color-level('three', -5);
+    border-radius: 10px;
+}
 .CircularProgressbar-path       { stroke:theme-color-level('three', -10); }
 .CircularProgressbar-trail      { stroke:theme-color-level('three', -5); }
 .CircularProgressbar-text       { fill:theme-color-level('three', -10); }
@@ -279,6 +303,9 @@ a.nav-link{
     .percent-content{
         font-size: 1.25rem;
     }
+    .category-name{
+        font-size: 2rem;
+    }
 
 }
 @media (min-width: 768px)and (max-width: 992px) {
@@ -296,6 +323,9 @@ a.nav-link{
     }
     .percent-content{
         font-size: 1.05rem;
+    }
+    .category-name{
+        font-size: 1.75rem;
     }
 }
 
@@ -316,6 +346,9 @@ a.nav-link{
     .percent-content{
         font-size: .9rem;
     }
+    .category-name{
+        font-size: 1.5rem;
+    }
 }
 @media (min-width: 380px) and (max-width: 480px){
     .proficiency-icon{
@@ -332,6 +365,9 @@ a.nav-link{
     }
     .percent-content{
         font-size: .75rem;
+    }
+    .category-name{
+        font-size: 1.25rem;
     }
 }
 
@@ -351,6 +387,9 @@ a.nav-link{
     .percent-content{
         font-size: .7rem;
     }
+    .category-name{
+        font-size: 1rem;
+    }
 }
 
 // Project Samples
@@ -361,9 +400,9 @@ a.nav-link{
 @media (min-width: 1200px) {
 
     .sample-image{
-        width: 400px;
-        min-width: 400px;
-        max-width: 400px;
+        width: 350px;
+        min-width: 350px;
+        max-width: 350px;
         height: 300px;
         min-height: 300px;
         max-height: 300px;
@@ -437,12 +476,12 @@ a.nav-link{
 
 @media (min-width: 480px) and (max-width: 768px){
     .sample-image{
-        width: 200px;
-        max-width: 200px;
-        min-width: 200px;
-        height: 150px;
-        max-height: 150px;
-        min-height: 150px;
+        width: 250px;
+        max-width: 250px;
+        min-width: 250px;
+        height: 175px;
+        max-height: 175px;
+        min-height: 175px;
     }
     .slick-arrow:before{
         font-size: 20px;
@@ -452,13 +491,13 @@ a.nav-link{
         height: 20px;
     }
     .slick-prev{
-        left: -25px;
+        left: -5px;
     }
     .slick-next{
-        right: -25px;
+        right: -5px;
     }
 }
-@media (max-width: 480px){
+@media (min-width: 380px) and (max-width: 480px){
     .sample-image{
         width: 250px;
         max-width: 250px;
@@ -468,17 +507,40 @@ a.nav-link{
         min-height: 175px;
     }
     .slick-arrow:before{
-        font-size: 30px;
+        font-size: 20px;
     }
     .slick-arrow{
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
     }
     .slick-prev{
-        left: -35px;
+        left: -5px;
     }
     .slick-next{
-        right: -35px;
+        right: -5px;
+    }
+}
+@media (max-width: 380px){
+    .sample-image{
+        width: 150px;
+        max-width: 150px;
+        min-width: 150px;
+        height: 125px;
+        max-height: 125px;
+        min-height: 125px;
+    } 
+        .slick-arrow:before{
+        font-size: 20px;
+    }
+    .slick-arrow{
+        width: 20px;
+        height: 20px;
+    }
+    .slick-prev{
+        left: -5px;
+    }
+    .slick-next{
+        right: -5px;
     }
 }
 .sample-info-container{

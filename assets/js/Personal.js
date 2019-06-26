@@ -126,7 +126,7 @@ export default class Personal extends React.Component {
                         className="resume-identity-section row"
                         >
                         {avatar}
-                        <div className="resume-identity-info col-4">
+                        <div className="resume-identity-info col-lg-4 col-md-4 col-6">
                             <h3 className="resume-name text-one vlight">{personalInfo.first_name + " " + personalInfo.last_name}</h3>
                             <div id="resumeContact">
                                 <a tabIndex="0" id="showContact" className="btn btn-sm btn-one dark" role="button" data-toggle="popover" title="Contact Info" data-content={(email ? "Email: " + email : "") + (phone ? "<br />Phone: " + phone : "")} data-html="true">Contact</a>

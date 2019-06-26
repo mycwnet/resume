@@ -114,9 +114,9 @@ export default class ProjectSamples extends React.Component {
                     }
                 },
                 {
-                    breakpoint: 600,
+                    breakpoint: 680,
                     settings: {
-                        slidesToShow: samples_to_show,
+                        slidesToShow: 1,
                         slidesToScroll: 1,
                         infinite: arrows_and_infinite,
                         arrows: arrows_and_infinite,
@@ -147,7 +147,7 @@ export default class ProjectSamples extends React.Component {
                                 <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-six light">Project Samples</h2>
                             </div>
                             <div id="projectSamplesRow" className="row my-auto">
-                                <div className="col-lg-8 offset-lg-2 col-10 offset-1 ">
+                                <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-12">
                                     <Slider {...settings}>
                                         {this.projectSamplesDom()}
                                     </Slider>

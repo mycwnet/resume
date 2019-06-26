@@ -153,7 +153,7 @@ export default class ProfileDisplay extends React.Component {
         if (!this.state.loading) {
             profile_dom = (
                     <div id="profileDomWrapper" className="position-fixed w-100 h-100" style={style}>
-                        <ProfileDisplayHeader header={this.state.header}/>
+                        <ProfileDisplayHeader header={this.state.header} path={this.state.routerPath}/>
                         <TransitionGroup className="transition-group position-fixed">
                             <CSSTransition
                                 key={this.state.routerState.pageLoc}

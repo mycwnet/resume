@@ -163,7 +163,11 @@ li.disabled .btn{
         font-size: 0em +$i;
     }
 }
-
+a:active, a:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none;
+}
 .popover.show{
     border: 1px solid $bdr-three;
     color: theme-color-level("three", +2);

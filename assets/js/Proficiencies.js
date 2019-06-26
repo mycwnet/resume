@@ -46,13 +46,11 @@ export default class Proficiencies extends React.Component {
             Object.keys(proficiencies).map(category => {
 
                 var category_proficiencies = proficiencies[category];
-                console.log("category_proficiencies: " + JSON.stringify(category_proficiencies));
                 Object.keys(category_proficiencies).map(proficiency => {
 
                     display.push(category_proficiencies[proficiency]);
 
                 });
-                console.log("SDP disp: " + JSON.stringify(display));
                 this.setState({displayProficiencies: display}, () => {
                 });
             });
@@ -104,17 +102,14 @@ export default class Proficiencies extends React.Component {
 
     proficienciesDom() {
         var proficiencies = this.state.displayProficiencies;
-        console.log("proficiencies: " + JSON.stringify(proficiencies));
         var current_category = "";
         var proficiencies_dom = Object.keys(proficiencies).map(proficiency => {
-            console.log("dom proficiency: " + JSON.stringify(proficiency));
             var proficiency_count = parseInt(proficiency);
             var category = proficiencies[proficiency].category ? proficiencies[proficiency].category : "Other";
             var category_dom = "";
-            console.log("cat: " + category + " cur cat: " + current_category);
             if (category != current_category) {
                 current_category = category;
-                category_dom = (<div id="category_container"><h2 className="category-name">{category}</h2></div>);
+                category_dom = (<div id="category_container row bg-three dark op-9"><h2 className="category-name col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-10 offset-1 text-center text-three light">{category}</h2></div>);
             } else {
                 category_dom = "";
             }
