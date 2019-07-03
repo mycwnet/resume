@@ -46,14 +46,14 @@ export default class ProjectSamples extends React.Component {
         var samples_dom = Object.keys(samples).map(sample => {
             var sample_link = samples[sample].link ? samples[sample].link : "";
             var sample_link_dom = sample_link ? (<div className="sample-link-container text-center">
-                <a href={"//" + sample_link} className="link-six vlight">{sample_link}</a>
+                <a href={"//" + sample_link} className="link-four vlight">{sample_link}</a>
             </div>) : "";
             var sample_blurb = samples[sample].blurb ? (<div className="sample-blurb-container text-center">
-                <p class="small text-six light"> {samples[sample].blurb} </p>
+                <p class="small text-four light"> {samples[sample].blurb} </p>
             </div>) : "";
 
             var sample_info = (sample_blurb || sample_link) ?
-                    (<div className="sample-info-container bg-six dark op-9 position-absolute w-100">
+                    (<div className="sample-info-container bg-four dark op-9 position-absolute w-100">
                         {sample_blurb}
                         {sample_link_dom}
                     </div>) : "";
@@ -62,10 +62,10 @@ export default class ProjectSamples extends React.Component {
                  className="resume-project-samples-section h-50"
                  >
                 <div className="sample-image-container position-relative">
-                    <div className="sample-image-overlay bg-six dark op-5 position-absolute rounded mx-auto" />
+                    <div className="sample-image-overlay bg-four dark op-5 position-absolute rounded mx-auto" />
                     <div className="sample-name-wrapper position-absolute w-100 text-center">
-                        <div className="sample-name-container bg-six dark op-8 rounded mx-auto d-inline-block my-1">
-                            <h4 className="sample-name text-six light my-0 px-1">
+                        <div className="sample-name-container bg-four dark op-8 rounded mx-auto d-inline-block my-1">
+                            <h4 className="sample-name text-four light my-0 px-1">
                                 {samples[sample].title}
                             </h4></div>
                     </div>
@@ -90,9 +90,6 @@ export default class ProjectSamples extends React.Component {
         var samples_to_show=samples>1?2:1;
         var arrows_and_infinite=samples>1?true:false;
         var center = samples > 1? false: true;
-        console.log("sts: " + samples_to_show);
-        console.log("aai: " + arrows_and_infinite);
-        console.log("center: " + center);
         const settings = {
             dots: true,
             speed: 500,
@@ -140,11 +137,11 @@ export default class ProjectSamples extends React.Component {
                     timeout={1000}
                     classNames="fade"
                     >
-                    <div id="projectSamplesDomWrapper" className="w-100 position-absolute content-element bg-six op-9">
+                    <div id="projectSamplesDomWrapper" className="w-100 position-absolute content-element bg-four op-9">
                 
                         <div id="projectSamplesDomContainer" className="container-fluid w-100 pb-5">
                             <div className="row">
-                                <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-six light">Project Samples</h2>
+                                <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-four light">Project Samples</h2>
                             </div>
                             <div id="projectSamplesRow" className="row my-auto">
                                 <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-12">

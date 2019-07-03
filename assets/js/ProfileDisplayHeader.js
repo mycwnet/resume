@@ -31,30 +31,33 @@ export default class ProfileDisplayHeader extends React.Component {
         if (this._isMounted)
             this.setState({header: header});
     }
-    setPathInfo(path){
-         if (this._isMounted)
+    setPathInfo(path) {
+        if (this._isMounted)
             this.setState({path: path});
-         console.log("path: " + JSON.stringify(path));
+        console.log("path: " + JSON.stringify(path));
     }
-    
-    getActiveClasses(){
-        var classes={home:"", skills:"",projects:"",samples:""}
-        var active_class="header-links-active";
-        switch(this.state.path){
+
+    getActiveClasses() {
+        var classes = {home: "", skills: "", projects: "", samples: "", contact: ""}
+        var active_class = "header-links-active";
+        switch (this.state.path) {
             case "#loc=skills":
-                classes.skills=active_class;
+                classes.skills = active_class;
                 break;
             case "#loc=projects":
-                classes.projects=active_class;
+                classes.projects = active_class;
                 break;
             case "#loc=samples":
-                classes.samples=active_class;
+                classes.samples = active_class;
+                break;
+            case "#loc=contact":
+                classes.contact = active_class;
                 break;
             default:
-                classes.home=active_class;
+                classes.home = active_class;
                 break;
         }
-        
+
         return classes;
     }
 
@@ -62,8 +65,8 @@ export default class ProfileDisplayHeader extends React.Component {
         this._isMounted = false;
     }
     render() {
-        
-        var active_classes=this.getActiveClasses();
+
+        var active_classes = this.getActiveClasses();
         return (<div id="headerContainer" className="bg-three op-9 vdark container-fluid">
         
             <div className="row">
@@ -128,6 +131,27 @@ export default class ProfileDisplayHeader extends React.Component {
                                 >
                                 <div id="samplesText" className="header-link-text font-size-1 text-three">Samples</div>
                             </RouterLink>
+                            </li>
+                            <li id="contactLink" className="header-link nav-item d-inline-block px-1">
+                            <RouterLink
+                                to={{
+                                                pathname: "/",
+                                                hash: "#loc=contact",
+                                                state: {
+                                                    pageLoc: "contact"
+                                                }
+                                            }}
+                                className={"nav-link d-inline-block text-center px-0 position-sticky " + active_classes.contact}
+                                >
+                                <div id="contactText" className="header-link-text font-size-1 text-three">Contact</div>
+                            </RouterLink>
+                            </li>
+                            <li id="resumeLink" className="header-link nav-item d-inline-block px-1">
+                                <a href="/resumepdf"
+                                   className={"nav-link d-inline-block text-center px-0 position-sticky"}
+                                   target="_blank">
+                                    <div id="resumeText" className="header-link-text font-size-1 text-three">Resume</div>
+                                </a>
                             </li>
                         </ul>
                     </div>

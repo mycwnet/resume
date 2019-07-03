@@ -529,7 +529,7 @@ a.nav-link.header-links-active .header-link-text{
         max-height: 125px;
         min-height: 125px;
     } 
-        .slick-arrow:before{
+    .slick-arrow:before{
         font-size: 20px;
     }
     .slick-arrow{
@@ -563,6 +563,105 @@ a.nav-link.header-links-active .header-link-text{
     opacity: 1;
 }
 .resume-project-samples-section:hover .sample-info-container{opacity: 1;}
+
+
+// Contact
+
+.contact-link{
+    color: theme-color-level('five', -5);
+    text-decoration: none;
+}
+.contact-link:hover{
+    color: theme-color-level('five', +5);
+}
+@media (min-width: 1200px) {
+    .contact-name{
+        font-size: 2.5rem;
+    }
+    .contact-value{
+        font-size: 1.5rem;
+    }
+    .contact-link{
+        font-size: 1.5rem;
+    }
+    .contact-icon{
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .contact-name{
+        font-size: 2.25rem;
+    }
+    .contact-value{
+        font-size: 1.5rem;
+    }
+    .contact-link{
+        font-size: 1.5rem;
+    }
+    .contact-icon{
+        font-size: 2rem;
+    }
+
+}
+@media (min-width: 768px)and (max-width: 992px) {
+    .contact-name{
+        font-size: 2rem;
+    }
+    .contact-value{
+        font-size: 1.3rem;
+    }
+    .contact-link{
+        font-size: 1.3rem;
+    }
+    .contact-icon{
+        font-size: 1.8rem;
+    }
+}
+@media (min-width: 480px) and (max-width: 768px){
+
+    .contact-name{
+        font-size: 1.75rem;
+    }
+    .contact-value{
+        font-size: 1.3rem;
+    }
+    .contact-link{
+        font-size: 1.3rem;
+    }
+    .contact-icon{
+        font-size: 1.8rem;
+    }
+}
+@media (min-width: 380px) and (max-width: 480px){
+    .contact-name{
+        font-size: 1.5rem;
+    }
+    .contact-value{
+        font-size: 1.2rem;
+    }
+    .contact-link{
+        font-size: 1.2rem;
+    }
+    .contact-icon{
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 380px){
+    .contact-name{
+        font-size: 1.25rem;
+    }
+    .contact-value{
+        font-size: 1.1rem;
+    }
+    .contact-link{
+        font-size: 1.1rem;
+    }
+    .contact-icon{
+        font-size: 1.5rem;
+    }
+}
 
 
 /* appear - on page load */

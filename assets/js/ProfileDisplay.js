@@ -6,6 +6,7 @@ import ProfileDisplayHeader from "./ProfileDisplayHeader";
 import Personal from "./Personal";
 import Proficiencies from "./Proficiencies";
 import Histories from "./Histories";
+import Contact from "./Contact";
 import ProjectSamples from "./ProjectSamples";
 import { Link as RouterLink } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -53,6 +54,7 @@ export default class ProfileDisplay extends React.Component {
 
     componentDidUpdate(prevProps) {
         this._isMounted = true;
+        console.log("Cdu Phone: " + this.state.personal.phone + " Cdu Email: " + this.state.personal.email)
         var curProps = this.props;
         var curPath = curProps.pathVars;
         var prevPath = prevProps.pathVars;
@@ -84,8 +86,9 @@ export default class ProfileDisplay extends React.Component {
 
     setPersonalInfo(personal_info) {
         if (this._isMounted) {
+            console.log("Personal Info Phone: " + personal_info.phone + "  Personal Info Email: " + personal_info.email)
             var CryptoJS = require("crypto-js");
-            personal_info.phone = CryptoJS.AES.encrypt(personal_info.phone, 'cwnet r3$um3').toString();
+            personal_info.phone =  CryptoJS.AES.encrypt(personal_info.phone, 'cwnet r3$um3').toString();
             personal_info.email = CryptoJS.AES.encrypt(personal_info.email, 'cwnet r3$um3').toString();
             this.setState({personal: personal_info, loading: false});
         }
@@ -113,8 +116,8 @@ export default class ProfileDisplay extends React.Component {
     }
     getComponent() {
         var component_name = this.state.routerState.pageLoc;
+        console.log("Phone: " + this.state.personal.phone + " Email: " + this.state.personal.email);
         var component = <Personal personal_info={this.state.personal} />;
-
         switch (component_name) {
             case "skills":
                 component = <Proficiencies proficiencies={this.state.proficiencies} />;
@@ -124,6 +127,9 @@ export default class ProfileDisplay extends React.Component {
                 break;
             case "samples":
                 component = <ProjectSamples samples={this.state.samples}/>;
+                break;
+            case "contact":
+                component = <Contact personal_info={this.state.personal} encrypted={true} />;
                 break;
             default:
                 component = <Personal personal_info={this.state.personal} />;

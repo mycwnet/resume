@@ -14,17 +14,17 @@ font-style : normal;
 }
 @font-face {
 font-family: "FontAwesomeSolid";
-font-weight: bold;
+font-weight: normal;
 font-style : normal;
        src : url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/webfonts/fa-solid-900.ttf") format("truetype");
 } 
 
 .fas{
-    font-weight: bold !important;
+    font-weight: normal !important;
      font-family: FontAwesomeSolid !important;
 }
 .fas:before{
-    font-weight: bold !important;
+    font-weight: normal !important;
     font-family: FontAwesomeSolid !important;
 }
 .fab{
