@@ -90,13 +90,16 @@
 
                         </div>
                         <div class="pdftopskills">
-                            {% set mastery_array=['Unskilled', 'Novice', 'Beginner', 'Advanced Beginner', 'Familiar', 'Competent', 'Skilled', 'Proficient', 'Advanced', 'Expert', 'Master'] %}
                             <div class="pdfrightcolsectiontitle bg-one light text-center">
                                 <h5 class="pdftopskillslabel text-one dark">Expertise</h5>
                             </div>
                             {% for top_index,skill in top_skills  %}
                                 {% if skill.percent > 50 %}
-                                    {% set mastery_index=(skill.percent - (skill.percent % 10)) / 10 %}
+                                    {% set mastery=skill.percent / 10 %}
+                                    {% set marked="fas fa-circle" %}
+                                    {% set unmarked="far fa-circle" %}
+
+
                                     <div class="pdftopskill px-2">
                                         <div class="pdftopskillcontainer w-50 d-inline-block position-relative">
                                             <span class="pdftopskilltitle position-absolute text-one">
@@ -104,7 +107,16 @@
                                             </span>
                                             <span class="pdftopskillicon position-absolute fab fa-{{skill.icon}} text-one dark"></span>
                                         </div>
-                                        <div class="pdftopskillmaster d-inline-block small w-25 text-right text-one light">{{ mastery_array[mastery_index] }}</div>
+                                        <div class="pdftopskillmaster d-inline-block small w-25 text-right text-one light">
+                                            {% for i in 1..10 %}
+                                                {% if mastery >= i %}
+                                                    {% set font_class=marked %}
+                                                {% else %}
+                                                    {% set font_class=unmarked %}
+                                                {% endif %}
+                                                <span class="text-one {{font_class}}" />
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -125,7 +137,7 @@
                                     <div class="pdfweblink">
 
                                         <span class="pdfweblinktitle text-one">
-                                             <span class="fab fa-linkedin-in"></span>
+                                            <span class="fab fa-linkedin-in"></span>
                                         </span>
                                         <span class="pdfweblinkurl text-one dark"> {{ user.linkedin|replace({'http://': "", 'https://': ""})|trim('/') }}</span>
                                     </div>
@@ -134,7 +146,7 @@
                                     <div class="pdfweblink">
 
                                         <span class="pdfweblinktitle text-one">
-                                             <span class="fab fa-github"></span>
+                                            <span class="fab fa-github"></span>
                                         </span>
                                         <span class="pdfweblinkurl text-one dark"> {{ user.github|replace({'http://': "", 'https://': ""})|trim('/') }}</span>
                                     </div>
@@ -143,7 +155,7 @@
                                     <div class="pdfweblink">
 
                                         <span class="pdfweblinktitle text-one">
-                                             <span class="fab fa-gitlab"></span>
+                                            <span class="fab fa-gitlab"></span>
                                         </span>
                                         <span class="pdfweblinkurl text-one dark"> {{ user.gitlab|replace({'http://': "", 'https://': ""}) |trim('/')}}</span>
                                     </div>
