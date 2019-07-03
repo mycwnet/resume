@@ -591,7 +591,7 @@ a.nav-link.header-links-active .header-link-text{
 
 @media (min-width: 992px) and (max-width: 1200px) {
     .contact-name{
-        font-size: 2.25rem;
+        font-size: 2.5rem;
     }
     .contact-value{
         font-size: 1.5rem;
@@ -606,7 +606,7 @@ a.nav-link.header-links-active .header-link-text{
 }
 @media (min-width: 768px)and (max-width: 992px) {
     .contact-name{
-        font-size: 2rem;
+        font-size: 2.25rem;
     }
     .contact-value{
         font-size: 1.3rem;
@@ -621,7 +621,7 @@ a.nav-link.header-links-active .header-link-text{
 @media (min-width: 480px) and (max-width: 768px){
 
     .contact-name{
-        font-size: 1.75rem;
+        font-size: 2.25rem;
     }
     .contact-value{
         font-size: 1.3rem;
@@ -635,7 +635,7 @@ a.nav-link.header-links-active .header-link-text{
 }
 @media (min-width: 380px) and (max-width: 480px){
     .contact-name{
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     .contact-value{
         font-size: 1.2rem;
@@ -650,17 +650,37 @@ a.nav-link.header-links-active .header-link-text{
 
 @media (max-width: 380px){
     .contact-name{
-        font-size: 1.25rem;
+        font-size: 2rem;
     }
     .contact-value{
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
     .contact-link{
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
     .contact-icon{
         font-size: 1.5rem;
     }
+}
+
+/* Footer */
+#footerContainer{
+    position: absolute;
+    bottom: 0px;
+}
+.footer-item{
+    font-size: 11px;
+    color: theme-color-level('six', -5);
+}
+.footer-link{
+    font-size: 11px;
+    text-decoration: none;
+    color: theme-color('six');
+}
+
+.footer-link:hover{
+    text-decoration: none;
+    color: theme-color-level('six', -5);
 }
 
 
@@ -736,4 +756,8 @@ a.nav-link.header-links-active .header-link-text{
 }
 .slide-exit-done {
     opacity: 0;
+}
+
+.slick-arrow{
+    z-index: 99999;
 }

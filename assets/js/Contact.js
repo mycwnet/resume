@@ -84,7 +84,6 @@ export default class Contact extends React.Component {
     }
     
     cleanUrl(url){
-        console.log("url: " + url);
         var clean_url=url?url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, ""):"";
         return clean_url;
     }
@@ -93,10 +92,8 @@ export default class Contact extends React.Component {
         var info = personal_info ? personal_info : this.state.personalInfo;
         var encrypted = this.state.contactEncrypted;
         if (this._isMounted && !encrypted) {
-            console.log("pre enc phone: " + info.phone + " pre enc email: " + info.email);
             var phone = this.CryptoJS.AES.encrypt(info.phone, 'cwnet r3$um3').toString();
             var email = this.CryptoJS.AES.encrypt(info.email, 'cwnet r3$um3').toString();
-            console.log("enc phone: " + info.phone + " enc email: " + info.email);
             this.setState({email: email, phone: phone, contactEncrypted: true});
     }
     }
@@ -105,12 +102,10 @@ export default class Contact extends React.Component {
         var info = this.state.personalInfo;
         var encrypted = this.state.contactEncrypted;
         if (this._isMounted && encrypted) {
-            console.log("pre dec phone: " + info.phone + " pre dec email: " + info.email);
             var phonebytes = this.CryptoJS.AES.decrypt(info.phone, 'cwnet r3$um3');
             var phone = phonebytes.toString(this.CryptoJS.enc.Utf8);
             var emailbytes = this.CryptoJS.AES.decrypt(info.email, 'cwnet r3$um3');
             var email = emailbytes.toString(this.CryptoJS.enc.Utf8);
-            console.log("dec phone: " + info.phone + " dec email: " + info.email);
             this.setState({email: email, phone: phone, contactEncrypted: false});
         }
     }
@@ -122,14 +117,14 @@ export default class Contact extends React.Component {
     contactDom() {
         var personalInfo = this.state.personalInfo;
 
-        var avatar = personalInfo.image ? (
-                <div id="resumeAvatar" className="col-lg-2 col-md-3 col-4 offset-2 text-center">
-                    <img src={"files/images_directory/" + personalInfo.image} className="rounded-circle border bdr-one dark w-50 align-middle"/>
-                </div>
+        var position = personalInfo.title ? (
+                <h5 id="contactPosition" className="w-100 text-center text-five dark">
+                   {personalInfo.title}
+                </h5>
                 ) : '';
 
         return (
-                <div id="contactDomContainer" className="container-fluid  pb-5">
+                <div id="contactDomContainer" className="container-fluid text-five dark align-middle pb-5">
                     <div id="contactTopRow" className="row">
                         <h2 id="contactTitle" className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-five dark">Contact</h2>
                     </div>
@@ -137,12 +132,15 @@ export default class Contact extends React.Component {
                         id="contactMiddleRow"
                         className="contact-identity-section row"
                         >
-                        {avatar}
-                        <div className="contact-identity-info col-lg-8 col-md-7 col-6">
-                            <h3 className="contact-name text-five light align-middle">{personalInfo.first_name + " " + personalInfo.last_name}</h3>
+                        
+                        <div className="contact-identity-info text-center text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+                            <h3 className="contact-name w-100 text-center text-five light">{personalInfo.first_name + " " + personalInfo.last_name}</h3>
+                            {position}
                         </div>
+                        
                 
                     </div>
+                    <hr className="bdr-five dark" />
                     <div id="contactBottomRow" className="row">
                 
                         <div id="contactDisplay" className="col-lg-8 col-md-8 col-sm-9 col-11 offset-lg-4 offset-md-4 offset-sm-3 offset-1">

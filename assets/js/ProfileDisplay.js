@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import ProfileDisplayHeader from "./ProfileDisplayHeader";
+import ProfileDisplayFooter from "./ProfileDisplayFooter";
 import Personal from "./Personal";
 import Proficiencies from "./Proficiencies";
 import Histories from "./Histories";
@@ -50,11 +51,11 @@ export default class ProfileDisplay extends React.Component {
                     console.log("GET '/profileapi', " + error);
                 });
         this.handlePopover();
+        this.closeNavbarMenu();
     }
 
     componentDidUpdate(prevProps) {
         this._isMounted = true;
-        console.log("Cdu Phone: " + this.state.personal.phone + " Cdu Email: " + this.state.personal.email)
         var curProps = this.props;
         var curPath = curProps.pathVars;
         var prevPath = prevProps.pathVars;
@@ -62,6 +63,18 @@ export default class ProfileDisplay extends React.Component {
             this.setRouteVars(this.props);
         }
         this.handlePopover();
+        this.closeNavbarMenu();
+    }
+
+    closeNavbarMenu() {
+        $('html').bind('click', function (e) {
+            if ($(e.target).closest('.navbar').length == 0) {
+                var opened = $('.navbar-collapse').hasClass('collapse show');
+                if (opened === true) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            }
+        });
     }
 
     handlePopover() {
@@ -86,9 +99,8 @@ export default class ProfileDisplay extends React.Component {
 
     setPersonalInfo(personal_info) {
         if (this._isMounted) {
-            console.log("Personal Info Phone: " + personal_info.phone + "  Personal Info Email: " + personal_info.email)
             var CryptoJS = require("crypto-js");
-            personal_info.phone =  CryptoJS.AES.encrypt(personal_info.phone, 'cwnet r3$um3').toString();
+            personal_info.phone = CryptoJS.AES.encrypt(personal_info.phone, 'cwnet r3$um3').toString();
             personal_info.email = CryptoJS.AES.encrypt(personal_info.email, 'cwnet r3$um3').toString();
             this.setState({personal: personal_info, loading: false});
         }
@@ -116,7 +128,6 @@ export default class ProfileDisplay extends React.Component {
     }
     getComponent() {
         var component_name = this.state.routerState.pageLoc;
-        console.log("Phone: " + this.state.personal.phone + " Email: " + this.state.personal.email);
         var component = <Personal personal_info={this.state.personal} />;
         switch (component_name) {
             case "skills":
@@ -169,6 +180,7 @@ export default class ProfileDisplay extends React.Component {
                                 {this.getComponent()}
                             </CSSTransition>
                         </TransitionGroup>
+                        <ProfileDisplayFooter footer="true"/>
                     </div>
                     );
         }

@@ -122,7 +122,7 @@ export default class Histories extends React.Component {
                     timeout={1000}
                     classNames="fade"
                     >
-                    <div id="historiesDomWrapper" className="position-absolute content-element w-100 bg-two op-9">
+                    <div id="historiesDomWrapper" className="position-absolute content-element w-100 bg-two op-9 pb-3">
                         <div id="historiesDomContainer" className="container-fluid pb-5">
                             <div className="row">
                                 <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-two dark">Project History</h2>

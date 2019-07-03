@@ -184,8 +184,8 @@ export default class Proficiencies extends React.Component {
                                 timeout={1000}
                                 classNames="fade"
                                 >
-                                <div id="proficienciesDomWrapper" className="w-100 content-element position-absolute bg-three op-9 pb-5">
-                                    <div id="proficienciesDomContainer" className="container-fluid">
+                                <div id="proficienciesDomWrapper" className="w-100 content-element position-absolute bg-three op-9">
+                                    <div id="proficienciesDomContainer" className="container-fluid pb-5">
                                         <div className="row">
                                             <h2 className="section-title text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12 text-three light">Skills</h2>
                                         </div>

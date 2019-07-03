@@ -34,7 +34,6 @@ export default class ProfileDisplayHeader extends React.Component {
     setPathInfo(path) {
         if (this._isMounted)
             this.setState({path: path});
-        console.log("path: " + JSON.stringify(path));
     }
 
     getActiveClasses() {
