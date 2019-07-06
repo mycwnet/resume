@@ -17,7 +17,6 @@
                 <div class="col-6 offset-3">
 
                     <h1>Resume Profile</h1>
-                    {{ dump(form) }}
                     {{ form_start(form) }}
                     {{ form_row(form.title) }}
                     <div class="row">
@@ -124,7 +123,6 @@
                                                 {{ form_label(proficiency_row.icon, proficiency_row.icon.vars.label) }}
                                                 <div class="proficiency-icon-list">
                                                     {% if proficiency_row.icon %}
-                                                        {{ dump(proficiency_row.icon) }}
                                                         {% for child in proficiency_row.icon %}
 
                                                             <div class="row mx-0">
