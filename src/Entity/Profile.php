@@ -306,7 +306,9 @@ class Profile {
     }
 
     public function setLinkedIn($linkedin) {
-        $this->linkedin = $linkedin;
+        $user = $this->getWebUserValue($linkedin);
+        $profile = "https://www.linkedin.com/in/" . $user;
+        $this->linkedin = $profile;
     }
 
     public function getGitHub() {
@@ -314,7 +316,9 @@ class Profile {
     }
 
     public function setGitHub($github) {
-        $this->github = $github;
+        $user = $this->getWebUserValue($github);
+        $profile = "https://github.com/" . $user;
+        $this->github = $profile;
     }
 
     public function getGitLab() {
@@ -322,7 +326,9 @@ class Profile {
     }
 
     public function setGitLab($gitlab) {
-        $this->gitlab = $gitlab;
+        $user = $this->getWebUserValue($gitlab);
+        $profile = "https://gitlab.com/" . $user;
+        $this->gitlab = $profile;
     }
 
     public function getImage() {
@@ -347,6 +353,12 @@ class Profile {
 
     public function setSummary($summary) {
         $this->summary = $summary;
+    }
+
+    private function getWebUserValue($value) {
+        $position = strrpos($value, '/');
+        $webuser = $pos === false ? $value : substr($value, $position + 1);
+        return $webuser;
     }
 
 }
