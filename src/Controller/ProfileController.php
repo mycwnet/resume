@@ -30,8 +30,7 @@ class ProfileController extends AbstractController {
     protected $current_color;
     protected $logger;
 
-    public function __construct(LoggerInterface $logger)
-    {
+    public function __construct(LoggerInterface $logger) {
         $this->logger = $logger;
     }
 
@@ -45,17 +44,17 @@ class ProfileController extends AbstractController {
 
     private function getProfile() {
         $user = $this->getUser();
-        $this->logger->info("user id: " . $user->getId());
         $filesystem = new Filesystem();
 
         if (null === $this->profile) {
             $this->profile = $this->getEntityManager()
                     ->getRepository('App:Profile')
                     ->findOneBy(['user_id' => $user->getId()]);
-            var_dump($this->profile);
-            if ($this->profile && $this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
-                $this->profile->setImage(new File($this->profile->getImage()));
-                $this->current_avatar = $this->profile->getImage();
+            if ($this->profile) {
+                if ($this->profile->getImage() && $filesystem->exists($this->profile->getImage())) {
+                    $this->profile->setImage(new File($this->profile->getImage()));
+                    $this->current_avatar = $this->profile->getImage();
+                }
             } else {
                 $this->profile = new Profile();
                 $this->profile->setUserId($user);
@@ -78,7 +77,7 @@ class ProfileController extends AbstractController {
         $sample_exists = [];
         $filesystem = new Filesystem();
         $user = $this->getUser();
-        $persist=false;
+        $persist = false;
 
         if ($user->getId()) {
             $profile = $this->getProfile();
@@ -94,7 +93,7 @@ class ProfileController extends AbstractController {
                 $sample_exists[$key] = $project_image->getBasename();
             }
         } else {
-            $persist=true;
+            $persist = true;
             $profile = new Profile();
             $profile->setUserId($user);
             $project_history = new ProjectHistory();
@@ -160,7 +159,9 @@ class ProfileController extends AbstractController {
                     $sample_entity->setProjectImage(new File($this->getParameter('images_directory') . '/project_samples/' . $sample_filename));
                 }
             }
-            if($persist){$this->getEntityManager()->persist($profile);}
+            if ($persist) {
+                $this->getEntityManager()->persist($profile);
+            }
             $this->getEntityManager()->flush();
         }
 
