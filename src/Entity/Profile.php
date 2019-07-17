@@ -357,7 +357,7 @@ class Profile {
 
     private function getWebUserValue($value) {
         $position = strrpos($value, '/');
-        $webuser = $pos === false ? $value : substr($value, $position + 1);
+        $webuser = $position === false ? $value : substr($value, $position + 1);
         return $webuser;
     }
 
