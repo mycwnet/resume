@@ -322,7 +322,7 @@ class Profile {
     }
 
     public function getGitLab() {
-        return $this->location;
+        return $this->gitlab;
     }
 
     public function setGitLab($gitlab) {
