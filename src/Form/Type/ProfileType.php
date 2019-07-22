@@ -88,6 +88,11 @@ class ProfileType extends AbstractType {
                     'label' => 'GitLab',
                     'required' => false,
                 ])
+                ->add('stackoverflow', TextType::class, [
+                    'attr' => ['class' => 'form-control-sm', 'maxlength' => 255],
+                    'label' => 'StackOverflow (id number)',
+                    'required' => false,
+                ])
                 ->add('project_history', CollectionType::class,
                         [
                             'entry_type' => ProjectHistoryType::class,

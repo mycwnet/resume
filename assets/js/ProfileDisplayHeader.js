@@ -75,7 +75,7 @@ export default class ProfileDisplayHeader extends React.Component {
                         <div id="siteLogo" className="d-inline-block my-auto">
                             <img src={"files/images_directory/" + this.state.header.site_logo} className="rounded"/>
                         </div>
-                        <h1 id="siteName" className="font-size-1 d-inline-block my-auto">{this.state.header.site_title}</h1>
+                        <h1 id="siteName" className="font-size-1 d-inline-block my-auto ml-2">{this.state.header.site_title}</h1>
                     </a>
                     <button className="navbar-toggler bdr-three text-three" type="button" data-toggle="collapse" data-target="#headerLinks">
                         <i className="fa fa-bars fa-2"/>

@@ -76,6 +76,12 @@ class Profile {
     protected $gitlab;
 
     /**
+     * @var string 
+     * @ORM\Column(name="stackoverflow", type="string", length=255, nullable=true)
+     */
+    protected $stackoverflow;
+
+    /**
      * @ORM\Column(type="string",  nullable=true)
      *
      * @Assert\Image(
@@ -323,6 +329,16 @@ class Profile {
 
     public function getGitLab() {
         return $this->gitlab;
+    }
+
+    public function setStackOverflow($stackoverflow) {
+        $user = $this->getWebUserValue($stackoverflow);
+        $profile = "https://stackoverflow.com/users/" . $user;
+        $this->stackoverflow = $profile;
+    }
+
+    public function getStackOverflow() {
+        return $this->stackoverflow;
     }
 
     public function setGitLab($gitlab) {

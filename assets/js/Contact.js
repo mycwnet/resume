@@ -68,16 +68,19 @@ export default class Contact extends React.Component {
         var linkedin = this.state.personalInfo.linkedin;
         var github = this.state.personalInfo.github;
         var gitlab = this.state.personalInfo.gitlab;
-        var online_contact_exists = linkedin || github || gitlab ? true : false;
+        var stackoverflow=this.state.personalInfo.stackoverflow;
+        var online_contact_exists = linkedin || github || gitlab || stackoverflow ? true : false;
         var linkedin_elements = linkedin ? <div id="contactLinkedin" class="text-five light"><span class="fab fa-linkedin contact-icon"></span><a href={linkedin} className="contact-link align-top px-2" target="_blank">{this.cleanUrl(linkedin)}</a></div> : "";
         var github_elements = github ? <div id="contactGithub" class="text-five light"><span class="fab fa-github contact-icon"></span><a href={github} className="contact-link align-top px-2" target="_blank">{this.cleanUrl(github)}</a></div> : "";
         var gitlab_elements = gitlab ? <div id="contactGitlab" class="text-five light"><span class="fab fa-gitlab contact-icon"></span><a href={gitlab} className="contact-link align-top px-2" target="_blank">{this.cleanUrl(gitlab)}</a></div> : "";
-
+        var stack_elements= stackoverflow ? <div id="contactStack" class="text-five light"><span class="fab fa-stack-overflow contact-icon"></span><a href={stackoverflow} className="contact-link align-top px-2" target="_blank">{this.cleanUrl(stackoverflow)}</a></div> : "";
+        
         var online_contacts = online_contact_exists ? (<div id="onlineContactElements" className="contacts-segment">                            
     <h3 className="contact-section-label text-five dark">Online</h3>
     {linkedin_elements}
     {github_elements}
     {gitlab_elements}
+    {stack_elements}
 </div>) : "";
 
         return online_contacts;
