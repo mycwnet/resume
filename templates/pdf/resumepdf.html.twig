@@ -13,7 +13,7 @@
         <div id="pdfheadline">
             {% if user.image %}
                 <div class="pdfinlineimage d-inline-block px-1 my-3">
-                    <img id="pdfpersonalimage" class="d-inline-block" src="{{ asset('files/images_directory/'~user.image)[1:] }}" >
+                    <img id="pdfpersonalimage" class="d-inline-block rounded-circle" src="{{ asset('files/images_directory/'~user.image)[1:] }}" >
                 </div> 
             {% endif %}
             <div class="pdfpersonaldescription d-inline-block px-1">
