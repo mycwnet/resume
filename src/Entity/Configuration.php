@@ -89,7 +89,7 @@ class Configuration {
     private $profile;
 
     public function getIndex() {
-        return $this->dateformat;
+        return $this->index;
     }
 
     public function setIndex($user_id) {
@@ -149,7 +149,7 @@ class Configuration {
      *
      * @param \App\Entity\Profile $profile
      *
-     * @return ProjectHistory
+     * @return Profile
      */
     public function setProfile(\App\Entity\Profile $profile = null) {
         $this->profile = $profile;

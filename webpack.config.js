@@ -20,7 +20,9 @@ Encore
     .addEntry('app', ['./assets/js/app.js', './assets/css/sass/resumePage.scss'])
     .addEntry('profile', ['./assets/js/profile.js', './assets/css/sass/form.scss'])
     .addEntry('login', ['./assets/js/login.js', './assets/css/sass/form.scss'])
+    .addEntry('coverletter', ['./assets/js/coverletter.js', './assets/css/sass/form.scss'])
     .addEntry('resumepdf', ['./assets/css/sass/resumepdf.scss'])
+    .addEntry('coverletterpdf', ['./assets/css/sass/resumepdf.scss'])
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block head_css %}
+            {{ encore_entry_link_tags('coverletterpdf') }}
+            <link href="{{ asset('build/coverletterpdf.css')[1:]}}" rel="stylesheet" type="text/css" />
+            <link href="../../vendor/fortawesome/font-awesome/css/all.css" rel="stylesheet" type="text/css" />
+        {% endblock %}
+        <title>Resume for {{ user.first_name }} {{ user.last_name }}</title>
+    </head>
+    <body class="pdfbody">
+        <div id="pdfheadline">
+            {% if user.image %}
+                <div class="pdfinlineimage d-inline-block px-1 my-3">
+                    <img id="pdfpersonalimage" class="d-inline-block rounded-circle" src="{{ asset('files/images_directory/'~user.image)[1:] }}" >
+                </div> 
+            {% endif %}
+            <div class="pdfpersonaldescription d-inline-block px-1">
+                <div class="pdffullname text-one">
+                    {{ user.first_name }} {{ user.last_name }}
+                </div>
+                <div class="pdfpersonaltitle small">
+                    {{ user.title }}
+                </div>
+            </div>
+
+            <div id="pdfcontactline" class="bg-one vlight w-100 text-center">
+                <div class="pdfcontactelements text-one dark text-center">
+                    {% if user.email %}
+                        <div class="pdfcontactelement d-inline-block">
+                            <span class="pdfcontacticon far fa-envelope">
+                            </span>
+                            <span class="pdfcontactlabel">
+                                email: 
+                            </span>
+                            <span class="pdfcontactvalue">
+                                {{ user.email }}
+                            </span>
+                        </div>
+                    {% endif %}
+                    {% if user.phone %}
+                        <div class="pdfcontactelement d-inline-block">
+                            <span class="pdfcontacticon fas fa-mobile-alt">
+                            </span>
+                            <span class="pdfcontactlabel">
+                                phone: 
+                            </span>
+                            <span class="pdfcontactvalue">
+                                {{ user.phone }}
+                            </span>
+                        </div>
+                    {% endif %}                        
+                    <div class="pdfcontactelement d-inline-block">
+                        <span class="pdfcontacticon fas fa-map-marker-alt">
+                        </span>
+                        <span class="pdfcontactlabel">
+                            location: 
+                        </span>
+                        <span class="pdfcontactvalue">
+                            {{ user.location }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="pdfmain" class="align-top position-relative">
+            <div id="pdfmaintable" class="">
+                <div class="pdfaddresseerow row">
+                    <div class="col-10 offset-1">
+                        {{ cover_letter.addressee }}
+                    </div>
+                </div>
+                <div class="pdfletterrow row">
+                    <div class="col-10 offset-1">
+                        {{ cover_letter.letter | raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

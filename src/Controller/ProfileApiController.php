@@ -37,7 +37,8 @@ class ProfileApiController extends AbstractController {
             'configuration' => $data['configuration'],
             'histories' => $data['histories'],
             'proficiencies' => $data['proficiencies'],
-            'samples' => $data['samples']
+            'samples' => $data['samples'],
+            'coverletter'=>$data['cover_letter']
         ];
         return $api_values;
     }

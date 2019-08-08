@@ -1,0 +1,28 @@
+{# templates/coverletter/coverletter.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head_css %}
+            {{ encore_entry_link_tags('coverletter') }}
+            <link href="{{ asset('build/coverletter.css') }}" />
+        {% endblock %}
+        {% block javascript %}
+            {{ encore_entry_script_tags('coverletter') }}
+            <script type="text/javascript" src="{{ asset('build/coverletter.js')}}"></script>
+        {% endblock %}
+    </head>
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-6 offset-3">
+
+                    <h1>Cover Letter</h1>
+                    {{ form_start(form) }}
+                    {{ form_row(form.addressee) }}
+                    {{ form_row(form.letter) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</html>

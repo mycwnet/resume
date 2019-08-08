@@ -7,6 +7,7 @@ use App\Entity\ProjectHistory;
 use App\Entity\Proficiencies;
 use App\Entity\ProjectSamples;
 use App\Entity\Configuration;
+use App\Entity\CoverLetter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -124,6 +125,11 @@ class Profile {
      * @ORM\OneToOne(targetEntity="Configuration", mappedBy="profile", cascade={"persist"})
      */
     protected $configuration;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CoverLetter", mappedBy="profile", cascade={"persist"})
+     */
+    protected $cover_letter;
 
     /**
      * Constructor
@@ -257,6 +263,29 @@ class Profile {
      */
     public function getConfiguration() {
         return $this->configuration;
+    }
+
+    /**
+     * Set cover letter
+     *
+     * @param \App\Entity\CoverLetter $cover_letter
+     *
+     * @return Profile
+     */
+    public function setCoverLetter(CoverLetter $cover_letter) {
+        $this->cover_letter = $cover_letter;
+
+        $cover_letter->setProfile($this);
+        return $this;
+    }
+
+    /**
+     * Get cover letter
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoverLetter() {
+        return $this->cover_letter;
     }
 
     public function getTitle() {

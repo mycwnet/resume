@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use Doctrine\ORM\EntityManager;
@@ -18,7 +19,8 @@ class ProfileData {
             'histories' => $this->getProjectHistories(),
             'proficiencies' => $this->getProficiencies(),
             'top_skills' => $this->getTopProficiencies(),
-            'samples' => $this->getProjectSamples()
+            'samples' => $this->getProjectSamples(),
+            'cover_letter' => $this->getCoverLetterValues()
         ];
         return $api_values;
     }
@@ -53,8 +55,8 @@ class ProfileData {
         $profile_array['image'] = basename($profile_array['image']);
         return $profile_array;
     }
-    
-    private function getTopProficiencies(){
+
+    private function getTopProficiencies() {
 
 
         $query = $this->entity_manager->createQueryBuilder()
@@ -69,7 +71,6 @@ class ProfileData {
         $proficiencies_array = $query->getResult(Query::HYDRATE_ARRAY);
         $parsed_array = $this->parseResultReturn($proficiencies_array);
         return $parsed_array;
-    
     }
 
     private function getProficiencies() {
@@ -197,6 +198,19 @@ class ProfileData {
         $configuration_aray['site_logo'] = basename($configuration_aray['site_logo']);
         $configuration_aray['favicon_image'] = basename($configuration_aray['favicon_image']);
         return $configuration_aray;
+    }
+
+    private function getCoverLetterValues() {
+        $query = $this->entity_manager->createQueryBuilder()
+                ->select('c')
+                ->from('App:CoverLetter', 'c')
+                ->where('c.index = :id')
+                ->setParameter('id', $this->user_id)
+                ->getQuery();
+
+        $cover_letter_array = $query->getResult(Query::HYDRATE_ARRAY)[0];
+
+        return $cover_letter_array;
     }
 
     private function setSampleImages($samples) {
