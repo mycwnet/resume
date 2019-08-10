@@ -7,42 +7,50 @@
             <file>file:/var/www/html/devdothost/assets/js/Histories.js</file>
             <file>file:/var/www/html/devdothost/assets/css/sass/baseColor.scss</file>
             <file>file:/var/www/html/devdothost/src/Form/Type/RegistrationFormType.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/RegistrationController.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/ProfileDisplayHeader.js</file>
-            <file>file:/var/www/html/devdothost/src/Entity/Configuration.php</file>
-            <file>file:/var/www/html/devdothost/src/Form/Type/ProficienciesType.php</file>
+            <file>file:/var/www/html/devdothost/src/Entity/CoverLetter.php</file>
+            <file>file:/var/www/html/devdothost/templates/coverletter/coverletter.html.twig</file>
             <file>file:/var/www/html/devdothost/src/Controller/ProfileController.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/Personal.js</file>
             <file>file:/var/www/html/devdothost/assets/css/sass/themeColors.scss</file>
-            <file>file:/var/www/html/devdothost/assets/js/ProjectSamples.js</file>
             <file>file:/var/www/html/devdothost/src/Service/ProfileData.php</file>
             <file>file:/var/www/html/devdothost/assets/js/Proficiencies.js</file>
             <file>file:/var/www/html/devdothost/assets/css/sass/baseTheme.scss</file>
+            <file>file:/var/www/html/devdothost/assets/css/app.css</file>
+            <file>file:/var/www/html/devdothost/src/Repository/CoverLetterRepository.php</file>
+            <file>file:/var/www/html/devdothost/assets/js/main.js</file>
+            <file>file:/var/www/html/devdothost/templates/profile/profile.html.twig</file>
+            <file>file:/var/www/html/devdothost/src/Service/FileUploader.php</file>
+            <file>file:/var/www/html/devdothost/src/Controller/MainController.php</file>
+            <file>file:/var/www/html/devdothost/src/Controller/CoverLetterController.php</file>
+            <file>file:/var/www/html/devdothost/assets/css/sass/resumepdf.scss</file>
+            <file>file:/var/www/html/devdothost/src/Entity/Proficiencies.php</file>
+            <file>file:/var/www/html/devdothost/assets/css/sass/resumePage.scss</file>
+            <file>file:/var/www/html/devdothost/assets/js/profile.js</file>
+            <file>file:/var/www/html/devdothost/templates/pdf/coverletterpdf.html.twig</file>
+            <file>file:/var/www/html/devdothost/src/Form/Type/CoverLetterType.php</file>
+            <file>file:/var/www/html/devdothost/src/Controller/CoverLetterFormController.php</file>
+            <file>file:/var/www/html/devdothost/src/Controller/RegistrationController.php</file>
+            <file>file:/var/www/html/devdothost/assets/js/ProfileDisplayHeader.js</file>
+            <file>file:/var/www/html/devdothost/src/Entity/Configuration.php</file>
+            <file>file:/var/www/html/devdothost/assets/js/coverletter.js</file>
+            <file>file:/var/www/html/devdothost/src/Form/Type/ProficienciesType.php</file>
+            <file>file:/var/www/html/devdothost/assets/js/Personal.js</file>
+            <file>file:/var/www/html/devdothost/assets/js/ProjectSamples.js</file>
             <file>file:/var/www/html/devdothost/src/Form/Type/ProjectHistoryType.php</file>
             <file>file:/var/www/html/devdothost/src/Controller/SecurityController.php</file>
-            <file>file:/var/www/html/devdothost/assets/css/app.css</file>
             <file>file:/var/www/html/devdothost/templates/main/index.html.twig</file>
             <file>file:/var/www/html/devdothost/src/Form/Type/ConfigurationType.php</file>
             <file>file:/var/www/html/devdothost/src/Controller/ProfileApiController.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/main.js</file>
-            <file>file:/var/www/html/devdothost/templates/profile/profile.html.twig</file>
             <file>file:/var/www/html/devdothost/src/Controller/BrandIconsApiController.php</file>
             <file>file:/var/www/html/devdothost/src/Repository/ProficienciesRepository.php</file>
             <file>file:/var/www/html/devdothost/src/Entity/ProjectHistory.php</file>
-            <file>file:/var/www/html/devdothost/src/Service/FileUploader.php</file>
             <file>file:/var/www/html/devdothost/templates/pdf/resumepdf.html.twig</file>
             <file>file:/var/www/html/devdothost/templates/base.html.twig</file>
             <file>file:/var/www/html/devdothost/webpack.config.js</file>
             <file>file:/var/www/html/devdothost/src/Controller/ResumePDFController.php</file>
-            <file>file:/var/www/html/devdothost/src/Controller/MainController.php</file>
             <file>file:/var/www/html/devdothost/templates/prototypes/project_samples.html.twig</file>
-            <file>file:/var/www/html/devdothost/assets/css/sass/resumepdf.scss</file>
             <file>file:/var/www/html/devdothost/src/Entity/Profile.php</file>
-            <file>file:/var/www/html/devdothost/src/Entity/Proficiencies.php</file>
-            <file>file:/var/www/html/devdothost/assets/css/sass/resumePage.scss</file>
             <file>file:/var/www/html/devdothost/assets/js/ProfileDisplay.js</file>
             <file>file:/var/www/html/devdothost/src/Form/Type/ProjectSamplesType.php</file>
-            <file>file:/var/www/html/devdothost/assets/js/profile.js</file>
             <file>file:/var/www/html/devdothost/src/Form/Type/ProfileType.php</file>
         </group>
     </open-files>

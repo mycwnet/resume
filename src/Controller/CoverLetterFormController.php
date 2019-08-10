@@ -66,7 +66,7 @@ class CoverLetterFormController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->getEntityManager()->flush();
-            $this->redirectToRoute('coverletterpage');
+            return $this->redirectToRoute('coverletterpage');
         }
 
 

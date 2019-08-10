@@ -39,4 +39,7 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/coverletterform, roles: ROLE_USER }
+         - { path: ^/coverletterpage, roles: ROLE_USER }
+         - { path: ^/coverletterpdf, roles: ROLE_USER }
          - { path: ^/profileapi , roles: IS_AUTHENTICATED_ANONYMOUSLY}
